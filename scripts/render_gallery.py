@@ -11,6 +11,7 @@ from scipy.ndimage import gaussian_filter
 import trimesh
 
 from synology_drive_trays.specs import build_all_tray_specs
+from synology_drive_trays.templates import COMMUNITY_TEMPLATE_MAP, has_community_template, load_canonical_template
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "output"
@@ -26,30 +27,11 @@ def _orient_mesh_for_display(mesh: trimesh.Trimesh, is_gt: bool = False, gt_name
       Y in [-W/2, +W/2] where -Y is left rail, +Y is right rail
       Z in [-H/2, +H/2] where -Z is the bottom floor plate, +Z is the top of bezel/rails
     """
-    m = mesh.copy()
-    if is_gt:
-        order = np.argsort(m.extents)[::-1]
-        v = m.vertices[:, order].copy()
-        v -= (v.max(axis=0) + v.min(axis=0)) / 2.0
-
-        # Ensure floor is at -Z: check whether more surface area near min-Z or max-Z is horizontal floor
-        z_span = v[:, 2].max() - v[:, 2].min()
-        low_z_count = np.sum(v[:, 2] < v[:, 2].min() + 0.22 * z_span)
-        high_z_count = np.sum(v[:, 2] > v[:, 2].max() - 0.22 * z_span)
-        if high_z_count > low_z_count or "slezak" in gt_name or "jimka" in gt_name:
-            v[:, 2] *= -1.0
-            m.faces = m.faces[:, ::-1]
-
-        # Ensure front bezel (taller/heavier end) is at +X:
-        x_pos_high = np.percentile(v[v[:, 0] > 0, 2], 95) if np.any(v[:, 0] > 0) else 0
-        x_neg_high = np.percentile(v[v[:, 0] < 0, 2], 95) if np.any(v[:, 0] < 0) else 0
-        if x_neg_high > x_pos_high + 0.5 or any(k in gt_name for k in ("sunbrowner", "lioncat", "vikingu", "th0r88", "prspr")):
-            v[:, 0] *= -1.0
-            v[:, 1] *= -1.0
-        m.vertices = v
-        m.fix_normals()
+    if is_gt and gt_name:
+        m = load_canonical_template(gt_name).copy()
     else:
-        m.vertices -= (m.bounds[0] + m.bounds[1]) / 2.0
+        m = mesh.copy()
+    m.vertices -= (m.bounds[0] + m.bounds[1]) / 2.0
     return m
 
 
@@ -215,24 +197,29 @@ def render_comparison_card(
         axes[0].set_title("Official Synology Reference", color="#38bdf8", fontsize=10.5, fontweight="bold")
     axes[0].axis("off")
 
-    # Panel 2: Our Generated Parametric 3D CAD (Isometric View matching Synology photo angle)
+    # Panel 2: Our Output 3D CAD (Community Template + SFF-Preserving Warp OR Procedural CAD)
     gen_iso = render_mesh_zbuffer(gen_mesh, elev_deg=32.0, azim_deg=-138.0, base_color=(0.22, 0.74, 0.97))
     axes[1].imshow(gen_iso)
+    if has_community_template(tray_name):
+        t_file, t_mode = COMMUNITY_TEMPLATE_MAP[tray_name]
+        mode_label = "Template-Derived CAD (Exact SFF + Calibrated Envelope)"
+    else:
+        mode_label = "Procedural 3D CAD (No Community Model Exists)"
     axes[1].set_title(
-        f"Our Generated Parametric 3D CAD (.step/.stl)\nZ-Buffered Isometric Render ({len(gen_mesh.faces)} tris)",
+        f"Our Pipeline Output ({spec.slug}.stl)\n{mode_label} ({len(gen_mesh.faces)} tris)",
         color="#f8fafc",
         fontsize=10.5,
         fontweight="bold",
     )
     axes[1].axis("off")
 
-    # Panel 3: Community Ground-Truth CAD OR Top Orthographic View
+    # Panel 3: Raw Unwarped Community Ground-Truth CAD OR Top Orthographic View
     if gt_stl_name and (GT_DIR / gt_stl_name).exists():
         gt_mesh = _orient_mesh_for_display(trimesh.load(str(GT_DIR / gt_stl_name), force="mesh"), is_gt=True, gt_name=gt_stl_name)
         gt_iso = render_mesh_zbuffer(gt_mesh, elev_deg=32.0, azim_deg=-138.0, base_color=(0.98, 0.75, 0.14))
         axes[2].imshow(gt_iso)
         axes[2].set_title(
-            f"Community Ground-Truth CAD\n({gt_stl_name} — {len(gt_mesh.faces)} tris)",
+            f"Raw Unwarped Community Source CAD\n({gt_stl_name} — {len(gt_mesh.faces)} tris)",
             color="#fbbf24",
             fontsize=10.5,
             fontweight="bold",
@@ -309,6 +296,8 @@ def main() -> None:
         ("Drive Tray (Type R9)", "Drive_Tray_Type_R9_36225.png", None, "07_compare_Type_R9_60bay.png"),
         ("2.5\" Drive Tray (R6)", "2.5in_Drive_Tray_R6_46989.png", None, "08_compare_25in_R6.png"),
         ("Disk Holder (Type C)", "Disk_Holder_Type_C_24492.png", "Holder_Type_C_prspr.stl", "09_compare_Holder_Type_C.png"),
+        ("Disk Tray (Type D4)", "Disk_Tray_Type_D4_29497.png", "Type_D7_slezak_from_step.stl", "10_compare_Type_D4_warped.png"),
+        ("Disk Tray (Type R1)", "Disk_Tray_Type_R1_29506.png", "Type_R8_th0r88.stl", "11_compare_Type_R1_warped.png"),
     ]
     for tname, ref_img, gt_stl, out_name in cards:
         render_comparison_card(tname, ref_img, gt_stl, GALLERY_DIR / out_name)

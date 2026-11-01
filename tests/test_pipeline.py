@@ -11,6 +11,7 @@ import trimesh
 from synology_drive_trays.cli import GROUND_TRUTH_PAIRS
 from synology_drive_trays.generator import compute_mounting_holes, generate_tray_cad
 from synology_drive_trays.specs import SFF_25, SFF_35, TrayArchetype, build_all_tray_specs
+from synology_drive_trays.templates import COMMUNITY_TEMPLATE_MAP, generate_from_template, has_community_template
 from synology_drive_trays.validator import validate_against_ground_truth
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -103,3 +104,23 @@ def test_all_generated_outputs_and_ground_truth_validation(all_specs):
         gt_p = GT_DIR / gt_fname
         rep = validate_against_ground_truth(spec, stl_p, gt_p)
         assert rep.passed, f"Ground-truth validation failed for {tray_name} vs {gt_fname}: {rep}"
+
+
+def test_template_first_coverage_and_warping(all_specs):
+    """Verify that 21/32 trays use human-sculpted community CAD templates (11 exact + 10 warped) and 11 use procedural CAD."""
+    template_count = 0
+    procedural_count = 0
+    for name, spec in all_specs.items():
+        if has_community_template(name):
+            template_count += 1
+            mesh, meta = generate_from_template(spec)
+            assert meta["source_mode"] in ("community_template_exact", "community_template_warped")
+            assert abs(mesh.extents[0] - spec.length_mm) < 0.05
+            assert abs(mesh.extents[1] - spec.width_mm) < 0.05
+            assert abs(mesh.extents[2] - spec.height_mm) < 0.05
+        else:
+            procedural_count += 1
+    assert template_count == 21
+    assert procedural_count == 11
+    assert len(COMMUNITY_TEMPLATE_MAP) == 21
+

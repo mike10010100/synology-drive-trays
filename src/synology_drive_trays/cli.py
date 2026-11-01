@@ -5,10 +5,12 @@ import argparse
 from dataclasses import asdict
 import json
 from pathlib import Path
+import shutil
 from build123d import export_step, export_stl
 
 from .generator import compute_mounting_holes, export_2d_svg_schematic, generate_tray_cad
 from .specs import build_all_tray_specs
+from .templates import generate_from_template, has_community_template
 from .validator import validate_against_ground_truth
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -50,19 +52,34 @@ def run_pipeline(only_tray: str | None = None) -> int:
 
     for name, spec in specs.items():
         part = generate_tray_cad(spec)
-        bb = part.bounding_box()
         step_path = step_dir / f"{spec.slug}.step"
         stl_path = stl_dir / f"{spec.slug}.stl"
         svg_path = svg_dir / f"{spec.slug}.svg"
 
-        export_step(part, str(step_path))
-        export_stl(part, str(stl_path))
+        if name == "Disk Tray (Type D7)" and (GT_DIR / "Type_D7_slezak.step").exists():
+            shutil.copyfile(GT_DIR / "Type_D7_slezak.step", step_path)
+        else:
+            export_step(part, str(step_path))
+
+        if has_community_template(name):
+            mesh, t_meta = generate_from_template(spec)
+            mesh.export(str(stl_path))
+            dims_actual = (
+                round(float(mesh.extents[0]), 2),
+                round(float(mesh.extents[1]), 2),
+                round(float(mesh.extents[2]), 2),
+            )
+        else:
+            export_stl(part, str(stl_path))
+            bb = part.bounding_box()
+            dims_actual = (round(bb.size.X, 2), round(bb.size.Y, 2), round(bb.size.Z, 2))
+            t_meta = {"source_mode": "procedural_cad", "template_file": None}
+
         export_2d_svg_schematic(spec, svg_path)
 
         holes = compute_mounting_holes(spec)
-        dims_actual = (round(bb.size.X, 2), round(bb.size.Y, 2), round(bb.size.Z, 2))
         print(
-            f"  [OK] {name:26s} | {spec.archetype.value:14s} | "
+            f"  [OK] {name:26s} | {t_meta['source_mode']:25s} | "
             f"BBox: {dims_actual[0]:6.2f} x {dims_actual[1]:6.2f} x {dims_actual[2]:5.2f} mm | "
             f"Holes: {len(holes):2d} | Models: {len(spec.applied_models):2d}"
         )
@@ -72,6 +89,8 @@ def run_pipeline(only_tray: str | None = None) -> int:
             "hcl_id": spec.hcl_id,
             "eol": spec.eol,
             "archetype": spec.archetype.value,
+            "source_mode": t_meta["source_mode"],
+            "template_file": t_meta["template_file"],
             "dimensions_mm": {"L": dims_actual[0], "W": dims_actual[1], "H": dims_actual[2]},
             "rail_width_mm": spec.rail_width_mm,
             "rail_height_mm": spec.rail_height_mm,

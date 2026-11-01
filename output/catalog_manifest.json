@@ -6,6 +6,8 @@
       "hcl_id": 34052,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 124.0,
         "W": 75.0,
@@ -33,6 +35,8 @@
       "hcl_id": 30434,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 174.0,
         "W": 75.0,
@@ -66,6 +70,8 @@
       "hcl_id": 31602,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 174.0,
         "W": 75.0,
@@ -92,6 +98,8 @@
       "hcl_id": 36224,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 124.0,
         "W": 71.0,
@@ -118,6 +126,8 @@
       "hcl_id": 36573,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 145.0,
         "W": 79.0,
@@ -144,6 +154,8 @@
       "hcl_id": 37031,
       "eol": false,
       "archetype": "topload_60bay",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 159.0,
         "W": 117.0,
@@ -172,6 +184,8 @@
       "hcl_id": 46989,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 147.0,
         "W": 79.0,
@@ -201,6 +215,8 @@
       "hcl_id": 49194,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 179.0,
         "W": 79.0,
@@ -227,6 +243,8 @@
       "hcl_id": 24492,
       "eol": false,
       "archetype": "holder_25",
+      "source_mode": "community_template_exact",
+      "template_file": "Holder_Type_C_prspr.stl",
       "dimensions_mm": {
         "L": 115.0,
         "W": 103.0,
@@ -290,6 +308,8 @@
       "hcl_id": 24747,
       "eol": false,
       "archetype": "desktop_slide",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_D1_jimka_nosupports.stl",
       "dimensions_mm": {
         "L": 160.0,
         "W": 113.0,
@@ -329,6 +349,8 @@
       "hcl_id": 24741,
       "eol": true,
       "archetype": "desktop_slide",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_D5_lioncat.stl",
       "dimensions_mm": {
         "L": 172.0,
         "W": 112.0,
@@ -358,6 +380,8 @@
       "hcl_id": 29497,
       "eol": true,
       "archetype": "desktop_slide",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_D7_slezak_from_step.stl",
       "dimensions_mm": {
         "L": 166.0,
         "W": 120.0,
@@ -390,6 +414,8 @@
       "hcl_id": 24713,
       "eol": true,
       "archetype": "desktop_lock",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_D5_lioncat.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 113.0,
@@ -420,6 +446,8 @@
       "hcl_id": 24851,
       "eol": false,
       "archetype": "desktop_lock",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_D6_sunbrowner.stl",
       "dimensions_mm": {
         "L": 172.0,
         "W": 118.0,
@@ -485,6 +513,8 @@
       "hcl_id": 24890,
       "eol": false,
       "archetype": "desktop_slide",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_D7_slezak_from_step.stl",
       "dimensions_mm": {
         "L": 164.0,
         "W": 120.0,
@@ -531,6 +561,8 @@
       "hcl_id": 32614,
       "eol": false,
       "archetype": "desktop_lock",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_D6_sunbrowner.stl",
       "dimensions_mm": {
         "L": 172.0,
         "W": 118.0,
@@ -559,6 +591,8 @@
       "hcl_id": 32026,
       "eol": false,
       "archetype": "desktop_lock",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_D6_sunbrowner.stl",
       "dimensions_mm": {
         "L": 172.0,
         "W": 118.0,
@@ -604,6 +638,8 @@
       "hcl_id": 29506,
       "eol": true,
       "archetype": "rack_35",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 105.0,
@@ -632,6 +668,8 @@
       "hcl_id": 24714,
       "eol": true,
       "archetype": "rack_35",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 105.0,
@@ -665,6 +703,8 @@
       "hcl_id": 24720,
       "eol": true,
       "archetype": "rack_35",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 105.0,
@@ -702,6 +742,8 @@
       "hcl_id": 24716,
       "eol": true,
       "archetype": "rack_35",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 105.0,
@@ -730,6 +772,8 @@
       "hcl_id": 24721,
       "eol": false,
       "archetype": "rack_35",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 104.0,
@@ -766,6 +810,8 @@
       "hcl_id": 29434,
       "eol": false,
       "archetype": "rack_35",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 104.0,
@@ -801,6 +847,8 @@
       "hcl_id": 24846,
       "eol": false,
       "archetype": "rack_35",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_R7_vikingu.stl",
       "dimensions_mm": {
         "L": 174.0,
         "W": 104.0,
@@ -870,6 +918,8 @@
       "hcl_id": 31665,
       "eol": false,
       "archetype": "rack_35",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_R8_th0r88.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 104.0,
@@ -915,6 +965,8 @@
       "hcl_id": 24719,
       "eol": true,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 134.0,
         "W": 79.0,
@@ -942,6 +994,8 @@
       "hcl_id": 24710,
       "eol": false,
       "archetype": "sff_25",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 114.0,
         "W": 79.0,
@@ -972,6 +1026,8 @@
       "hcl_id": 37287,
       "eol": false,
       "archetype": "rack_35",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_R7_vikingu.stl",
       "dimensions_mm": {
         "L": 174.0,
         "W": 104.0,
@@ -999,6 +1055,8 @@
       "hcl_id": 36225,
       "eol": false,
       "archetype": "topload_60bay",
+      "source_mode": "procedural_cad",
+      "template_file": null,
       "dimensions_mm": {
         "L": 159.0,
         "W": 117.0,
@@ -1027,6 +1085,8 @@
       "hcl_id": null,
       "eol": true,
       "archetype": "desktop_slide",
+      "source_mode": "community_template_warped",
+      "template_file": "Type_D5_lioncat.stl",
       "dimensions_mm": {
         "L": 171.0,
         "W": 112.0,
@@ -1054,6 +1114,8 @@
       "hcl_id": null,
       "eol": true,
       "archetype": "holder_25",
+      "source_mode": "community_template_warped",
+      "template_file": "Holder_Type_C_prspr.stl",
       "dimensions_mm": {
         "L": 115.0,
         "W": 103.0,
@@ -1082,6 +1144,8 @@
       "hcl_id": null,
       "eol": true,
       "archetype": "holder_25",
+      "source_mode": "community_template_warped",
+      "template_file": "Holder_Type_C_prspr.stl",
       "dimensions_mm": {
         "L": 115.0,
         "W": 103.0,
@@ -1129,9 +1193,9 @@
       "gen_rail_width_mm": 113.0,
       "gt_rail_width_mm": 113.0,
       "rail_width_error_mm": 0.0,
-      "gen_rail_height_mm": 19.5,
+      "gen_rail_height_mm": 20.0,
       "gt_rail_height_mm": 19.49,
-      "rail_height_error_mm": 0.01,
+      "rail_height_error_mm": 0.51,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },
@@ -1156,9 +1220,9 @@
       "gen_rail_width_mm": 113.0,
       "gt_rail_width_mm": 112.0,
       "rail_width_error_mm": 1.0,
-      "gen_rail_height_mm": 19.5,
+      "gen_rail_height_mm": 20.0,
       "gt_rail_height_mm": 18.43,
-      "rail_height_error_mm": 1.07,
+      "rail_height_error_mm": 1.57,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },
@@ -1180,12 +1244,12 @@
         113.0,
         28.0
       ],
-      "gen_rail_width_mm": 113.0,
+      "gen_rail_width_mm": 111.0,
       "gt_rail_width_mm": 109.8,
-      "rail_width_error_mm": 3.2,
-      "gen_rail_height_mm": 17.0,
+      "rail_width_error_mm": 1.2,
+      "gen_rail_height_mm": 16.0,
       "gt_rail_height_mm": 16.0,
-      "rail_height_error_mm": 1.0,
+      "rail_height_error_mm": 0.0,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },
@@ -1264,9 +1328,9 @@
       "gen_rail_width_mm": 115.5,
       "gt_rail_width_mm": 115.5,
       "rail_width_error_mm": 0.0,
-      "gen_rail_height_mm": 19.5,
+      "gen_rail_height_mm": 18.43,
       "gt_rail_height_mm": 18.5,
-      "rail_height_error_mm": 1.0,
+      "rail_height_error_mm": 0.07,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },
@@ -1291,9 +1355,9 @@
       "gen_rail_width_mm": 115.5,
       "gt_rail_width_mm": 115.6,
       "rail_width_error_mm": 0.1,
-      "gen_rail_height_mm": 19.5,
+      "gen_rail_height_mm": 18.43,
       "gt_rail_height_mm": 18.5,
-      "rail_height_error_mm": 1.0,
+      "rail_height_error_mm": 0.07,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },
@@ -1345,9 +1409,9 @@
       "gen_rail_width_mm": 104.0,
       "gt_rail_width_mm": 104.0,
       "rail_width_error_mm": 0.0,
-      "gen_rail_height_mm": 16.5,
+      "gen_rail_height_mm": 17.03,
       "gt_rail_height_mm": 16.5,
-      "rail_height_error_mm": 0.0,
+      "rail_height_error_mm": 0.53,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },
@@ -1372,9 +1436,9 @@
       "gen_rail_width_mm": 104.0,
       "gt_rail_width_mm": 104.0,
       "rail_width_error_mm": 0.0,
-      "gen_rail_height_mm": 14.5,
+      "gen_rail_height_mm": 13.0,
       "gt_rail_height_mm": 13.0,
-      "rail_height_error_mm": 1.5,
+      "rail_height_error_mm": 0.0,
       "sff_hole_pitch_error_mm": 0.0,
       "passed": true
     },

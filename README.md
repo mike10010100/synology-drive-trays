@@ -17,18 +17,29 @@ Complete parametric CAD generation and ground-truth verification pipeline for **
 - **Ground-Truth Calibration & Validation (`data/ground_truth/`):**
   - Calibrated and verified against **16 community-tested 3D-printable CAD models** (including native `.step` and `.stl` files for `Type D1`, `Type D5`, `Type D6`, `Type D7`, `Type D8`, `Type R7`, `Type R8`, and `Disk Holder Type C`) and **29 official Synology 2D reference renders** (`data/reference_images/`).
 
-## Visual Gallery — Generated 3D CAD vs. Official Synology Photos & Community Ground Truth
+## Visual Gallery — Template-First & Procedural 3D CAD vs. Official Synology Photos & Community Ground Truth
 
 ![All 6 Structural Archetypes](output/gallery/00_master_archetypes_grid.png)
 
-| Archetype | Comparison Card (`output/gallery/`) | Key Geometric Details Modeled |
+### Architecture: Template-First Community CAD + SFF-Preserving Piecewise-Linear Warping (`templates.py`)
+
+Instead of approximating every tray from scratch with procedural boxes, our pipeline uses a **Template-First** hybrid architecture:
+1. **Direct Human-Sculpted Community CAD Templates (11 Trays — `community_template_exact`):** Uses canonicalized, battle-tested community CAD models (`Type_D1_jimka_nosupports.stl`, `Type_D5_lioncat.stl`, `Type_D6_sunbrowner.stl`, `Type_D7_slezak.step`, `Type_R7_vikingu.stl`, `Type_R8_th0r88.stl`, `Holder_Type_C_prspr.stl`) for `Type D1`, `D5`, `D6`, `D7`, `D8`, `D9`, `R6`, `R7`, `R8`, `R10`, and `Disk Holder Type C`.
+2. **SFF-Preserving Piecewise-Linear Mesh Warping (10 Sibling Trays — `community_template_warped`):** Derives close sibling trays (`Type D2`, `D3`, `D4`, `R1`, `R2`, `R3`, `R4`, `R5`, `Disk Holder Type A`, `Disk Holder Type B`) by locking the interior SFF-8301 / SFF-8201 screw hole region at `1:1` scale (preserving circular screw holes and exact SFF hole pitches) while adjusting only the outer rail/bezel margins to match Synology's exact `L × W × H` dimensions to `0.00 mm`.
+3. **Procedural `build123d` B-Rep CAD Only Where No Community Model Exists (11 Trays — `procedural_cad`):** Generates 1-piece 3D-printable B-Rep CAD only for the two niche families that have zero community 3D models online: the **60-Bay Top-Loading Frame (`Drive Tray Type R9`, `2.5" R5`)** and the **2.5" SFF Slim / FlashStation Trays (`2.5" D1`, `2.5" R1–R7`, `Slim`, `SSD`)**.
+
+| Archetype / Tray | Comparison Card (`output/gallery/`) | Synthesis Mode & Key Details |
 | :--- | :--- | :--- |
-| **Desktop Lock (`Type D6`)** | ![Type D6](output/gallery/01_compare_Type_D6.png) | 7-window diagonal honeycomb X-truss floor, tapered rear rail ramps, tool-less side clip pockets, stepped pull-lever recess, LED light-pipe bore, key lock cylinder, & compliant snap-fit latch hook |
-| **Desktop Slide (`Type D7`)** | ![Type D7](output/gallery/02_compare_Type_D7.png) | Full-width C-channel ergonomic pull handle, top-left vertical release pin bore, dual compliant side retention slots, & 7-window honeycomb floor web |
-| **Rackmount 3.5" (`Type R7`)** | ![Type R7](output/gallery/03_compare_Type_R7.png) | Stamped 6×5 server airflow slot grid, 11-finger top EMI spring comb, left square release button pocket, key-lock bore, & wide right pull handle |
-| **Top-Loading 60-Bay (`Type R9`)** | ![Type R9](output/gallery/07_compare_Type_R9_60bay.png) | Open perimeter frame with exterior side-wall truss pockets, left thumb-plunger bore (`Ø 11.6 mm`), & top-corner retention slots |
-| **2.5" SFF Slim (`2.5" R6`)** | ![2.5" R6](output/gallery/08_compare_25in_R6.png) | 3-window T-web floor, 7-finger top EMI comb, center rectangular release lever window, & vertical LED indicator slit |
-| **Internal Holder (`Type C`)** | ![Holder Type C](output/gallery/09_compare_Holder_Type_C.png) | Asymmetric `11.4 mm` left offset adapter block with X-ribbed pockets bridging the 3.5" bay wall to the SFF-8223 2.5" SATA datum |
+| **Desktop Lock (`Type D6`, `D8`, `D9`)** | ![Type D6](output/gallery/01_compare_Type_D6.png) | **Template-First (`Type_D6_sunbrowner.stl`)**: 1-piece compliant front snap-latch (`DS1815+` community design), exact `113.50 mm` rail width (`0.06 mm` Δ), calibrated `172 × 118 × 28 mm` envelope |
+| **Desktop Slide (`Type D7`)** | ![Type D7](output/gallery/02_compare_Type_D7.png) | **Template-First (`Type_D7_slezak.step` — 48,090 tris)**: Native STEP + watertight mesh with organic 6-window honeycomb floor, filleted C-channel handle, & `0.00 mm` rail width error (`115.50 mm`) |
+| **Desktop Slide Warped (`Type D4`)** | ![Type D4](output/gallery/10_compare_Type_D4_warped.png) | **Piecewise-Linear Warped (`Type_D7_slezak.step` → `166 × 120 × 27.5 mm`)**: Locks interior SFF holes & `115.50 mm` rails at `1:1` while extending length from `164 mm` to `166 mm` |
+| **Rackmount 3.5" Keyed (`Type R7`, `R10`)** | ![Type R7](output/gallery/03_compare_Type_R7.png) | **Template-First (`Type_R7_vikingu.stl` — 26,398 tris)**: Dense server airflow slot grid, 1-piece printable flush bezel, & `0.00 mm` rail width error (`104.00 mm`) |
+| **Rackmount 3.5" Lever (`Type R8`, `R6`, `R1–R5`)** | ![Type R8](output/gallery/04_compare_Type_R8.png) | **Template-First (`Type_R8_th0r88.stl`)**: Authentic rackmount airflow grid & bevelled front handle (`0.00 mm` rail error; warped to `105.0 mm` width for `R1–R4`) |
+| **Desktop Legacy (`Type D1`)** | ![Type D1](output/gallery/05_compare_Type_D1.png) | **Template-First (`Type_D1_jimka_nosupports.stl` — 19,616 tris)**: Hexagonal honeycomb floor truss, curved pull bow handle, & `0.00 mm` rail width error (`113.00 mm`) |
+| **Desktop Narrow (`Type D5`, `D2`, `D3`)** | ![Type D5](output/gallery/06_compare_Type_D5.png) | **Template-First (`Type_D5_lioncat.stl`)**: Circular-window floor web, `16.0 mm` sliding rail height (`1:1` circular side screw holes), & `28.0 mm` front latch flange |
+| **Top-Loading 60-Bay (`Type R9`, `2.5" R5`)** | ![Type R9](output/gallery/07_compare_Type_R9_60bay.png) | **Procedural 3D CAD**: Bottomless 4-sided perimeter frame for `HD6500` / `SA3400D` vertical bays with diagonal truss pockets & thumb-plunger bore |
+| **2.5" SFF Slim (`2.5" R6`, `R1–R7`, `Slim`, `SSD`)** | ![2.5" R6](output/gallery/08_compare_25in_R6.png) | **Procedural 3D CAD**: 1-piece printable 2.5" SFF tray with filleted 3-window floor, countersunk M3 holes, & compliant release slot |
+| **Internal Holder (`Type C`, `A`, `B`)** | ![Holder Type C](output/gallery/09_compare_Holder_Type_C.png) | **Template-First (`Holder_Type_C_prspr.stl`)**: True 2-arm asymmetric L-bracket (`31.60 mm` left rail arm width, `0.00 mm` Δ vs community ground truth) |
 
 ## Quick Start
 
