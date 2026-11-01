@@ -44,6 +44,22 @@ COMMUNITY_TEMPLATE_MAP: dict[str, tuple[str, str]] = {
 }
 
 
+# Front-most X coordinate (mm from rear rail tip X=0) where the functional tray,
+# SFF mounting holes, and front bezel chassis-stop face / latch hook end.
+# All geometry in X in [0.0, x_front_pull] is locked at exact 1:1 (x' == x, 0.000 mm shift)
+# so SATA/SAS backplane mating depth is 100% invariant. Any overall length delta (L1 - L0)
+# is absorbed solely in the external front handle / door-cover protrusion [x_front_pull, L0].
+TEMPLATE_FRONT_PULL_X: dict[str, float] = {
+    "Type_D1_jimka_nosupports.stl": 150.0,    # Bezel stop at X=146.5..150.0; [150.0, 163.15] is external curved finger pull
+    "Type_D7_slezak_from_step.stl": 161.0,    # Bezel stop & latch hooks at X=132..152; [161.0, 166.12] is outer front bar
+    "Type_D6_sunbrowner.stl": 162.5,          # Bezel stop at X=141.5, latch hook to 152; [162.5, 166.5] is front door-cover face
+    "Type_D5_lioncat.stl": 165.0,             # Bezel stop at X=158..165; [165.0, 177.84] is external finger-pull loop
+    "Type_R7_vikingu.stl": 165.0,             # Rack bezel stop step at X=145.0; [165.0, 169.0] is outer front bezel face
+    "Type_R8_th0r88.stl": 165.0,              # Rack bezel stop step at X=145.0; [165.0, 169.0] is outer front bezel face
+    "Holder_Type_C_prspr.stl": 110.0,         # Side M3 holes at X=29.9..106.51; [110.0, 120.5] is front pocket wall tip
+}
+
+
 def has_community_template(tray_name: str) -> bool:
     """Return True if the tray is backed by a human-sculpted community CAD template."""
     return tray_name in COMMUNITY_TEMPLATE_MAP
@@ -110,10 +126,12 @@ def generate_from_template(spec: TraySpec) -> tuple[trimesh.Trimesh, dict[str, s
     H0 = float(v[:, 2].max() - v[:, 2].min())
     L1, W1, H1 = spec.length_mm, spec.width_mm, spec.height_mm
 
-    # 1. X-axis piecewise-linear warp: lock interior drive bay [14.0, L0 - 22.0] at exact 1:1 slope
-    xa, xb = 14.0, L0 - 22.0
-    dL = L1 - L0
-    v[:, 0] = np.interp(v[:, 0], [0.0, xa, xb, L0], [0.0, xa + 0.30 * dL, xb + 0.30 * dL, L1])
+    # 1. X-axis backplane-datum-locked warp:
+    # Lock the entire functional tray from rear rail tip (X = 0) through all SFF screw holes AND
+    # the front bezel chassis-stop face / latch hook (X = x_front_pull) at exact x' == x (0.000 mm shift).
+    # Absorb overall length delta (L1 - L0) strictly in the external front handle overhang [x_front_pull, L0].
+    x_front_pull = TEMPLATE_FRONT_PULL_X[fname]
+    v[:, 0] = np.interp(v[:, 0], [0.0, x_front_pull, L0], [0.0, x_front_pull, L1])
 
     # 2. Y-axis piecewise-linear warp: lock SFF bottom holes [-49.5, +49.5] at 1:1, preserve rail_width_mm, hit W1
     ymin, ymax = float(v[:, 1].min()), float(v[:, 1].max())

@@ -11,7 +11,13 @@ import trimesh
 from synology_drive_trays.cli import GROUND_TRUTH_PAIRS
 from synology_drive_trays.generator import compute_mounting_holes, generate_tray_cad
 from synology_drive_trays.specs import SFF_25, SFF_35, TrayArchetype, build_all_tray_specs
-from synology_drive_trays.templates import COMMUNITY_TEMPLATE_MAP, generate_from_template, has_community_template
+from synology_drive_trays.templates import (
+    COMMUNITY_TEMPLATE_MAP,
+    TEMPLATE_FRONT_PULL_X,
+    generate_from_template,
+    has_community_template,
+    load_canonical_template,
+)
 from synology_drive_trays.validator import validate_against_ground_truth
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -123,4 +129,43 @@ def test_template_first_coverage_and_warping(all_specs):
     assert template_count == 21
     assert procedural_count == 11
     assert len(COMMUNITY_TEMPLATE_MAP) == 21
+
+
+def test_template_backplane_datum_and_sff_lock(all_specs):
+    """
+    Verify that for all 21 template-backed trays, the X-axis warp keeps 100% of the
+    functional tray [0.0, x_front_pull] (rear rail tip, all SFF bottom/side mounting holes,
+    AND the front bezel chassis-stop face / latch hook) at exact 0.000 mm shift (x' == x),
+    guaranteeing zero SATA/SAS backplane mating depth error.
+    """
+    import numpy as np
+
+    for name, spec in all_specs.items():
+        if not has_community_template(name):
+            continue
+        fname, _ = COMMUNITY_TEMPLATE_MAP[name]
+        raw = load_canonical_template(fname)
+        warped, _ = generate_from_template(spec)
+        v_raw = np.asarray(raw.vertices, dtype=float)
+        v_warp = np.asarray(warped.vertices, dtype=float)
+
+        x_front_pull = TEMPLATE_FRONT_PULL_X[fname]
+        mask_functional_x = v_raw[:, 0] <= x_front_pull
+        assert np.any(mask_functional_x)
+        max_x_shift = float(np.max(np.abs(v_warp[mask_functional_x, 0] - v_raw[mask_functional_x, 0])))
+        assert max_x_shift < 1e-9, (
+            f"{name} ({fname}): functional tray X <= {x_front_pull}mm shifted by {max_x_shift:.6f}mm!"
+        )
+
+        # Also check SFF screw hole Z-lock (Z <= 6.5 mm is 100% unscaled 1:1)
+        mask_hole_z = v_raw[:, 2] <= 6.5
+        max_z_shift = float(np.max(np.abs(v_warp[mask_hole_z, 2] - v_raw[mask_hole_z, 2])))
+        assert max_z_shift < 1e-9, f"{name} ({fname}): SFF side hole Z <= 6.5mm shifted by {max_z_shift:.6f}mm!"
+
+        # For 3.5" trays, check SFF bottom hole Y-lock (|Y| <= 49.5 mm is 100% unscaled 1:1)
+        if "prspr" not in fname:
+            mask_hole_y = np.abs(v_raw[:, 1]) <= 49.5
+            max_y_shift = float(np.max(np.abs(v_warp[mask_hole_y, 1] - v_raw[mask_hole_y, 1])))
+            assert max_y_shift < 1e-9, f"{name} ({fname}): SFF bottom hole |Y| <= 49.5mm shifted by {max_y_shift:.6f}mm!"
+
 
