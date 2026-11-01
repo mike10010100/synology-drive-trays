@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="812" height="676" viewBox="0 0 812 676" style="background:#0f172a;font-family:monospace">
+<text x="20" y="28" fill="#f8fafc" font-size="16" font-weight="bold">Disk Tray (Type D1) — 2D Orthographic Schematic (mm)</text>
+<text x="20" y="46" fill="#94a3b8" font-size="12">Archetype: desktop_slide | Outer Envelope: 160.0 x 113.0 x 20.00 mm | Models (14): DS423, DS420j, DS418j, DS416j, DS414j, DS413j, DS411+II, DS411+...</text>
+<rect x="55.0" y="55.0" width="382.2" height="293.8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
+<rect x="437.2" y="55.0" width="33.8" height="293.8" fill="#334155" stroke="#38bdf8" stroke-width="2.0"/>
+<line x1="40.0" y1="201.9" x2="486.0" y2="201.9" stroke="#475569" stroke-dasharray="6,4" stroke-width="1"/>
+<circle cx="170.6" cy="78.1" r="4.9" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+<circle cx="170.6" cy="325.7" r="4.9" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+<circle cx="286.1" cy="78.1" r="4.9" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+<circle cx="286.1" cy="325.7" r="4.9" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+<circle cx="368.7" cy="78.1" r="4.9" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+<circle cx="368.7" cy="325.7" r="4.9" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+<circle cx="129.1" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="129.1" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="237.4" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="237.4" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="319.2" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="319.2" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="393.3" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="393.3" cy="494.8" r="4.9" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="91.4" cy="108.5" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="91.4" cy="268.9" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="290.6" cy="108.5" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="290.6" cy="268.9" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<rect x="55.0" y="467.1" width="382.2" height="50.7" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
+<rect x="437.2" y="465.8" width="33.8" height="52.0" fill="#334155" stroke="#38bdf8" stroke-width="2.0"/>
+<text x="223.0" y="45.0" fill="#e2e8f0" font-size="12">L = 160.0 mm (Rails: 147.0 mm, Bezel: 13.0 mm)</text>
+<text x="483.0" y="201.9" fill="#e2e8f0" font-size="12">W = 113.0 mm (Rail W = 113.0 mm)</text>
+<text x="483.0" y="491.8" fill="#e2e8f0" font-size="12">H = 20.00 mm (Rail H = 19.5 mm)</text>
+<text x="20" y="661" fill="#94a3b8" font-size="11">Legend: Green = SFF-8301 3.5" Bottom Holes (95.25mm span) | Amber = SFF-8201 2.5" Bottom Holes (61.72mm span) | Purple = Side Rail Pin/Screw Holes</text>
+</svg>

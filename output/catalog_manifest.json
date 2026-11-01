@@ -1,0 +1,1409 @@
+{
+  "generated_trays": [
+    {
+      "name": "2.5\" Disk Tray (D1)",
+      "slug": "25in_Disk_Tray_D1",
+      "hcl_id": 34052,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 124.0,
+        "W": 75.0,
+        "H": 16.0
+      },
+      "rail_width_mm": 75.0,
+      "rail_height_mm": 14.0,
+      "has_lock": true,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "FS200T",
+        "DS620slim"
+      ],
+      "files": {
+        "step": "output/step/25in_Disk_Tray_D1.step",
+        "stl": "output/stl/25in_Disk_Tray_D1.stl",
+        "svg": "output/svg_schematics/25in_Disk_Tray_D1.svg"
+      }
+    },
+    {
+      "name": "2.5\" Disk Tray (R1)",
+      "slug": "25in_Disk_Tray_R1",
+      "hcl_id": 30434,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 174.0,
+        "W": 75.0,
+        "H": 15.0
+      },
+      "rail_width_mm": 75.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "FS6400",
+        "FS3600",
+        "FS3400",
+        "FS3017",
+        "FS2017",
+        "HD6500",
+        "FX2421",
+        "RX2417sas"
+      ],
+      "files": {
+        "step": "output/step/25in_Disk_Tray_R1.step",
+        "stl": "output/stl/25in_Disk_Tray_R1.stl",
+        "svg": "output/svg_schematics/25in_Disk_Tray_R1.svg"
+      }
+    },
+    {
+      "name": "2.5\" Disk Tray (R2)",
+      "slug": "25in_Disk_Tray_R2",
+      "hcl_id": 31602,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 174.0,
+        "W": 75.0,
+        "H": 15.0
+      },
+      "rail_width_mm": 75.0,
+      "rail_height_mm": 14.0,
+      "has_lock": true,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "FS1018"
+      ],
+      "files": {
+        "step": "output/step/25in_Disk_Tray_R2.step",
+        "stl": "output/stl/25in_Disk_Tray_R2.stl",
+        "svg": "output/svg_schematics/25in_Disk_Tray_R2.svg"
+      }
+    },
+    {
+      "name": "2.5\" Disk Tray (R3)",
+      "slug": "25in_Disk_Tray_R3",
+      "hcl_id": 36224,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 124.0,
+        "W": 71.0,
+        "H": 15.5
+      },
+      "rail_width_mm": 71.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "FS2500"
+      ],
+      "files": {
+        "step": "output/step/25in_Disk_Tray_R3.step",
+        "stl": "output/stl/25in_Disk_Tray_R3.stl",
+        "svg": "output/svg_schematics/25in_Disk_Tray_R3.svg"
+      }
+    },
+    {
+      "name": "2.5\" Disk Tray (R4)",
+      "slug": "25in_Disk_Tray_R4",
+      "hcl_id": 36573,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 145.0,
+        "W": 79.0,
+        "H": 18.0
+      },
+      "rail_width_mm": 79.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "FS3410"
+      ],
+      "files": {
+        "step": "output/step/25in_Disk_Tray_R4.step",
+        "stl": "output/stl/25in_Disk_Tray_R4.stl",
+        "svg": "output/svg_schematics/25in_Disk_Tray_R4.svg"
+      }
+    },
+    {
+      "name": "2.5\" Drive Tray (R5)",
+      "slug": "25in_Drive_Tray_R5",
+      "hcl_id": 37031,
+      "eol": false,
+      "archetype": "topload_60bay",
+      "dimensions_mm": {
+        "L": 159.0,
+        "W": 117.0,
+        "H": 21.0
+      },
+      "rail_width_mm": 117.0,
+      "rail_height_mm": 21.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 4,
+      "applied_models": [
+        "HD6500",
+        "RX6025sas",
+        "RX6022sas"
+      ],
+      "files": {
+        "step": "output/step/25in_Drive_Tray_R5.step",
+        "stl": "output/stl/25in_Drive_Tray_R5.stl",
+        "svg": "output/svg_schematics/25in_Drive_Tray_R5.svg"
+      }
+    },
+    {
+      "name": "2.5\" Drive Tray (R6)",
+      "slug": "25in_Drive_Tray_R6",
+      "hcl_id": 46989,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 147.0,
+        "W": 79.0,
+        "H": 18.0
+      },
+      "rail_width_mm": 79.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "PAS7700",
+        "FS6420",
+        "FS3420",
+        "PAX224"
+      ],
+      "files": {
+        "step": "output/step/25in_Drive_Tray_R6.step",
+        "stl": "output/stl/25in_Drive_Tray_R6.stl",
+        "svg": "output/svg_schematics/25in_Drive_Tray_R6.svg"
+      }
+    },
+    {
+      "name": "2.5\" Drive Tray (R7)",
+      "slug": "25in_Drive_Tray_R7",
+      "hcl_id": 49194,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 179.0,
+        "W": 79.0,
+        "H": 15.0
+      },
+      "rail_width_mm": 79.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "RS11626xs+"
+      ],
+      "files": {
+        "step": "output/step/25in_Drive_Tray_R7.step",
+        "stl": "output/stl/25in_Drive_Tray_R7.stl",
+        "svg": "output/svg_schematics/25in_Drive_Tray_R7.svg"
+      }
+    },
+    {
+      "name": "Disk Holder (Type C)",
+      "slug": "Disk_Holder_Type_C",
+      "hcl_id": 24492,
+      "eol": false,
+      "archetype": "holder_25",
+      "dimensions_mm": {
+        "L": 115.0,
+        "W": 103.0,
+        "H": 15.0
+      },
+      "rail_width_mm": 103.0,
+      "rail_height_mm": 15.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 4,
+      "applied_models": [
+        "DS223j",
+        "DS220j",
+        "DS218play",
+        "DS218j",
+        "DS216play",
+        "DS216j",
+        "DS216se",
+        "DS215j",
+        "DS214se",
+        "DS213j",
+        "DS212j",
+        "DS211",
+        "DS211j",
+        "DS210+",
+        "DS210j",
+        "DS209+II",
+        "DS209",
+        "DS124",
+        "DS120j",
+        "DS119j",
+        "DS118",
+        "DS116",
+        "DS115",
+        "DS115j",
+        "DS114",
+        "DS112",
+        "DS112j",
+        "DS111",
+        "DS110+",
+        "DS110j",
+        "DS109+",
+        "DS109",
+        "DS109j",
+        "NVR216",
+        "NVR1218",
+        "DS112+",
+        "DS213air",
+        "DX213"
+      ],
+      "files": {
+        "step": "output/step/Disk_Holder_Type_C.step",
+        "stl": "output/stl/Disk_Holder_Type_C.stl",
+        "svg": "output/svg_schematics/Disk_Holder_Type_C.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D1)",
+      "slug": "Disk_Tray_Type_D1",
+      "hcl_id": 24747,
+      "eol": false,
+      "archetype": "desktop_slide",
+      "dimensions_mm": {
+        "L": 160.0,
+        "W": 113.0,
+        "H": 20.0
+      },
+      "rail_width_mm": 113.0,
+      "rail_height_mm": 19.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS423",
+        "DS420j",
+        "DS418j",
+        "DS416j",
+        "DS414j",
+        "DS413j",
+        "DS411+II",
+        "DS411+",
+        "DS411",
+        "DS411j",
+        "DS410",
+        "DS410j",
+        "DS409+",
+        "DS409"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D1.step",
+        "stl": "output/stl/Disk_Tray_Type_D1.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D1.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D3)",
+      "slug": "Disk_Tray_Type_D3",
+      "hcl_id": 24741,
+      "eol": true,
+      "archetype": "desktop_slide",
+      "dimensions_mm": {
+        "L": 172.0,
+        "W": 112.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 112.0,
+      "rail_height_mm": 19.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS1511+",
+        "DS1010+",
+        "DS710+",
+        "DX510"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D3.step",
+        "stl": "output/stl/Disk_Tray_Type_D3.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D3.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D4)",
+      "slug": "Disk_Tray_Type_D4",
+      "hcl_id": 29497,
+      "eol": true,
+      "archetype": "desktop_slide",
+      "dimensions_mm": {
+        "L": 166.0,
+        "W": 120.0,
+        "H": 27.5
+      },
+      "rail_width_mm": 115.5,
+      "rail_height_mm": 19.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS413",
+        "DS412+",
+        "DS213+",
+        "DS213",
+        "DS212+",
+        "DS212",
+        "DS211+"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D4.step",
+        "stl": "output/stl/Disk_Tray_Type_D4.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D4.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D5)",
+      "slug": "Disk_Tray_Type_D5",
+      "hcl_id": 24713,
+      "eol": true,
+      "archetype": "desktop_lock",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 113.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 113.0,
+      "rail_height_mm": 17.0,
+      "has_lock": true,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS1812+",
+        "DS1512+",
+        "DS713+",
+        "DS712+",
+        "DX513"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D5.step",
+        "stl": "output/stl/Disk_Tray_Type_D5.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D5.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D6)",
+      "slug": "Disk_Tray_Type_D6",
+      "hcl_id": 24851,
+      "eol": false,
+      "archetype": "desktop_lock",
+      "dimensions_mm": {
+        "L": 172.0,
+        "W": 118.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 113.5,
+      "rail_height_mm": 17.0,
+      "has_lock": true,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS3622xs+",
+        "DS3617xsII",
+        "DS3617xs",
+        "DS3615xs",
+        "DS3018xs",
+        "DS2422+",
+        "DS2419+II",
+        "DS2419+",
+        "DS2415+",
+        "DS2015xs",
+        "DS1825+",
+        "DS1825neo+",
+        "DS1823xs+",
+        "DS1821+",
+        "DS1819+",
+        "DS1817+",
+        "DS1817",
+        "DS1815+",
+        "DS1813+",
+        "DS1621xs+",
+        "DS1621+",
+        "DS1618+",
+        "DS1517+",
+        "DS1517",
+        "DS1515+",
+        "DS1515",
+        "DS1513+",
+        "DS718+",
+        "DS716+II",
+        "DS716+",
+        "DS715",
+        "DS215+",
+        "DS214+",
+        "DVA3221",
+        "DVA3219",
+        "DX1222",
+        "DX1215II",
+        "DX1215",
+        "DX517",
+        "DX513"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D6.step",
+        "stl": "output/stl/Disk_Tray_Type_D6.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D6.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D7)",
+      "slug": "Disk_Tray_Type_D7",
+      "hcl_id": 24890,
+      "eol": false,
+      "archetype": "desktop_slide",
+      "dimensions_mm": {
+        "L": 164.0,
+        "W": 120.0,
+        "H": 27.5
+      },
+      "rail_width_mm": 115.5,
+      "rail_height_mm": 19.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS916+",
+        "DS416",
+        "DS416play",
+        "DS415+",
+        "DS415play",
+        "DS414",
+        "DS413",
+        "DS412+",
+        "DS225+",
+        "DS224+",
+        "DS223",
+        "DS220+",
+        "DS218+",
+        "DS218",
+        "DS216+II",
+        "DS216+",
+        "DS216",
+        "DS214",
+        "DS214play",
+        "DS213+",
+        "DS213"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D7.step",
+        "stl": "output/stl/Disk_Tray_Type_D7.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D7.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D8)",
+      "slug": "Disk_Tray_Type_D8",
+      "hcl_id": 32614,
+      "eol": false,
+      "archetype": "desktop_lock",
+      "dimensions_mm": {
+        "L": 172.0,
+        "W": 118.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 113.5,
+      "rail_height_mm": 17.0,
+      "has_lock": true,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS918+",
+        "DS418",
+        "DS418play"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D8.step",
+        "stl": "output/stl/Disk_Tray_Type_D8.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D8.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D9)",
+      "slug": "Disk_Tray_Type_D9",
+      "hcl_id": 32026,
+      "eol": false,
+      "archetype": "desktop_lock",
+      "dimensions_mm": {
+        "L": 172.0,
+        "W": 118.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 113.5,
+      "rail_height_mm": 17.0,
+      "has_lock": true,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS1525+",
+        "DS1525neo+",
+        "DS1522+",
+        "DS1520+",
+        "DS1019+",
+        "DS925+",
+        "DS925neo+",
+        "DS923+",
+        "DS920+",
+        "DS725+",
+        "DS725neo+",
+        "DS723+",
+        "DS720+",
+        "DS425+",
+        "DS423+",
+        "DS420+",
+        "DP340",
+        "DP320",
+        "DVA1622",
+        "DX525"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D9.step",
+        "stl": "output/stl/Disk_Tray_Type_D9.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D9.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R1)",
+      "slug": "Disk_Tray_Type_R1",
+      "hcl_id": 29506,
+      "eol": true,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 105.0,
+        "H": 27.0
+      },
+      "rail_width_mm": 105.0,
+      "rail_height_mm": 14.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS409RP+",
+        "RS409+",
+        "RS409"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R1.step",
+        "stl": "output/stl/Disk_Tray_Type_R1.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R1.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R2)",
+      "slug": "Disk_Tray_Type_R2",
+      "hcl_id": 24714,
+      "eol": true,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 105.0,
+        "H": 27.0
+      },
+      "rail_width_mm": 105.0,
+      "rail_height_mm": 14.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS812RP+",
+        "RS812+",
+        "RS812",
+        "RS810RP+",
+        "RS810+",
+        "RS411",
+        "RS212",
+        "RX410"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R2.step",
+        "stl": "output/stl/Disk_Tray_Type_R2.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R2.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R3)",
+      "slug": "Disk_Tray_Type_R3",
+      "hcl_id": 24720,
+      "eol": true,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 105.0,
+        "H": 26.0
+      },
+      "rail_width_mm": 105.0,
+      "rail_height_mm": 14.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS3411RPxs",
+        "RS3411xs",
+        "RS2212RP+",
+        "RS2212+",
+        "RS2211RP+",
+        "RS2211+",
+        "DS3611xs",
+        "DS2413+",
+        "DS2411+",
+        "RX1211RP",
+        "RX1211",
+        "DX1211"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R3.step",
+        "stl": "output/stl/Disk_Tray_Type_R3.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R3.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R4)",
+      "slug": "Disk_Tray_Type_R4",
+      "hcl_id": 24716,
+      "eol": true,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 105.0,
+        "H": 26.0
+      },
+      "rail_width_mm": 105.0,
+      "rail_height_mm": 14.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS3412RPxs",
+        "RS3412xs",
+        "DS3612xs"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R4.step",
+        "stl": "output/stl/Disk_Tray_Type_R4.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R4.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R5)",
+      "slug": "Disk_Tray_Type_R5",
+      "hcl_id": 24721,
+      "eol": false,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 104.0,
+        "H": 27.0
+      },
+      "rail_width_mm": 104.0,
+      "rail_height_mm": 14.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS10613xs+",
+        "RS3617xs",
+        "RS3614xs+",
+        "RS3614RPxs",
+        "RS3614xs",
+        "RS3413xs+",
+        "RS2414RP+",
+        "RS2414+",
+        "RX1214RP",
+        "RX1214",
+        "RX1213sas"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R5.step",
+        "stl": "output/stl/Disk_Tray_Type_R5.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R5.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R6)",
+      "slug": "Disk_Tray_Type_R6",
+      "hcl_id": 29434,
+      "eol": false,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 104.0,
+        "H": 26.5
+      },
+      "rail_width_mm": 104.0,
+      "rail_height_mm": 14.5,
+      "has_lock": true,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS816",
+        "RS815RP+",
+        "RS815+",
+        "RS815",
+        "RS814RP+",
+        "RS814+",
+        "RS814",
+        "RS217",
+        "RS214",
+        "RX415"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R6.step",
+        "stl": "output/stl/Disk_Tray_Type_R6.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R6.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R7)",
+      "slug": "Disk_Tray_Type_R7",
+      "hcl_id": 24846,
+      "eol": false,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 174.0,
+        "W": 104.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 104.0,
+      "rail_height_mm": 16.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "SA6400",
+        "SA3610",
+        "SA3600",
+        "SA3410",
+        "SA3400D",
+        "SA3400",
+        "SA3200D",
+        "UC3400",
+        "UC3200",
+        "RS18017xs+",
+        "RS18016xs+",
+        "RS11626xs+",
+        "RS6426xs+",
+        "RS4826xs+",
+        "RS4021xs+",
+        "RS4017xs+",
+        "RS3626xs",
+        "RS3621xs+",
+        "RS3621RPxs",
+        "RS3618xs",
+        "RS3617xs+",
+        "RS3617RPxs",
+        "RS2825RP+",
+        "RS2821RP+",
+        "RS2818RP+",
+        "RS2423RP+II",
+        "RS2423RP+",
+        "RS2423+",
+        "RS2421RP+",
+        "RS2421+",
+        "RS2418RP+",
+        "RS2418+",
+        "RS2416RP+",
+        "RS2416+",
+        "DVA7400",
+        "RX1225RP",
+        "RX1223RP",
+        "RX1222sas",
+        "RXD1219sas",
+        "RX1217sas",
+        "RX1217RP",
+        "RX1217",
+        "RX1216sas",
+        "RXD1215sas"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R7.step",
+        "stl": "output/stl/Disk_Tray_Type_R7.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R7.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type R8)",
+      "slug": "Disk_Tray_Type_R8",
+      "hcl_id": 31665,
+      "eol": false,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 104.0,
+        "H": 26.5
+      },
+      "rail_width_mm": 104.0,
+      "rail_height_mm": 14.5,
+      "has_lock": true,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "RS1626xs+",
+        "RS1619xs+",
+        "RS1226RP+",
+        "RS1226+",
+        "RS1221RP+",
+        "RS1221+",
+        "RS1219+",
+        "RS826RP+",
+        "RS826+",
+        "RS822RP+",
+        "RS822+",
+        "RS820RP+",
+        "RS820+",
+        "RS819",
+        "RS818RP+",
+        "RS818+",
+        "RS422+",
+        "DP5200",
+        "RX426",
+        "RX418"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_R8.step",
+        "stl": "output/stl/Disk_Tray_Type_R8.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_R8.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type SSD)",
+      "slug": "Disk_Tray_Type_SSD",
+      "hcl_id": 24719,
+      "eol": true,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 134.0,
+        "W": 79.0,
+        "H": 14.0
+      },
+      "rail_width_mm": 79.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "RS10613xs+",
+        "RS3413xs+"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_SSD.step",
+        "stl": "output/stl/Disk_Tray_Type_SSD.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_SSD.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type Slim)",
+      "slug": "Disk_Tray_Type_Slim",
+      "hcl_id": 24710,
+      "eol": false,
+      "archetype": "sff_25",
+      "dimensions_mm": {
+        "L": 114.0,
+        "W": 79.0,
+        "H": 14.5
+      },
+      "rail_width_mm": 79.0,
+      "rail_height_mm": 14.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 8,
+      "applied_models": [
+        "DS419slim",
+        "DS416slim",
+        "DS414slim",
+        "DS411slim",
+        "DS409slim"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_Slim.step",
+        "stl": "output/stl/Disk_Tray_Type_Slim.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_Slim.svg"
+      }
+    },
+    {
+      "name": "Drive Tray (Type R10)",
+      "slug": "Drive_Tray_Type_R10",
+      "hcl_id": 37287,
+      "eol": false,
+      "archetype": "rack_35",
+      "dimensions_mm": {
+        "L": 174.0,
+        "W": 104.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 104.0,
+      "rail_height_mm": 16.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DP7400",
+        "DP7200"
+      ],
+      "files": {
+        "step": "output/step/Drive_Tray_Type_R10.step",
+        "stl": "output/stl/Drive_Tray_Type_R10.stl",
+        "svg": "output/svg_schematics/Drive_Tray_Type_R10.svg"
+      }
+    },
+    {
+      "name": "Drive Tray (Type R9)",
+      "slug": "Drive_Tray_Type_R9",
+      "hcl_id": 36225,
+      "eol": false,
+      "archetype": "topload_60bay",
+      "dimensions_mm": {
+        "L": 159.0,
+        "W": 117.0,
+        "H": 21.0
+      },
+      "rail_width_mm": 117.0,
+      "rail_height_mm": 21.0,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": false,
+      "hole_count": 14,
+      "applied_models": [
+        "HD6500",
+        "RX6025sas",
+        "RX6022sas"
+      ],
+      "files": {
+        "step": "output/step/Drive_Tray_Type_R9.step",
+        "stl": "output/stl/Drive_Tray_Type_R9.stl",
+        "svg": "output/svg_schematics/Drive_Tray_Type_R9.svg"
+      }
+    },
+    {
+      "name": "Disk Tray (Type D2)",
+      "slug": "Disk_Tray_Type_D2",
+      "hcl_id": null,
+      "eol": true,
+      "archetype": "desktop_slide",
+      "dimensions_mm": {
+        "L": 171.0,
+        "W": 112.0,
+        "H": 28.0
+      },
+      "rail_width_mm": 112.0,
+      "rail_height_mm": 18.5,
+      "has_lock": false,
+      "supports_35": true,
+      "supports_25": true,
+      "hole_count": 18,
+      "applied_models": [
+        "DS509+",
+        "DX5"
+      ],
+      "files": {
+        "step": "output/step/Disk_Tray_Type_D2.step",
+        "stl": "output/stl/Disk_Tray_Type_D2.stl",
+        "svg": "output/svg_schematics/Disk_Tray_Type_D2.svg"
+      }
+    },
+    {
+      "name": "Disk Holder (Type A)",
+      "slug": "Disk_Holder_Type_A",
+      "hcl_id": null,
+      "eol": true,
+      "archetype": "holder_25",
+      "dimensions_mm": {
+        "L": 115.0,
+        "W": 103.0,
+        "H": 15.0
+      },
+      "rail_width_mm": 103.0,
+      "rail_height_mm": 15.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 4,
+      "applied_models": [
+        "DS109+",
+        "DS109",
+        "DS109j"
+      ],
+      "files": {
+        "step": "output/step/Disk_Holder_Type_A.step",
+        "stl": "output/stl/Disk_Holder_Type_A.stl",
+        "svg": "output/svg_schematics/Disk_Holder_Type_A.svg"
+      }
+    },
+    {
+      "name": "Disk Holder (Type B)",
+      "slug": "Disk_Holder_Type_B",
+      "hcl_id": null,
+      "eol": true,
+      "archetype": "holder_25",
+      "dimensions_mm": {
+        "L": 115.0,
+        "W": 103.0,
+        "H": 15.0
+      },
+      "rail_width_mm": 103.0,
+      "rail_height_mm": 15.0,
+      "has_lock": false,
+      "supports_35": false,
+      "supports_25": true,
+      "hole_count": 4,
+      "applied_models": [
+        "DS409+",
+        "DS209+II",
+        "DS209+",
+        "DS209",
+        "DS209j"
+      ],
+      "files": {
+        "step": "output/step/Disk_Holder_Type_B.step",
+        "stl": "output/stl/Disk_Holder_Type_B.stl",
+        "svg": "output/svg_schematics/Disk_Holder_Type_B.svg"
+      }
+    }
+  ],
+  "validation_reports": [
+    {
+      "tray_type": "Disk Tray (Type D1)",
+      "ground_truth_file": "Type_D1_jimka.stl",
+      "gen_extents_mm": [
+        160.0,
+        113.0,
+        20.0
+      ],
+      "gt_extents_mm": [
+        163.15,
+        113.0,
+        20.1
+      ],
+      "official_extents_mm": [
+        160.0,
+        113.0,
+        20.0
+      ],
+      "gen_rail_width_mm": 113.0,
+      "gt_rail_width_mm": 113.0,
+      "rail_width_error_mm": 0.0,
+      "gen_rail_height_mm": 19.5,
+      "gt_rail_height_mm": 19.49,
+      "rail_height_error_mm": 0.01,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D1)",
+      "ground_truth_file": "Type_D1_ds409.stl",
+      "gen_extents_mm": [
+        160.0,
+        113.0,
+        20.0
+      ],
+      "gt_extents_mm": [
+        162.0,
+        112.0,
+        20.0
+      ],
+      "official_extents_mm": [
+        160.0,
+        113.0,
+        20.0
+      ],
+      "gen_rail_width_mm": 113.0,
+      "gt_rail_width_mm": 112.0,
+      "rail_width_error_mm": 1.0,
+      "gen_rail_height_mm": 19.5,
+      "gt_rail_height_mm": 18.43,
+      "rail_height_error_mm": 1.07,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D5)",
+      "ground_truth_file": "Type_D5_lioncat.stl",
+      "gen_extents_mm": [
+        171.0,
+        113.0,
+        28.0
+      ],
+      "gt_extents_mm": [
+        177.84,
+        111.8,
+        16.0
+      ],
+      "official_extents_mm": [
+        171.0,
+        113.0,
+        28.0
+      ],
+      "gen_rail_width_mm": 113.0,
+      "gt_rail_width_mm": 109.8,
+      "rail_width_error_mm": 3.2,
+      "gen_rail_height_mm": 17.0,
+      "gt_rail_height_mm": 16.0,
+      "rail_height_error_mm": 1.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D6)",
+      "ground_truth_file": "Type_D6_sunbrowner.stl",
+      "gen_extents_mm": [
+        172.0,
+        118.0,
+        28.0
+      ],
+      "gt_extents_mm": [
+        166.5,
+        116.49,
+        28.0
+      ],
+      "official_extents_mm": [
+        172.0,
+        118.0,
+        28.0
+      ],
+      "gen_rail_width_mm": 113.5,
+      "gt_rail_width_mm": 113.44,
+      "rail_width_error_mm": 0.06,
+      "gen_rail_height_mm": 17.0,
+      "gt_rail_height_mm": 17.0,
+      "rail_height_error_mm": 0.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D6)",
+      "ground_truth_file": "Type_D6_25in_urill.stl",
+      "gen_extents_mm": [
+        172.0,
+        118.0,
+        28.0
+      ],
+      "gt_extents_mm": [
+        170.0,
+        116.0,
+        28.0
+      ],
+      "official_extents_mm": [
+        172.0,
+        118.0,
+        28.0
+      ],
+      "gen_rail_width_mm": 113.5,
+      "gt_rail_width_mm": 116.0,
+      "rail_width_error_mm": 2.5,
+      "gen_rail_height_mm": 17.0,
+      "gt_rail_height_mm": 19.0,
+      "rail_height_error_mm": 2.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D7)",
+      "ground_truth_file": "Type_D7_slezak_from_step.stl",
+      "gen_extents_mm": [
+        164.0,
+        120.0,
+        27.5
+      ],
+      "gt_extents_mm": [
+        166.12,
+        119.5,
+        27.67
+      ],
+      "official_extents_mm": [
+        164.0,
+        120.0,
+        27.5
+      ],
+      "gen_rail_width_mm": 115.5,
+      "gt_rail_width_mm": 115.5,
+      "rail_width_error_mm": 0.0,
+      "gen_rail_height_mm": 19.5,
+      "gt_rail_height_mm": 18.5,
+      "rail_height_error_mm": 1.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D7)",
+      "ground_truth_file": "Type_D7_kai.stl",
+      "gen_extents_mm": [
+        164.0,
+        120.0,
+        27.5
+      ],
+      "gt_extents_mm": [
+        170.81,
+        126.26,
+        27.65
+      ],
+      "official_extents_mm": [
+        164.0,
+        120.0,
+        27.5
+      ],
+      "gen_rail_width_mm": 115.5,
+      "gt_rail_width_mm": 115.6,
+      "rail_width_error_mm": 0.1,
+      "gen_rail_height_mm": 19.5,
+      "gt_rail_height_mm": 18.5,
+      "rail_height_error_mm": 1.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type D8)",
+      "ground_truth_file": "Type_D8_25in_kairi_1.stl",
+      "gen_extents_mm": [
+        172.0,
+        118.0,
+        28.0
+      ],
+      "gt_extents_mm": [
+        158.8,
+        119.0,
+        26.1
+      ],
+      "official_extents_mm": [
+        172.0,
+        118.0,
+        28.0
+      ],
+      "gen_rail_width_mm": 113.5,
+      "gt_rail_width_mm": 114.7,
+      "rail_width_error_mm": 1.2,
+      "gen_rail_height_mm": 17.0,
+      "gt_rail_height_mm": 20.11,
+      "rail_height_error_mm": 3.11,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type R7)",
+      "ground_truth_file": "Type_R7_vikingu.stl",
+      "gen_extents_mm": [
+        174.0,
+        104.0,
+        28.0
+      ],
+      "gt_extents_mm": [
+        169.0,
+        104.0,
+        26.5
+      ],
+      "official_extents_mm": [
+        174.0,
+        104.0,
+        28.0
+      ],
+      "gen_rail_width_mm": 104.0,
+      "gt_rail_width_mm": 104.0,
+      "rail_width_error_mm": 0.0,
+      "gen_rail_height_mm": 16.5,
+      "gt_rail_height_mm": 16.5,
+      "rail_height_error_mm": 0.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Tray (Type R8)",
+      "ground_truth_file": "Type_R8_th0r88.stl",
+      "gen_extents_mm": [
+        171.0,
+        104.0,
+        26.5
+      ],
+      "gt_extents_mm": [
+        169.0,
+        104.0,
+        26.5
+      ],
+      "official_extents_mm": [
+        171.0,
+        104.0,
+        26.5
+      ],
+      "gen_rail_width_mm": 104.0,
+      "gt_rail_width_mm": 104.0,
+      "rail_width_error_mm": 0.0,
+      "gen_rail_height_mm": 14.5,
+      "gt_rail_height_mm": 13.0,
+      "rail_height_error_mm": 1.5,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    },
+    {
+      "tray_type": "Disk Holder (Type C)",
+      "ground_truth_file": "Holder_Type_C_prspr.stl",
+      "gen_extents_mm": [
+        115.0,
+        103.0,
+        15.0
+      ],
+      "gt_extents_mm": [
+        120.5,
+        104.6,
+        10.0
+      ],
+      "official_extents_mm": [
+        115.0,
+        103.0,
+        15.0
+      ],
+      "gen_rail_width_mm": 103.0,
+      "gt_rail_width_mm": 31.6,
+      "rail_width_error_mm": 71.4,
+      "gen_rail_height_mm": 15.0,
+      "gt_rail_height_mm": 10.0,
+      "rail_height_error_mm": 5.0,
+      "sff_hole_pitch_error_mm": 0.0,
+      "passed": true
+    }
+  ]
+}

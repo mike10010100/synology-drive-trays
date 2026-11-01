@@ -1,0 +1,2754 @@
+{
+  "productList": {
+    "1": [
+      "DS124",
+      "DS120j",
+      "DS119j",
+      "DS118",
+      "DS116",
+      "DS115",
+      "DS115j",
+      "DS114",
+      "DS112+",
+      "DS112",
+      "DS112j",
+      "DS111",
+      "DS110+",
+      "DS110j",
+      "DS109+",
+      "DS109",
+      "DS109j"
+    ],
+    "2": [
+      "RS217",
+      "RS214",
+      "RS212",
+      "DS725+",
+      "DS725neo+",
+      "DS723+",
+      "DS720+",
+      "DS718+",
+      "DS716+II",
+      "DS716+",
+      "DS715",
+      "DS713+",
+      "DS712+",
+      "DS710+",
+      "DS225+",
+      "DS224+",
+      "DS223",
+      "DS223j",
+      "DS220+",
+      "DS220j",
+      "DS218+",
+      "DS218",
+      "DS218play",
+      "DS218j",
+      "DS216+II",
+      "DS216+",
+      "DS216",
+      "DS216play",
+      "DS216j",
+      "DS216se",
+      "DS215+",
+      "DS215j",
+      "DS214+",
+      "DS214",
+      "DS214play",
+      "DS214se",
+      "DS213+",
+      "DS213",
+      "DS213j",
+      "DS213air",
+      "DS212+",
+      "DS212",
+      "DS212j",
+      "DS211+",
+      "DS211",
+      "DS211j",
+      "DS210+",
+      "DS210j",
+      "DS209+II",
+      "DS209+",
+      "DS209",
+      "DS209j"
+    ],
+    "4": [
+      "RS1626xs+",
+      "RS1619xs+",
+      "RS826RP+",
+      "RS826+",
+      "RS822RP+",
+      "RS822+",
+      "RS820RP+",
+      "RS820+",
+      "RS819",
+      "RS818RP+",
+      "RS818+",
+      "RS816",
+      "RS815RP+",
+      "RS815+",
+      "RS815",
+      "RS814RP+",
+      "RS814+",
+      "RS814",
+      "RS812RP+",
+      "RS812+",
+      "RS812",
+      "RS810RP+",
+      "RS810+",
+      "RS422+",
+      "RS411",
+      "RS409RP+",
+      "RS409+",
+      "RS409",
+      "DS925+",
+      "DS925neo+",
+      "DS923+",
+      "DS920+",
+      "DS918+",
+      "DS916+",
+      "DS425+",
+      "DS423+",
+      "DS423",
+      "DS420+",
+      "DS420j",
+      "DS419slim",
+      "DS418",
+      "DS418play",
+      "DS418j",
+      "DS416",
+      "DS416play",
+      "DS416slim",
+      "DS416j",
+      "DS415+",
+      "DS415play",
+      "DS414",
+      "DS414slim",
+      "DS414j",
+      "DS413",
+      "DS413j",
+      "DS412+",
+      "DS411+II",
+      "DS411+",
+      "DS411",
+      "DS411slim",
+      "DS411j",
+      "DS410",
+      "DS410j",
+      "DS409+",
+      "DS409",
+      "DS409slim"
+    ],
+    "5": [
+      "DS1525+",
+      "DS1525neo+",
+      "DS1522+",
+      "DS1520+",
+      "DS1517+",
+      "DS1517",
+      "DS1515+",
+      "DS1515",
+      "DS1513+",
+      "DS1512+",
+      "DS1511+",
+      "DS1019+",
+      "DS1010+",
+      "DS509+"
+    ],
+    "6": [
+      "FS200T",
+      "DS3018xs",
+      "DS1621xs+",
+      "DS1621+",
+      "DS1618+",
+      "DS620slim"
+    ],
+    "8": [
+      "RS1226RP+",
+      "RS1226+",
+      "RS1221RP+",
+      "RS1221+",
+      "RS1219+",
+      "DS2015xs",
+      "DS1825+",
+      "DS1825neo+",
+      "DS1823xs+",
+      "DS1821+",
+      "DS1819+",
+      "DS1817+",
+      "DS1817",
+      "DS1815+",
+      "DS1813+",
+      "DS1812+"
+    ],
+    "10": [
+      "RS10613xs+",
+      "RS3413xs+",
+      "RS3412RPxs",
+      "RS3412xs",
+      "RS3411RPxs",
+      "RS3411xs",
+      "RS2212RP+",
+      "RS2212+",
+      "RS2211RP+",
+      "RS2211+"
+    ],
+    "12": [
+      "FS2500",
+      "FS1018",
+      "SA6400",
+      "SA3610",
+      "SA3600",
+      "SA3410",
+      "SA3400D",
+      "SA3400",
+      "SA3200D",
+      "RS18017xs+",
+      "RS18016xs+",
+      "RS4826xs+",
+      "RS3626xs",
+      "RS3621xs+",
+      "RS3621RPxs",
+      "RS3618xs",
+      "RS3617xs+",
+      "RS3617RPxs",
+      "RS3617xs",
+      "RS3614xs+",
+      "RS3614RPxs",
+      "RS3614xs",
+      "RS2423RP+II",
+      "RS2423RP+",
+      "RS2423+",
+      "RS2421RP+",
+      "RS2421+",
+      "RS2418RP+",
+      "RS2418+",
+      "RS2416RP+",
+      "RS2416+",
+      "RS2414RP+",
+      "RS2414+",
+      "RC18015xs+",
+      "DS3622xs+",
+      "DS3617xsII",
+      "DS3617xs",
+      "DS3615xs",
+      "DS3612xs",
+      "DS3611xs",
+      "DS2422+",
+      "DS2419+II",
+      "DS2419+",
+      "DS2415+",
+      "DS2413+",
+      "DS2411+"
+    ],
+    "16": [
+      "RS6426xs+",
+      "RS4021xs+",
+      "RS4017xs+",
+      "RS2825RP+",
+      "RS2821RP+",
+      "RS2818RP+"
+    ],
+    "20": [
+      "RS11626xs+"
+    ],
+    "24": [
+      "FS6420",
+      "FS6400",
+      "FS3600",
+      "FS3420",
+      "FS3410",
+      "FS3400",
+      "FS3017",
+      "FS2017"
+    ],
+    "48": [
+      "PAS7700"
+    ],
+    "60": [
+      "HD6500"
+    ],
+    "IP SAN": [
+      "UC3400",
+      "UC3200"
+    ],
+    "ActiveProtectAppliance": [
+      "DP7400",
+      "DP7200",
+      "DP5200",
+      "DP340",
+      "DP320"
+    ],
+    "NetworkVideoRecorder": [
+      "DVA7400",
+      "DVA3221",
+      "DVA3219",
+      "DVA1622",
+      "NVR216",
+      "NVR1218"
+    ],
+    "Camera": [
+      "TC510",
+      "FC600",
+      "BC510",
+      "CC410W",
+      "BC800Z",
+      "CC400W"
+    ],
+    "VisualStation": [
+      "VS600HD",
+      "VS960HD",
+      "VS360HD",
+      "VS240HD",
+      "VS80",
+      "VS60"
+    ],
+    "PoE Switch": [
+      "PS500"
+    ],
+    "Router": [
+      "WRX560",
+      "RT6600ax",
+      "MR2200ac",
+      "RT2600ac",
+      "RT1900ac"
+    ],
+    "Others": [
+      "BST150-4T",
+      "BST151-4T",
+      "BST170-4T",
+      "BST170-8T",
+      "EDS14",
+      "USB Station 2"
+    ],
+    "ExpansionUnit": [
+      "PAX224",
+      "FX2421",
+      "RX6025sas",
+      "RX6022sas",
+      "RX1225RP",
+      "RX1223RP",
+      "RX1222sas",
+      "RXD1219sas",
+      "RX2417sas",
+      "RX1217sas",
+      "RX1217RP",
+      "RX1217",
+      "RX1216sas",
+      "RXD1215sas",
+      "RX1214RP",
+      "RX1214",
+      "RX1213sas",
+      "RX1211RP",
+      "RX1211",
+      "RX426",
+      "RX418",
+      "RX415",
+      "RX410",
+      "DX1222",
+      "DX1215II",
+      "DX1215",
+      "DX1211",
+      "DX525",
+      "DX517",
+      "DX513",
+      "DX510",
+      "DX213"
+    ]
+  },
+  "trays": {
+    "Disk Holder (Type C)": {
+      "name": "Disk Holder (Type C)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24492,
+      "ean": "4711174720514",
+      "upc": "846504000517",
+      "dimension": "11.5 x10.3 x1.5 cm",
+      "weight": "0.04 kg",
+      "description": "2.5\" Drive Holder",
+      "remarks": "Available for:DS209+II of S/N: **GCN*****DS209 of S/N: **G4N*****",
+      "appliedModels": "DS223j, DS220j, DS218play, DS218j, DS216play, DS216j, DS216se, DS215j, DS214se, DS213j, DS212j, DS211, DS211j, DS210+, DS210j, DS209+II, DS209, DS124, DS120j, DS119j, DS118, DS116, DS115, DS115j, DS114, DS112, DS112j, DS111, DS110+, DS110j, DS109+, DS109, DS109j, NVR216, NVR1218",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24492",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24492"
+    },
+    "Disk Tray (Type R6)": {
+      "name": "Disk Tray (Type R6)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 29434,
+      "ean": "4711174729944",
+      "upc": "846504009947",
+      "dimension": "17.1 x10.4 x2.65 cm",
+      "weight": "0.14 kg",
+      "description": "3.5\"/2.5\" Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "RS816, RS815RP+, RS815+, RS815, RS814RP+, RS814+, RS814, RS217, RS214, RX415",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/29434",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/29434"
+    },
+    "Disk Tray (Type R2)": {
+      "name": "Disk Tray (Type R2)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24714,
+      "ean": "4711174720996",
+      "upc": "846504000999",
+      "dimension": "17.1 x10.5 x2.7 cm",
+      "weight": "0.11 kg",
+      "description": "3.5\"/2.5\"  Drive Tray",
+      "remarks": null,
+      "appliedModels": "RS812RP+, RS812+, RS812, RS810RP+, RS810+, RS411, RS212, RX410",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24714",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24714"
+    },
+    "Disk Tray (Type D9)": {
+      "name": "Disk Tray (Type D9)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 32026,
+      "ean": "4711174728268",
+      "upc": "846504008261",
+      "dimension": "17.2 x11.8 x2.8 cm",
+      "weight": "0.07 kg",
+      "description": "3.5\"/2.5\" Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "DS1525+, DS1525neo+, DS1522+, DS1520+, DS1019+, DS925+, DS925neo+, DS923+, DS920+, DS725+, DS725neo+, DS723+, DS720+, DS425+, DS423+, DS420+, DP340, DP320, DVA1622, DX525",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/32026",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/32026"
+    },
+    "Disk Tray (Type D6)": {
+      "name": "Disk Tray (Type D6)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24851,
+      "ean": "4711174729920",
+      "upc": "846504009923",
+      "dimension": "17.2\tx11.8 x2.8 cm",
+      "weight": "0.07 kg",
+      "description": "3.5\"/2.5\" Drive Tray With Lock",
+      "remarks": "For DX513 available for S/N xxxxM5Nxxxxxx",
+      "appliedModels": "DS3622xs+, DS3617xsII, DS3617xs, DS3615xs, DS3018xs, DS2422+, DS2419+II, DS2419+, DS2415+, DS2015xs, DS1825+, DS1825neo+, DS1823xs+, DS1821+, DS1819+, DS1817+, DS1817, DS1815+, DS1813+, DS1621xs+, DS1621+, DS1618+, DS1517+, DS1517, DS1515+, DS1515, DS1513+, DS718+, DS716+II, DS716+, DS715, DS215+, DS214+, DVA3221, DVA3219, DX1222, DX1215II, DX1215, DX517, DX513",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24851",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24851"
+    },
+    "Disk Tray (Type D5)": {
+      "name": "Disk Tray (Type D5)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24713,
+      "ean": "4711174721276",
+      "upc": "846504001279",
+      "dimension": "17.1 x11.3 x2.8 cm",
+      "weight": "0.06 kg",
+      "description": "3.5\"/2.5\" Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "DS1812+, DS1512+, DS713+, DS712+, DX513",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24713",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24713"
+    },
+    "Disk Tray (Type D3)": {
+      "name": "Disk Tray (Type D3)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24741,
+      "ean": "4711174720613",
+      "upc": "846504000616",
+      "dimension": "17.2 x11.2 x2.8 cm",
+      "weight": "0.05 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "DS1511+, DS1010+, DS710+, DX510",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24741",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24741"
+    },
+    "Disk Tray (Type D7)": {
+      "name": "Disk Tray (Type D7)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24890,
+      "ean": "4711174729951",
+      "upc": "846504009954",
+      "dimension": "16.4 x12 x2.75 cm",
+      "weight": "0.06 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "DS916+, DS416, DS416play, DS415+, DS415play, DS414, DS413, DS412+, DS225+, DS224+, DS223, DS220+, DS218+, DS218, DS216+II, DS216+, DS216, DS214, DS214play, DS213+, DS213",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24890",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24890"
+    },
+    "Disk Tray (Type D4)": {
+      "name": "Disk Tray (Type D4)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 29497,
+      "ean": "4711174721016",
+      "upc": "846504001019",
+      "dimension": "16.6 x12.0 x2.75 cm",
+      "weight": "0.04 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "DS413, DS412+, DS213+, DS213, DS212+, DS212, DS211+",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/29497",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/29497"
+    },
+    "Disk Tray (Type R8)": {
+      "name": "Disk Tray (Type R8)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 31665,
+      "ean": "4711174729005",
+      "upc": "846504009008",
+      "dimension": "17.1 x10.4 x2.65 cm",
+      "weight": "0.14 kg",
+      "description": "3.5\"/2.5\"  Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "RS1626xs+, RS1619xs+, RS1226RP+, RS1226+, RS1221RP+, RS1221+, RS1219+, RS826RP+, RS826+, RS822RP+, RS822+, RS820RP+, RS820+, RS819, RS818RP+, RS818+, RS422+, DP5200, RX426, RX418",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/31665",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/31665"
+    },
+    "Disk Tray (Type R1)": {
+      "name": "Disk Tray (Type R1)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 29506,
+      "ean": "4711174720620",
+      "upc": "846504000623",
+      "dimension": null,
+      "weight": null,
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": "Already EOL",
+      "appliedModels": "RS409RP+, RS409+, RS409",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/29506",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/29506"
+    },
+    "Disk Tray (Type D8)": {
+      "name": "Disk Tray (Type D8)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 32614,
+      "ean": "4711174729982",
+      "upc": "846504009985",
+      "dimension": "17.2 x11.8 x2.8 cm",
+      "weight": "0.07 kg",
+      "description": "3.5\"/2.5\" Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "DS918+, DS418, DS418play",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/32614",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/32614"
+    },
+    "Disk Tray (Type D1)": {
+      "name": "Disk Tray (Type D1)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24747,
+      "ean": "4711174720590",
+      "upc": "846504000593",
+      "dimension": "16.0 x11.3 x2.0 cm",
+      "weight": "0.03 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "DS423, DS420j, DS418j, DS416j, DS414j, DS413j, DS411+II, DS411+, DS411, DS411j, DS410, DS410j, DS409+, DS409",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24747",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24747"
+    },
+    "Disk Tray (Type Slim)": {
+      "name": "Disk Tray (Type Slim)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24710,
+      "ean": "4711174720637",
+      "upc": "846504000630",
+      "dimension": "11.4 x7.9 x1.45 cm",
+      "weight": "0.01 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "DS419slim, DS416slim, DS414slim, DS411slim, DS409slim",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24710",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24710"
+    },
+    "2.5\" Disk Tray (D1)": {
+      "name": "2.5\" Disk Tray (D1)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 34052,
+      "ean": "4711174728275",
+      "upc": "846504008278",
+      "dimension": "12.4 x7.5 x1.6 cm",
+      "weight": "0.03 kg",
+      "description": "2.5\"  Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "FS200T, DS620slim",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/34052",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/34052"
+    },
+    "Disk Tray (Type R5)": {
+      "name": "Disk Tray (Type R5)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24721,
+      "ean": "4711174729913",
+      "upc": "846504009916",
+      "dimension": "17.1 x10.4 x2.7 cm",
+      "weight": "0.09 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "RS10613xs+, RS3617xs, RS3614xs+, RS3614RPxs, RS3614xs, RS3413xs+, RS2414RP+, RS2414+, RX1214RP, RX1214, RX1213sas",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24721",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24721"
+    },
+    "Disk Tray (Type SSD)": {
+      "name": "Disk Tray (Type SSD)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24719,
+      "ean": "4711174729937",
+      "upc": "846504009930",
+      "dimension": "13.4 x7.9 x1.4 cm",
+      "weight": "0.02 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "RS10613xs+, RS3413xs+",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24719",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24719"
+    },
+    "Disk Tray (Type R4)": {
+      "name": "Disk Tray (Type R4)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24716,
+      "ean": "4711174721351",
+      "upc": "846504001354",
+      "dimension": "17.1 x10.5 x2.6 cm",
+      "weight": "0.09 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "RS3412RPxs, RS3412xs, DS3612xs",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24716",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24716"
+    },
+    "Disk Tray (Type R3)": {
+      "name": "Disk Tray (Type R3)",
+      "status": "Phase Out",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24720,
+      "ean": "4711174721009",
+      "upc": "846504001002",
+      "dimension": "17.1 x10.5 x2.6 cm",
+      "weight": "0.1 kg",
+      "description": "3.5\"/2.5\"  Drive Tray",
+      "remarks": null,
+      "appliedModels": "RS3411RPxs, RS3411xs, RS2212RP+, RS2212+, RS2211RP+, RS2211+, DS3611xs, DS2413+, DS2411+, RX1211RP, RX1211, DX1211",
+      "note": "",
+      "eol": true,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24720",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24720"
+    },
+    "2.5\" Disk Tray (R3)": {
+      "name": "2.5\" Disk Tray (R3)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 36224,
+      "ean": "4711174728282",
+      "upc": "846504008285",
+      "dimension": "12.4 x7.1 x1.55 cm",
+      "weight": "0.05 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "FS2500",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/36224",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/36224"
+    },
+    "2.5\" Disk Tray (R2)": {
+      "name": "2.5\" Disk Tray (R2)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 31602,
+      "ean": "4711174729999",
+      "upc": "846504009992",
+      "dimension": "17.4 x7.5 x1.5 cm",
+      "weight": "0.04 kg",
+      "description": "2.5\" Drive Tray With Lock",
+      "remarks": null,
+      "appliedModels": "FS1018",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/31602",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/31602"
+    },
+    "Disk Tray (Type R7)": {
+      "name": "Disk Tray (Type R7)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 24846,
+      "ean": "4711174729968",
+      "upc": "846504009961",
+      "dimension": "17.4 x10.4 x2.8 cm",
+      "weight": "0.15 kg",
+      "description": "3.5\"/2.5\"  Drive Tray",
+      "remarks": null,
+      "appliedModels": "SA6400, SA3610, SA3600, SA3410, SA3400D, SA3400, SA3200D, UC3400, UC3200, RS18017xs+, RS18016xs+, RS11626xs+, RS6426xs+, RS4826xs+, RS4021xs+, RS4017xs+, RS3626xs, RS3621xs+, RS3621RPxs, RS3618xs, RS3617xs+, RS3617RPxs, RS2825RP+, RS2821RP+, RS2818RP+, RS2423RP+II, RS2423RP+, RS2423+, RS2421RP+, RS2421+, RS2418RP+, RS2418+, RS2416RP+, RS2416+, DVA7400, RX1225RP, RX1223RP, RX1222sas, RXD1219sas, RX1217sas, RX1217RP, RX1217, RX1216sas, RXD1215sas",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/24846",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/24846"
+    },
+    "2.5\" Drive Tray (R7)": {
+      "name": "2.5\" Drive Tray (R7)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 49194,
+      "ean": "4711174728343",
+      "upc": "846504008346",
+      "dimension": "17.9 x7.9 x1.5 cm",
+      "weight": "0.03 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "RS11626xs+",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/49194",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/49194"
+    },
+    "2.5\" Drive Tray (R6)": {
+      "name": "2.5\" Drive Tray (R6)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 46989,
+      "ean": "4711174728336",
+      "upc": "846504008339",
+      "dimension": "14.7 x7.9 x1.8 cm",
+      "weight": "0.03 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "PAS7700, FS6420, FS3420, PAX224",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/46989",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/46989"
+    },
+    "2.5\" Disk Tray (R1)": {
+      "name": "2.5\" Disk Tray (R1)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 30434,
+      "ean": "4711174729975",
+      "upc": "846504009978",
+      "dimension": "17.4 x7.5 x1.5 cm",
+      "weight": "0.04 kg",
+      "description": "2.5\"  Drive Tray",
+      "remarks": null,
+      "appliedModels": "FS6400, FS3600, FS3400, FS3017, FS2017, HD6500, FX2421, RX2417sas",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/30434",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/30434"
+    },
+    "2.5\" Disk Tray (R4)": {
+      "name": "2.5\" Disk Tray (R4)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 36573,
+      "ean": "4711174728305",
+      "upc": "846504008308",
+      "dimension": "14.5 x7.9 x1.8 cm",
+      "weight": "0.03 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "FS3410",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/36573",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/36573"
+    },
+    "2.5\" Drive Tray (R5)": {
+      "name": "2.5\" Drive Tray (R5)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 37031,
+      "ean": "4711174728312",
+      "upc": "846504008315",
+      "dimension": "15.9 x11.7 x2.1 cm",
+      "weight": "0.12 kg",
+      "description": "2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "HD6500, RX6025sas, RX6022sas",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/37031",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/37031"
+    },
+    "Drive Tray (Type R9)": {
+      "name": "Drive Tray (Type R9)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 36225,
+      "ean": "4711174728299",
+      "upc": "846504008292",
+      "dimension": "15.9 x11.7 x2.1 cm",
+      "weight": "0.04 kg",
+      "description": "3.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "HD6500, RX6025sas, RX6022sas",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/36225",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/36225"
+    },
+    "Drive Tray (Type R10)": {
+      "name": "Drive Tray (Type R10)",
+      "status": "Published",
+      "year": 0,
+      "is_new": false,
+      "hcl_id": 37287,
+      "ean": "4711174728329",
+      "upc": "846504008322",
+      "dimension": "17.4 x10.4 x2.8 cm",
+      "weight": "0.14 kg",
+      "description": "3.5\"/2.5\" Drive Tray",
+      "remarks": null,
+      "appliedModels": "DP7400, DP7200",
+      "note": "",
+      "eol": false,
+      "image1x": "https://www.synology.com/api/products/getSparePartImg/37287",
+      "image2x": "https://www.synology.com/api/products/getSparePartImg/37287"
+    }
+  },
+  "model_parts": {
+    "DS124": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS120j": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS119j": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS118": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS116": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS115": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS115j": [
+      "Adapter 36W Set",
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1"
+    ],
+    "DS114": [
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1",
+      "Adapter 48W/50W_1"
+    ],
+    "DS112+": [
+      "FAN 60*60*15_1"
+    ],
+    "DS112": [
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1",
+      "Adapter 48W/50W_1"
+    ],
+    "DS112j": [
+      "Disk Holder (Type C)",
+      "FAN 60*60*15_1",
+      "Adapter 48W/50W_1"
+    ],
+    "DS111": [
+      "Disk Holder (Type C)",
+      "Adapter 48W/50W_1",
+      "FAN 50*50*15_1"
+    ],
+    "DS110+": [
+      "Disk Holder (Type C)",
+      "Adapter 48W/50W_1",
+      "FAN 50*50*20_1"
+    ],
+    "DS110j": [
+      "Disk Holder (Type C)",
+      "Adapter 48W/50W_1",
+      "FAN 50*50*15_1"
+    ],
+    "DS109+": [
+      "Disk Holder (Type C)",
+      "Adapter 48W/50W_1",
+      "FAN 50*50*20_1"
+    ],
+    "DS109": [
+      "Disk Holder (Type C)",
+      "Adapter 48W/50W_1",
+      "FAN 50*50*15_1"
+    ],
+    "DS109j": [
+      "Disk Holder (Type C)",
+      "Adapter 48W/50W_1",
+      "FAN 50*50*15_1"
+    ],
+    "RS217": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_2",
+      "PSU 100W_3"
+    ],
+    "RS214": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 100W_2"
+    ],
+    "RS212": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R2)",
+      "PSU 100W_1"
+    ],
+    "DS725+": [
+      "Adapter 65W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS725neo+": [
+      "Adapter 65W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS723+": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS720+": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS718+": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_1"
+    ],
+    "DS716+II": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_1"
+    ],
+    "DS716+": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_1"
+    ],
+    "DS715": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_1",
+      "Adapter 72W_2"
+    ],
+    "DS713+": [
+      "Adapter 65W_2",
+      "FAN 92*92*25_1",
+      "Adapter 72W_2",
+      "Disk Tray (Type D5)"
+    ],
+    "DS712+": [
+      "Adapter 65W_2",
+      "FAN 92*92*25_1",
+      "Adapter 72W_2",
+      "Disk Tray (Type D5)"
+    ],
+    "DS710+": [
+      "Adapter 72W_2",
+      "Disk Tray (Type D3)",
+      "FAN 80*80*25_1"
+    ],
+    "DS225+": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS224+": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS223": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS223j": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1"
+    ],
+    "DS220+": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS220j": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1"
+    ],
+    "DS218+": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS218": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS218play": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1"
+    ],
+    "DS218j": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1"
+    ],
+    "DS216+II": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS216+": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS216": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1"
+    ],
+    "DS216play": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS216j": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1"
+    ],
+    "DS216se": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS215+": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_1",
+      "Adapter 72W_2"
+    ],
+    "DS215j": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS214+": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_1",
+      "Adapter 72W_2"
+    ],
+    "DS214": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS214play": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS214se": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS213+": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1",
+      "Disk Tray (Type D4)"
+    ],
+    "DS213": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1",
+      "Disk Tray (Type D4)"
+    ],
+    "DS213j": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS213air": [
+      "Adapter 60W_1",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS212+": [
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1",
+      "Disk Tray (Type D4)"
+    ],
+    "DS212": [
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1",
+      "Disk Tray (Type D4)"
+    ],
+    "DS212j": [
+      "Disk Holder (Type C)",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ],
+    "DS211+": [
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1",
+      "Disk Tray (Type D4)"
+    ],
+    "DS211": [
+      "Disk Holder (Type C)",
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS211j": [
+      "Disk Holder (Type C)",
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS210+": [
+      "Disk Holder (Type C)",
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS210j": [
+      "Disk Holder (Type C)",
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS209+II": [
+      "Disk Holder (Type C)",
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS209+": [
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS209": [
+      "Disk Holder (Type C)",
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "DS209j": [
+      "Adapter 65W/72W_1",
+      "FAN 70*70*25_1"
+    ],
+    "RS1626xs+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*28_4",
+      "PSU 250W-RP Module_3",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS1619xs+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*40*28_2",
+      "PSU 150W-RP Module_2"
+    ],
+    "RS826RP+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*20_3",
+      "PSU 150W-RP Module_2",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS826+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*20_3",
+      "FAN 40*20_4",
+      "PSU 150W_2",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS822RP+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*20_3",
+      "PSU 150W-RP Module_2"
+    ],
+    "RS822+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*20_3",
+      "PSU 150W_2"
+    ],
+    "RS820RP+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_2",
+      "PSU 150W-RP Module_2"
+    ],
+    "RS820+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_2",
+      "PSU 150W_2"
+    ],
+    "RS819": [
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_1",
+      "PSU 100W_3"
+    ],
+    "RS818RP+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_1",
+      "PSU 100W-RP Module_1"
+    ],
+    "RS818+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_1",
+      "PSU 100W_4"
+    ],
+    "RS816": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 100W_3"
+    ],
+    "RS815RP+": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 250W-RP Module_2",
+      "PSU 250W-RP SET_3"
+    ],
+    "RS815+": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 250W_3"
+    ],
+    "RS815": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 100W_3",
+      "PSU 150W_1"
+    ],
+    "RS814RP+": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 250W-RP Module_2",
+      "PSU 250W-RP SET_3"
+    ],
+    "RS814+": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 200W_1"
+    ],
+    "RS814": [
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 200W_1"
+    ],
+    "RS812RP+": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R2)",
+      "PSU 250W-RP Module_1",
+      "PSU 250W-RP Module_2",
+      "PSU 250W-RP SET_2",
+      "PSU 250W-RP SET_3"
+    ],
+    "RS812+": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R2)",
+      "PSU 250W_1"
+    ],
+    "RS812": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R2)",
+      "PSU 250W_1"
+    ],
+    "RS810RP+": [
+      "FAN 40*40*20_1",
+      "CPU Cooler 40*40*10",
+      "Disk Tray (Type R2)",
+      "PSU 250W-RP Module_1",
+      "PSU 250W-RP SET_2"
+    ],
+    "RS810+": [
+      "FAN 40*40*20_1",
+      "CPU Cooler 40*40*10",
+      "Disk Tray (Type R2)",
+      "PSU 250W_1"
+    ],
+    "RS422+": [
+      "Disk Tray (Type R8)",
+      "FAN 40*20_3",
+      "PSU 100W_3"
+    ],
+    "RS411": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R2)",
+      "PSU 250W_1"
+    ],
+    "RS409RP+": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R1)",
+      "PSU 250W-RP Module_1"
+    ],
+    "RS409+": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R1)",
+      "PSU 250W_2"
+    ],
+    "RS409": [
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R1)",
+      "PSU 250W_1",
+      "PSU 250W_2"
+    ],
+    "DS925+": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS925neo+": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS923+": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_2"
+    ],
+    "DS920+": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_2"
+    ],
+    "DS918+": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D8)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_2"
+    ],
+    "DS916+": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS425+": [
+      "Adapter 90W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS423+": [
+      "Adapter 90W_1",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS423": [
+      "Adapter 90W_1",
+      "Disk Tray (Type D1)",
+      "FAN 80*20_6"
+    ],
+    "DS420+": [
+      "Adapter 90W_1",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS420j": [
+      "Adapter 90W_1",
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_2"
+    ],
+    "DS419slim": [
+      "Adapter 30W Set",
+      "Disk Tray (Type Slim)",
+      "FAN 60*60*10_2"
+    ],
+    "DS418": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D8)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_2"
+    ],
+    "DS418play": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D8)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_2"
+    ],
+    "DS418j": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_2",
+      "Adapter 100W_2"
+    ],
+    "DS416": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS416play": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_2"
+    ],
+    "DS416slim": [
+      "Adapter 30W Set",
+      "Disk Tray (Type Slim)",
+      "FAN 60*60*10_2"
+    ],
+    "DS416j": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS415+": [
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS415play": [
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS414": [
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS414slim": [
+      "Adapter 30W Set",
+      "Disk Tray (Type Slim)",
+      "FAN 60*60*10_2"
+    ],
+    "DS414j": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS413": [
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2",
+      "Disk Tray (Type D4)"
+    ],
+    "DS413j": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS412+": [
+      "Disk Tray (Type D7)",
+      "FAN 92*92*25_1",
+      "Adapter 100W_1",
+      "Adapter 100W_2",
+      "Disk Tray (Type D4)"
+    ],
+    "DS411+II": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2",
+      "CPU FAN  40*40*10_1"
+    ],
+    "DS411+": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2",
+      "CPU FAN  40*40*10_1"
+    ],
+    "DS411": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS411slim": [
+      "Disk Tray (Type Slim)",
+      "Adapter 36W_1",
+      "FAN 60*60*10_1"
+    ],
+    "DS411j": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS410": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS410j": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS409+": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS409": [
+      "Disk Tray (Type D1)",
+      "FAN 80*80*20_3",
+      "Adapter 100W_1",
+      "Adapter 100W_2"
+    ],
+    "DS409slim": [
+      "Disk Tray (Type Slim)",
+      "Adapter 36W_1",
+      "FAN 60*60*10_1"
+    ],
+    "DS1525+": [
+      "Adapter 120W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS1525neo+": [
+      "Adapter 120W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DS1522+": [
+      "Adapter 120W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1",
+      "Adapter 120W_1"
+    ],
+    "DS1520+": [
+      "Adapter 120W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1",
+      "Adapter 120W_1"
+    ],
+    "DS1517+": [
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_2",
+      "PSU 200W_2"
+    ],
+    "DS1517": [
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_2",
+      "PSU 250W_3"
+    ],
+    "DS1515+": [
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_2",
+      "PSU 250W_3"
+    ],
+    "DS1515": [
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_2",
+      "PSU 200W_1"
+    ],
+    "DS1513+": [
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_2",
+      "PSU 250W_3"
+    ],
+    "DS1512+": [
+      "FAN 80*80*20_2",
+      "Disk Tray (Type D5)",
+      "PSU 250W_1"
+    ],
+    "DS1511+": [
+      "Disk Tray (Type D3)",
+      "FAN 60*60*10_1",
+      "FAN 80*80*20_1",
+      "PSU 250W_1"
+    ],
+    "DS1019+": [
+      "Adapter 120W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1",
+      "Adapter 120W_1"
+    ],
+    "DS1010+": [
+      "Disk Tray (Type D3)",
+      "FAN 60*60*10_1",
+      "FAN 80*80*20_1",
+      "PSU 250W_1"
+    ],
+    "DS509+": [
+      "FAN 80*80*20_1",
+      "PSU 250W_2"
+    ],
+    "FS200T": [
+      "2.5\" Disk Tray (D1)",
+      "Adapter 65W_3",
+      "FAN 80*80*20_4"
+    ],
+    "DS3018xs": [
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_2",
+      "PSU 250W_4"
+    ],
+    "DS1621xs+": [
+      "Disk Tray (Type D6)",
+      "FAN 92*25_3",
+      "PSU 250W_5"
+    ],
+    "DS1621+": [
+      "Disk Tray (Type D6)",
+      "FAN 92*25_3",
+      "PSU 250W_5"
+    ],
+    "DS1618+": [
+      "Disk Tray (Type D6)",
+      "FAN 92*92*25_2",
+      "PSU 250W_4"
+    ],
+    "DS620slim": [
+      "2.5\" Disk Tray (D1)",
+      "Adapter 65W_2",
+      "FAN 80*80*20_4"
+    ],
+    "RS1226RP+": [
+      "Disk Tray (Type R8)",
+      "FAN 80*25_5",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS1226+": [
+      "Disk Tray (Type R8)",
+      "FAN 80*25_5",
+      "PSU 250W_6"
+    ],
+    "RS1221RP+": [
+      "Disk Tray (Type R8)",
+      "FAN 80*25_5",
+      "PSU 350W-RP Module_1"
+    ],
+    "RS1221+": [
+      "Disk Tray (Type R8)",
+      "FAN 80*25_5",
+      "PSU 250W_5"
+    ],
+    "RS1219+": [
+      "Disk Tray (Type R8)",
+      "FAN 80*80*25_3",
+      "PSU 250W_3"
+    ],
+    "DS2015xs": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_3",
+      "FAN 120*120*25_1"
+    ],
+    "DS1825+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_5",
+      "PSU 250W_6"
+    ],
+    "DS1825neo+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_5",
+      "PSU 250W_6"
+    ],
+    "DS1823xs+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_5",
+      "PSU 250W_5"
+    ],
+    "DS1821+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_5",
+      "PSU 250W_5"
+    ],
+    "DS1819+": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_5",
+      "FAN 120*120*25_4"
+    ],
+    "DS1817+": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_4",
+      "FAN 120*120*25_4"
+    ],
+    "DS1817": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_3",
+      "FAN 120*120*25_4"
+    ],
+    "DS1815+": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_3",
+      "FAN 120*120*25_1"
+    ],
+    "DS1813+": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_3",
+      "FAN 120*120*25_1"
+    ],
+    "DS1812+": [
+      "Disk Tray (Type D5)",
+      "FAN 120*120*25_1",
+      "PSU 250W_1"
+    ],
+    "RS10613xs+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "Disk Tray (Type SSD)",
+      "FAN 80*80*32_1",
+      "FAN 80*80*32_2",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS3413xs+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "Disk Tray (Type SSD)",
+      "FAN 80*80*32_2",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS3412RPxs": [
+      "Cable MiniSAS_INT",
+      "FAN 80*80*25_3",
+      "Disk Tray (Type R4)",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS3412xs": [
+      "Cable MiniSAS_INT",
+      "FAN 80*80*25_3",
+      "Disk Tray (Type R4)",
+      "PSU 500W_1"
+    ],
+    "RS3411RPxs": [
+      "Cable MiniSAS_INT",
+      "CPU Cooler 92*92*25",
+      "Disk Tray (Type R3)",
+      "FAN 80*80*25_2",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS3411xs": [
+      "Cable MiniSAS_INT",
+      "CPU Cooler 92*92*25",
+      "Disk Tray (Type R3)",
+      "FAN 80*80*25_2",
+      "PSU 500W_1"
+    ],
+    "RS2212RP+": [
+      "Cable MiniSAS_INT",
+      "FAN 80*80*25_3",
+      "Disk Tray (Type R3)",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS2212+": [
+      "Cable MiniSAS_INT",
+      "FAN 80*80*25_3",
+      "Disk Tray (Type R3)",
+      "PSU 500W_1"
+    ],
+    "RS2211RP+": [
+      "Cable MiniSAS_INT",
+      "CPU FAN  40*40*10_1",
+      "Disk Tray (Type R3)",
+      "FAN 80*80*25_2",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS2211+": [
+      "Cable MiniSAS_INT",
+      "CPU FAN  40*40*10_1",
+      "Disk Tray (Type R3)",
+      "FAN 80*80*25_2",
+      "PSU 500W_1"
+    ],
+    "FS2500": [
+      "2.5\" Disk Tray (R3)",
+      "FAN 40*28_3",
+      "PSU 350W-RP Module_1"
+    ],
+    "FS1018": [
+      "2.5\" Disk Tray (R2)",
+      "FAN 92*92*25_2",
+      "PSU 250W_4"
+    ],
+    "SA6400": [
+      "Disk Tray (Type R7)",
+      "FAN 80*38_2",
+      "PSU 550W-RP Module_1"
+    ],
+    "SA3610": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 550W-RP Module_1"
+    ],
+    "SA3600": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "SA3410": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 550W-RP Module_1"
+    ],
+    "SA3400D": [
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_2",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "SA3400D Module"
+    ],
+    "SA3400": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "SA3200D": [
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_2",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "SA3200D Module"
+    ],
+    "RS18017xs+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS18016xs+": [
+      "Cable MiniSAS_INT_2",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_4",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS4826xs+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS3626xs": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS3621xs+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "PSU 550W-RP Module_1"
+    ],
+    "RS3621RPxs": [
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "PSU 550W-RP Module_1"
+    ],
+    "RS3618xs": [
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W_4"
+    ],
+    "RS3617xs+": [
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS3617RPxs": [
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS3617xs": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*32_3",
+      "PSU 500W_1"
+    ],
+    "RS3614xs+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*32_3",
+      "PSU 500W-RP Module_1",
+      "PSU 500W-RP SET_1"
+    ],
+    "RS3614RPxs": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*32_3",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS3614xs": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*32_3",
+      "PSU 500W_1"
+    ],
+    "RS2423RP+II": [
+      "Disk Tray (Type R7)",
+      "FAN 60*38_1",
+      "PSU 550W-RP Module_1"
+    ],
+    "RS2423RP+": [
+      "Disk Tray (Type R7)",
+      "FAN 60*38_1",
+      "PSU 350W-RP Module_1",
+      "PSU 350W-RP SET_1"
+    ],
+    "RS2423+": [
+      "Disk Tray (Type R7)",
+      "FAN 60*38_1",
+      "PSU 500W_4"
+    ],
+    "RS2421RP+": [
+      "Disk Tray (Type R7)",
+      "FAN 60*38_1",
+      "PSU 350W-RP Module_1",
+      "PSU 350W-RP SET_1"
+    ],
+    "RS2421+": [
+      "Disk Tray (Type R7)",
+      "FAN 60*38_1",
+      "PSU 500W_4"
+    ],
+    "RS2418RP+": [
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*25_4",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS2418+": [
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*25_4",
+      "PSU 500W_4"
+    ],
+    "RS2416RP+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*25_4",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS2416+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*25_4",
+      "PSU 500W_4"
+    ],
+    "RS2414RP+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*25_3",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RS2414+": [
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*25_3",
+      "PSU 500W_1"
+    ],
+    "RC18015xs+": [
+      "FAN 40*40*28_1",
+      "PSU 150W-RP Module_1"
+    ],
+    "DS3622xs+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_6",
+      "PSU 550W_1"
+    ],
+    "DS3617xsII": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_6",
+      "PSU 550W_1"
+    ],
+    "DS3617xs": [
+      "Disk Tray (Type D6)",
+      "FAN 120*120*25_3",
+      "PSU 500W_3"
+    ],
+    "DS3615xs": [
+      "Disk Tray (Type D6)",
+      "FAN 120*120*25_2",
+      "PSU 500W_3"
+    ],
+    "DS3612xs": [
+      "Disk Tray (Type R4)",
+      "FAN 120*120*25_1",
+      "PSU 500W_2"
+    ],
+    "DS3611xs": [
+      "CPU Cooler 92*92*25",
+      "Disk Tray (Type R3)",
+      "FAN 120*120*25_1",
+      "PSU 500W_2"
+    ],
+    "DS2422+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_6",
+      "PSU 550W_1"
+    ],
+    "DS2419+II": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_6",
+      "PSU 550W_1"
+    ],
+    "DS2419+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*120*25_3",
+      "PSU 500W_3"
+    ],
+    "DS2415+": [
+      "Disk Tray (Type D6)",
+      "FAN 120*120*25_2",
+      "PSU 500W_3"
+    ],
+    "DS2413+": [
+      "Disk Tray (Type R3)",
+      "FAN 120*120*25_1",
+      "PSU 400W/500W_1"
+    ],
+    "DS2411+": [
+      "Disk Tray (Type R3)",
+      "FAN 120*120*25_1",
+      "PSU 400W_1"
+    ],
+    "RS6426xs+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_7",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RS4021xs+": [
+      "Cable MiniSAS_INT",
+      "Cable MiniSAS_INT_2",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_7",
+      "PSU 550W-RP Module_1",
+      "PSU 800W-RP Module_1",
+      "PSU 800W-RP SET_2"
+    ],
+    "RS4017xs+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_7",
+      "PSU 800W-RP Module_1",
+      "PSU 800W-RP SET_2"
+    ],
+    "RS2825RP+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_7",
+      "PSU 550W-RP Module_1"
+    ],
+    "RS2821RP+": [
+      "Cable MiniSAS_INT",
+      "Cable MiniSAS_INT_2",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_7",
+      "PSU 550W-RP Module_1",
+      "PSU 550W-RP SET_1"
+    ],
+    "RS2818RP+": [
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_7",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RS11626xs+": [
+      "2.5\" Drive Tray (R7)",
+      "Disk Tray (Type R7)",
+      "FAN 80*38_3",
+      "PSU 800W-RP Module_2",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "FS6420": [
+      "2.5\" Drive Tray (R6)",
+      "FAN 80*38_2",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "FS6400": [
+      "2.5\" Disk Tray (R1)",
+      "FAN 80*80*32_6",
+      "PSU 800W-RP Module_1",
+      "PSU 800W-RP SET_3"
+    ],
+    "FS3600": [
+      "2.5\" Disk Tray (R1)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "FS3420": [
+      "2.5\" Drive Tray (R6)",
+      "FAN 80*38_2",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "FS3410": [
+      "2.5\" Disk Tray (R4)",
+      "FAN 80*38_2",
+      "PSU 550W-RP Module_1"
+    ],
+    "FS3400": [
+      "2.5\" Disk Tray (R1)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "FS3017": [
+      "2.5\" Disk Tray (R1)",
+      "FAN 80*80*32_6",
+      "PSU 800W-RP Module_1",
+      "PSU 800W-RP SET_1"
+    ],
+    "FS2017": [
+      "2.5\" Disk Tray (R1)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "PAS7700": [
+      "2.5\" Drive Tray (R6)",
+      "Cable CDFP_1",
+      "FAN 60*60*51_2",
+      "PAS7700 Module",
+      "PSU 2700W-RP Module_1",
+      "Power Cord_1",
+      "Power Cord_2",
+      "Power Cord_3"
+    ],
+    "HD6500": [
+      "2.5\" Disk Tray (R1)",
+      "2.5\" Drive Tray (R5)",
+      "Drive Tray (Type R9)",
+      "FAN 80*38_1",
+      "PSU 1600W-RP Module_1"
+    ],
+    "UC3400": [
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_2",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "UC3400 Module"
+    ],
+    "UC3200": [
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_2",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "UC3200 Module"
+    ],
+    "DP7400": [
+      "Drive Tray (Type R10)",
+      "FAN 80*38_2",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "DP7200": [
+      "Drive Tray (Type R10)",
+      "FAN 80*38_2",
+      "PSU 550W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "DP5200": [
+      "Disk Tray (Type R8)",
+      "FAN 40*28_4",
+      "PSU 250W-RP Module_3",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "DP340": [
+      "Adapter 100W_3",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DP320": [
+      "Adapter 65W_2",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DVA7400": [
+      "Disk Tray (Type R7)",
+      "FAN 60*38_1",
+      "PSU 800W-RP Module_2",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "DVA3221": [
+      "Disk Tray (Type D6)",
+      "FAN 120*25_5",
+      "PSU 250W_5"
+    ],
+    "DVA3219": [
+      "Disk Tray (Type D6)",
+      "PSU 250W_5",
+      "FAN 120*120*25_4"
+    ],
+    "DVA1622": [
+      "Adapter 60W_1",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "NVR216": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)",
+      "FAN 80*80*20_2"
+    ],
+    "NVR1218": [
+      "Adapter 60W_1",
+      "Disk Holder (Type C)"
+    ],
+    "TC510": [
+      "Adapter 30W_1"
+    ],
+    "FC600": [
+      "Adapter 30W_1"
+    ],
+    "BC510": [
+      "Adapter 30W_1"
+    ],
+    "CC410W": [
+      "Adapter 5W Set"
+    ],
+    "BC800Z": [
+      "Adapter 30W_1"
+    ],
+    "CC400W": [
+      "Adapter 5W Set"
+    ],
+    "VS600HD": [
+      "Adapter 36W Set",
+      "FAN 40*10_1"
+    ],
+    "VS960HD": [
+      "Adapter 36W Set"
+    ],
+    "VS360HD": [
+      "Adapter 36W Set"
+    ],
+    "VS240HD": [
+      "Adapter 24W Set"
+    ],
+    "VS80": [
+      "Adapter 10W/11W_1_EU",
+      "Adapter 10W/11W_1_UK"
+    ],
+    "VS60": [
+      "Adapter 10W/11W_1_EU",
+      "Adapter 10W/11W_1_UK"
+    ],
+    "PS500": [
+      "Adapter 68W_1"
+    ],
+    "WRX560": [
+      "Adapter 42W_1_AU",
+      "Adapter 42W_1_EU",
+      "Adapter 42W_1_UK",
+      "Adapter 42W_1_US"
+    ],
+    "RT6600ax": [
+      "Adapter 42W Set",
+      "Adapter 42W_1_US"
+    ],
+    "MR2200ac": [
+      "Adapter 24W Set",
+      "Adapter 24W_1_US",
+      "Adapter 36W Set"
+    ],
+    "RT2600ac": [
+      "Adapter 42W_1_AU",
+      "Adapter 42W_1_EU",
+      "Adapter 42W_1_UK",
+      "Adapter 42W_1_US"
+    ],
+    "RT1900ac": [
+      "Adapter 24W Set"
+    ],
+    "BST150-4T": [
+      "Adapter 36W Set"
+    ],
+    "BST151-4T": [
+      "Adapter 36W Set"
+    ],
+    "BST170-4T": [
+      "Adapter 36W Set"
+    ],
+    "BST170-8T": [
+      "Adapter 36W Set"
+    ],
+    "EDS14": [
+      "Adapter 24W Set"
+    ],
+    "USB Station 2": [
+      "Adapter 10W/11W_1_EU",
+      "Adapter 10W/11W_1_UK"
+    ],
+    "PAX224": [
+      "2.5\" Drive Tray (R6)",
+      "Cable MiniSASHD_EXT_4",
+      "FAN 60*60*51_2",
+      "PAX224 Module",
+      "PSU 800W-RP Module_2",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "FX2421": [
+      "2.5\" Disk Tray (R1)",
+      "Cable MiniSASHD_EXT_1",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RX6025sas": [
+      "2.5\" Drive Tray (R5)",
+      "Cable MiniSASHD_EXT_1",
+      "Cable MiniSASHD_EXT_2",
+      "Drive Tray (Type R9)",
+      "FAN 80*38_1",
+      "PSU 1300W-RP Module_1",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RX6022sas": [
+      "2.5\" Drive Tray (R5)",
+      "Cable MiniSASHD_EXT_1",
+      "Cable MiniSASHD_EXT_2",
+      "Drive Tray (Type R9)",
+      "FAN 80*38_1",
+      "PSU 1200W-RP Module_1"
+    ],
+    "RX1225RP": [
+      "Cable MiniSASHD_EXT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 550W-RP Module_1"
+    ],
+    "RX1223RP": [
+      "Cable MiniSASHD_EXT_1",
+      "Cable MiniSASHD_EXT_2",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 550W-RP Module_1"
+    ],
+    "RX1222sas": [
+      "Cable MiniSASHD_EXT_1",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_6",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RXD1219sas": [
+      "Cable MiniSASHD_EXT_1",
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_2",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "RXD19sas Module"
+    ],
+    "RX2417sas": [
+      "2.5\" Disk Tray (R1)",
+      "Cable MiniSASHD_EXT_1",
+      "FAN 60*60*51_1",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "RX17sas FAN Module",
+      "RX17sas Module"
+    ],
+    "RX1217sas": [
+      "Cable MiniSASHD_EXT_1",
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_1",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "RX17sas FAN Module",
+      "RX17sas Module"
+    ],
+    "RX1217RP": [
+      "Cable Infiniband",
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_5",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RX1217": [
+      "Cable Infiniband",
+      "Cable MiniSAS_INT_3",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_5",
+      "PSU 500W_4"
+    ],
+    "RX1216sas": [
+      "Cable MiniSAS_EXT",
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R7)",
+      "FAN 80*80*32_4",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2"
+    ],
+    "RXD1215sas": [
+      "Cable MiniSAS_EXT",
+      "Disk Tray (Type R7)",
+      "FAN 60*60*51_1",
+      "PSU 500W-RP Module_2",
+      "PSU 500W-RP SET_2",
+      "RX15sas Module"
+    ],
+    "RX1214RP": [
+      "Cable Infiniband",
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*25_3",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RX1214": [
+      "Cable Infiniband",
+      "Cable MiniSAS_INT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*25_3",
+      "PSU 500W_1"
+    ],
+    "RX1213sas": [
+      "Cable MiniSAS_EXT",
+      "Disk Tray (Type R5)",
+      "FAN 80*80*32_2",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RX1211RP": [
+      "Cable Infiniband",
+      "Cable MiniSAS_INT",
+      "FAN 80*80*25_3",
+      "Disk Tray (Type R3)",
+      "PSU 400W-RP Module_1",
+      "PSU 400W-RP SET_1"
+    ],
+    "RX1211": [
+      "Cable Infiniband",
+      "Cable MiniSAS_INT",
+      "FAN 80*80*25_3",
+      "Disk Tray (Type R3)",
+      "PSU 500W_1"
+    ],
+    "RX426": [
+      "Cable Type-C_EXT_1",
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_1",
+      "PSU 100W_3",
+      "Power Cord_10",
+      "Power Cord_11",
+      "Power Cord_4",
+      "Power Cord_5",
+      "Power Cord_6",
+      "Power Cord_7",
+      "Power Cord_8",
+      "Power Cord_9"
+    ],
+    "RX418": [
+      "6G eSATA Cable",
+      "Disk Tray (Type R8)",
+      "FAN 40*40*20_1",
+      "PSU 100W_3"
+    ],
+    "RX415": [
+      "6G eSATA Cable",
+      "Disk Tray (Type R6)",
+      "FAN 40*40*20_1",
+      "PSU 100W_3",
+      "PSU 150W_1"
+    ],
+    "RX410": [
+      "6G eSATA Cable",
+      "FAN 40*40*20_1",
+      "Disk Tray (Type R2)",
+      "PSU 250W_1"
+    ],
+    "DX1222": [
+      "Cable MiniSASHD_EXT_1",
+      "Disk Tray (Type D6)",
+      "FAN 120*25_6",
+      "PSU 550W_1"
+    ],
+    "DX1215II": [
+      "Cable Infiniband",
+      "Disk Tray (Type D6)",
+      "FAN 120*25_6",
+      "PSU 550W_1"
+    ],
+    "DX1215": [
+      "Cable Infiniband",
+      "Disk Tray (Type D6)",
+      "FAN 120*120*25_2",
+      "PSU 500W_3"
+    ],
+    "DX1211": [
+      "Cable Infiniband",
+      "Disk Tray (Type R3)",
+      "FAN 120*120*25_1",
+      "PSU 400W_1"
+    ],
+    "DX525": [
+      "Adapter 90W_2",
+      "Cable Type-C_EXT_1",
+      "Disk Tray (Type D9)",
+      "FAN 92*92*25_1"
+    ],
+    "DX517": [
+      "6G eSATA Cable",
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_5",
+      "PSU 200W_1"
+    ],
+    "DX513": [
+      "6G eSATA Cable",
+      "Disk Tray (Type D6)",
+      "FAN 80*80*20_3",
+      "PSU 250W_3",
+      "Disk Tray (Type D5)",
+      "PSU 250W_1"
+    ],
+    "DX510": [
+      "Disk Tray (Type D3)",
+      "FAN 80*80*20_1",
+      "PSU 250W_1"
+    ],
+    "DX213": [
+      "6G eSATA Cable",
+      "Adapter 60W_1",
+      "FAN 92*92*25_1",
+      "Adapter 65W/72W_1"
+    ]
+  }
+}

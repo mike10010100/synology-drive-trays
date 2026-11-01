@@ -1,0 +1,25 @@
+[project]
+name = "synology-drive-trays"
+version = "0.1.0"
+description = "Parametric 3D CAD (STEP/STL) and 2D schematic (SVG) generator and ground-truth validator for all 32 Synology drive trays and disk holders."
+readme = "README.md"
+authors = [
+    { name = "Michael Paulauski", email = "mike10010100@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "build123d>=0.13.0",
+    "numpy>=2.5.4",
+    "pillow>=13.0.0",
+    "pytest>=9.2.0",
+    "requests>=2.34.2",
+    "scipy>=1.18.1",
+    "trimesh>=5.2.0",
+]
+
+[project.scripts]
+syno-trays = "synology_drive_trays.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.22,<0.10.0"]
+build-backend = "uv_build"
