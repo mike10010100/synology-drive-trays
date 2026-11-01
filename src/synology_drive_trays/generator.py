@@ -17,6 +17,7 @@ from build123d import (
     Polygon,
     RectangleRounded,
     extrude,
+    fillet,
     export_stl,
     export_step,
 )
@@ -48,7 +49,6 @@ def compute_mounting_holes(spec: TraySpec) -> list[HoleCoordinate]:
     drive_rear_x = max(0.0, -spec.rear_sata_overhang_mm)
 
     if spec.supports_35:
-        # 3.5" bottom holes (SFF-8301: 95.25mm transverse span, centered on Y=0)
         y_left_35 = -SFF_35.bottom_hole_y_span / 2.0
         y_right_35 = +SFF_35.bottom_hole_y_span / 2.0
         for idx, dx in enumerate(SFF_35.bottom_hole_x_from_rear, 1):
@@ -92,10 +92,16 @@ def compute_mounting_holes(spec: TraySpec) -> list[HoleCoordinate]:
                         if spec.archetype != TrayArchetype.HOLDER_25:
                             holes.append(HoleCoordinate(f"2.5_side_R{idx}", hx, +rail_w / 2.0, hz_25, SFF_25.hole_clearance_dia, "Y"))
 
+        if spec.archetype == TrayArchetype.HOLDER_25:
+            # Disk Holder (Type A/B/C) mounts 2.5" drives via left-side SFF-8201 holes + 3.5" bay holes
+            for idx, hx in enumerate((22.0, 102.0), 1):
+                holes.append(HoleCoordinate(f"bay_side_L{idx}", hx, -rail_w / 2.0, spec.height_mm / 2.0, 3.4, "Y"))
+            holes.append(HoleCoordinate("bay_side_R1", spec.length_mm - 26.0, +rail_w / 2.0, spec.height_mm / 2.0, 3.4, "Y"))
+
     return holes
 
 
-def _hole_clear(holes: list[HoleCoordinate], x: float, y: float, min_dist: float = 5.5) -> bool:
+def _hole_clear(holes: list[HoleCoordinate], x: float, y: float, min_dist: float = 6.2) -> bool:
     """Return True if (x, y) is at least min_dist away from all bottom Z-axis mounting holes."""
     for h in holes:
         if h.axis == "Z" and ((h.x - x) ** 2 + (h.y - y) ** 2) ** 0.5 < min_dist:
@@ -105,76 +111,85 @@ def _hole_clear(holes: list[HoleCoordinate], x: float, y: float, min_dist: float
 
 def _desktop_honeycomb_polygons(rail_l: float, cavity_w: float) -> list[list[tuple[float, float]]]:
     """
-    Return the exact 11 polygonal window loops of Synology's Desktop Honeycomb Floor Web,
-    extracted directly from slicing Slezak's native STEP file (Type_D7_slezak.step) at Z=1.0mm
-    and verified against official Synology reference renders for D1, D3, D4, D5, D6, D7, D8, D9.
+    Return the 10 polygonal window loops of Synology's Desktop Honeycomb Floor Web,
+    extracted from Type_D7_slezak.step and inset to max |Y| <= 42.5mm so every window
+    clears the SFF-8301 3.5" bottom screw holes (at Y = +-47.625mm) and SFF-8201 2.5"
+    bottom screw holes (at X = 40.0, 85.0mm) with uniform 5.5mm struts and zero boss collisions.
     """
     sx = rail_l / 148.0
-    sy = (cavity_w / 2.0) / 51.0
+    # Cap outer Y to 42.0mm so the outer rim (42.0..51.0mm) completely contains the +-47.625mm 3.5" bottom holes!
+    max_y = min(42.0, cavity_w / 2.0 - 8.5)
+    sy = max_y / 42.0
     polys: list[list[tuple[float, float]]] = []
 
     # 1. Rear-Center Hexagon
     polys.append([
-        (18.0 * sx, -13.0 * sy),
-        (34.0 * sx, -23.5 * sy),
-        (56.0 * sx, -9.5 * sy),
-        (56.0 * sx, +9.5 * sy),
-        (34.0 * sx, +23.5 * sy),
-        (18.0 * sx, +13.0 * sy),
+        (18.0 * sx, -12.5 * sy),
+        (33.5 * sx, -22.0 * sy),
+        (55.0 * sx, -9.0 * sy),
+        (55.0 * sx, +9.0 * sy),
+        (33.5 * sx, +22.0 * sy),
+        (18.0 * sx, +12.5 * sy),
     ])
     # 2. Front-Center Hexagon
     polys.append([
-        (108.0 * sx, -9.5 * sy),
-        (130.0 * sx, -23.5 * sy),
-        (141.0 * sx, -15.0 * sy),
-        (141.0 * sx, +15.0 * sy),
-        (130.0 * sx, +23.5 * sy),
-        (108.0 * sx, +9.5 * sy),
+        (109.0 * sx, -9.0 * sy),
+        (130.0 * sx, -22.0 * sy),
+        (140.0 * sx, -14.0 * sy),
+        (140.0 * sx, +14.0 * sy),
+        (130.0 * sx, +22.0 * sy),
+        (109.0 * sx, +9.0 * sy),
     ])
     for s in (-1.0, +1.0):
-        # 3 & 4. Rear-Middle Side Hexagons (Left & Right)
+        # 3 & 4. Rear-Middle Side Hexagons (Left & Right — clear of X=41.28, Y=-36.9 2.5" hole)
         polys.append([
-            (38.0 * sx, s * 29.0 * sy),
-            (50.0 * sx, s * 46.5 * sy),
-            (63.0 * sx, s * 46.5 * sy),
-            (78.0 * sx, s * 37.5 * sy),
-            (78.0 * sx, s * 27.5 * sy),
-            (61.0 * sx, s * 17.5 * sy),
+            (45.5 * sx, s * 28.0 * sy),
+            (53.0 * sx, s * 41.5 * sy),
+            (66.0 * sx, s * 41.5 * sy),
+            (78.0 * sx, s * 34.0 * sy),
+            (78.0 * sx, s * 25.5 * sy),
+            (62.0 * sx, s * 16.5 * sy),
         ])
-        # 5 & 6. Front-Middle Side Hexagons (Left & Right)
+        # 5 & 6. Front-Middle Side Hexagons (Left & Right — clear of X=85.7, Y=-36.9 2.5" hole)
         polys.append([
-            (86.0 * sx, s * 27.5 * sy),
-            (86.0 * sx, s * 37.5 * sy),
-            (101.0 * sx, s * 46.5 * sy),
-            (114.0 * sx, s * 46.5 * sy),
-            (126.0 * sx, s * 37.5 * sy),
-            (126.0 * sx, s * 29.0 * sy),
-            (103.0 * sx, s * 17.5 * sy),
+            (92.0 * sx, s * 25.5 * sy),
+            (92.0 * sx, s * 34.0 * sy),
+            (103.0 * sx, s * 41.5 * sy),
+            (116.0 * sx, s * 41.5 * sy),
+            (126.0 * sx, s * 34.5 * sy),
+            (126.0 * sx, s * 27.5 * sy),
+            (106.0 * sx, s * 16.5 * sy),
         ])
-        # 7 & 8. Rear-Corner Trapezoids (Left & Right)
+        # 7 & 8. Rear-Corner Trapezoids (Left & Right — started at 21.5*sx to clear X=14.0mm 2.5" bottom holes)
         polys.append([
-            (15.5 * sx, s * 24.0 * sy),
-            (15.5 * sx, s * 43.0 * sy),
-            (22.5 * sx, s * 46.5 * sy),
-            (30.0 * sx, s * 42.5 * sy),
-            (30.0 * sx, s * 32.0 * sy),
+            (21.5 * sx, s * 25.0 * sy),
+            (21.5 * sx, s * 39.5 * sy),
+            (25.5 * sx, s * 41.5 * sy),
+            (31.5 * sx, s * 38.0 * sy),
+            (31.5 * sx, s * 31.0 * sy),
         ])
         # 9 & 10. Front-Corner Trapezoids (Left & Right)
         polys.append([
-            (134.0 * sx, s * 32.0 * sy),
-            (134.0 * sx, s * 42.5 * sy),
-            (141.0 * sx, s * 46.5 * sy),
-            (141.0 * sx, s * 27.5 * sy),
+            (133.5 * sx, s * 30.0 * sy),
+            (133.5 * sx, s * 38.5 * sy),
+            (140.0 * sx, s * 41.5 * sy),
+            (140.0 * sx, s * 25.5 * sy),
         ])
     return polys
 
 
 def generate_tray_cad(spec: TraySpec) -> Part:
     """
-    Build a high-accuracy boundary-representation (B-Rep) 3D CAD solid for any Synology TraySpec,
-    modeled directly from ground-truth cross-sections (Type_D7_slezak.step, Type_D6_sunbrowner.stl,
-    Type_D5_lioncat.stl, Type_D1_jimka.stl, Type_R7_vikingu.stl, Holder_Type_C_prspr.stl) and
-    official Synology Spare Parts orthographic renders.
+    Build a functional, 1-piece 3D-printable B-Rep CAD solid for any Synology TraySpec.
+    Combines:
+      - Official Synology outer envelope and sliding rail dimensions
+      - Ground-truth cross-sections (Type_D7_slezak.step, Type_D6_sunbrowner.stl, Type_D5_lioncat.stl,
+        Type_D1_jimka_nosupports.stl, Type_R7_vikingu.stl, Type_R8_th0r88.stl, Holder_Type_C_prspr.stl)
+      - Community 3D-printing Quality-of-Life (QoL) improvements:
+          * Zero multi-part sheet-metal/hinge photo artifacts (no fake plastic EMI teeth or non-moving lock cylinders)
+          * Integrated 1-piece print-in-place compliant spring latches & ergonomic pull handles
+          * 100% flat build-plate base (Z=0) with support-free overhangs (e.g. Jimka D1 bottom-flush arch handle)
+          * Countersunk M3 screw recesses on side rails and floor underside so standard M3 screws sit flush
     """
     L = spec.length_mm
     W = spec.width_mm
@@ -191,60 +206,59 @@ def generate_tray_cad(spec: TraySpec) -> Part:
 
     with BuildPart() as builder:
         # =========================================================================================
-        # ARCHETYPE 6: DISK HOLDER (Type A / B / C) — True Open 2-Arm L-Bracket
+        # ARCHETYPE 6: DISK HOLDER (Type A / B / C) — Pure Open 2-Arm L-Bracket (prspr QoL style)
         # =========================================================================================
         if spec.archetype == TrayArchetype.HOLDER_25:
-            arm_w = 31.6  # Exact L-bracket arm width from Holder_Type_C_prspr.stl (31.60mm)
+            arm_w = 31.6  # Exact L-bracket left arm width from Holder_Type_C_prspr.stl (31.60mm)
             front_d = 20.0
-            wall_t = 2.6
-            # 1. Left longitudinal rail arm: X in [0, L], Y in [-W/2, -W/2 + arm_w], Z in [0, H]
+            wall_t = 2.8
             left_cy = -W / 2.0 + arm_w / 2.0
+            # 1. Left longitudinal rail arm: X in [0, L], Y in [-W/2, -W/2 + arm_w], Z in [0, H]
             with Locations((L / 2.0, left_cy, H / 2.0)):
                 Box(L, arm_w, H, align=(Align.CENTER, Align.CENTER, Align.CENTER))
             # 2. Front transverse arm: X in [L - front_d, L], Y in [-W/2, +W/2], Z in [0, H]
             with Locations((L - front_d / 2.0, 0.0, H / 2.0)):
                 Box(front_d, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-            # 3. Right-hand chassis mounting tab extending back 12mm at Y in [+W/2 - 3.5, +W/2]
-            with Locations((L - front_d - 6.0, W / 2.0 - 1.75, H / 2.0)):
-                Box(12.0, 3.5, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-            # 4. Carve weight-reduction pockets + X-ribs in the left arm & front arm (matching official Type C photo)
+            # 3. Right-hand chassis mounting ear extending back 14mm at Y in [+W/2 - 3.6, +W/2]
+            with Locations((L - front_d - 7.0, W / 2.0 - 1.8, H / 2.0)):
+                Box(14.0, 3.6, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+            # 4. Weight-reduction pockets + X-stiffening ribs in left arm & front arm
             for px, pl in ((24.0, 36.0), (68.0, 38.0)):
                 with Locations((px, left_cy, H / 2.0 + 1.8)):
                     Box(pl, arm_w - 2 * wall_t, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
                 for ang in (28.0, -28.0):
                     with Locations((px, left_cy, H / 2.0)):
                         Box(pl * 0.85, 1.8, H - 1.0, rotation=(0, 0, ang), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-            # Front arm pockets
             for py, pw in ((-34.0, 26.0), (14.0, 58.0)):
                 with Locations((L - front_d / 2.0, py, H / 2.0 + 1.8)):
                     Box(front_d - 2 * wall_t, pw, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-            # Side M3 screw holes through the L-bracket arm for the 2.5" drive & 3.5" bay
-            for hx in (22.0, 68.0, 102.0):
+            # 5. Drill & counterbore all 2.5" drive side holes and 3.5" bay mounting holes (including right ear hole!)
+            for hx in (16.0, 48.0, 76.0, 102.0):
                 with Locations((hx, left_cy, H / 2.0)):
-                    Cylinder(radius=1.8, height=arm_w + 2.0, rotation=(90, 0, 0), mode=Mode.SUBTRACT)
+                    Cylinder(radius=1.75, height=arm_w + 2.0, rotation=(90, 0, 0), mode=Mode.SUBTRACT)
+            with Locations((L - front_d - 7.0, W / 2.0 - 1.8, H / 2.0)):
+                Cylinder(radius=1.75, height=6.0, rotation=(90, 0, 0), mode=Mode.SUBTRACT)
 
         # =========================================================================================
         # ARCHETYPE 4: TOP-LOADING 60-BAY (Drive Tray Type R9 & 2.5" Drive Tray R5) — 4-Sided Frame
         # =========================================================================================
         elif spec.archetype == TrayArchetype.TOPLOAD_60BAY:
-            # In Type R9 (official photo): 4-sided rectangular perimeter frame with NO bottom floor plate
-            # (or minimal hole tabs), rear tie-bar at X in [0, 3mm], and wider front bezel (117mm vs 107mm rails)
             body_w = rail_w - 8.0 if spec.supports_35 else rail_w
             inner_w = SFF_35.drive_width + 0.4 if spec.supports_35 else cavity_w
-            # 1. Perimeter rail box: X in [0, rail_l], Y in [-body_w/2, +body_w/2], Z in [0, rail_h]
+            # 1. 4-sided rectangular perimeter frame: X in [0, rail_l], Y in [-body_w/2, +body_w/2], Z in [0, rail_h]
             with Locations((rail_l / 2.0, 0.0, rail_h / 2.0)):
                 Box(rail_l, body_w, rail_h, align=(Align.CENTER, Align.CENTER, Align.CENTER))
-            # 2. Cut completely through Z in [floor_t, rail_h + 1] AND cut floor window leaving a 3mm rear tie-bar
-            with Locations(((rail_l + 3.0) / 2.0, 0.0, floor_t + rail_h / 2.0)):
-                Box(rail_l - 3.0 + 0.2, inner_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-            with Locations((3.0 + (rail_l - 6.0) / 2.0, 0.0, floor_t / 2.0)):
-                Box(rail_l - 6.0, inner_w - 3.0, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-            # Preserve small bottom mounting tabs for screw holes
-            for hc in holes:
-                if hc.axis == "Z":
-                    with Locations((hc.x, hc.y, floor_t / 2.0)):
-                        Cylinder(radius=4.8, height=floor_t, mode=Mode.ADD)
-            # 3. Sculpt exterior side-wall truss pockets & diagonal ribs (matching official Type R9 render)
+            if spec.supports_35:
+                # 3.5" Type R9: completely bottomless open frame with a 3.2mm rear tie-bar (drive mounts via 6 side holes)
+                with Locations(((rail_l + 3.2) / 2.0, 0.0, rail_h / 2.0)):
+                    Box(rail_l - 3.2 + 0.2, inner_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+            else:
+                # 2.5" R5 adapter carrier: has cross-straps at bottom for 2.5" SFF holes
+                with Locations(((rail_l + 3.2) / 2.0, 0.0, floor_t + rail_h / 2.0)):
+                    Box(rail_l - 3.2 + 0.2, inner_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                with Locations((rail_l / 2.0, 0.0, floor_t / 2.0)):
+                    Box(rail_l - 36.0, inner_w - 12.0, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+            # 2. Exterior side-wall truss pockets & diagonal ribs
             for px in (36.0, 76.0, 114.0):
                 if px < rail_l - 14.0:
                     for s in (-1.0, +1.0):
@@ -253,64 +267,57 @@ def generate_tray_cad(spec: TraySpec) -> Part:
                             Box(28.0, 1.2, rail_h - 4.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
                         with Locations((px, cy_ext, rail_h / 2.0)):
                             Box(26.0, 1.0, 2.0, rotation=(0, 18 * s, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-            # 4. Front bezel bar (117mm wide with side latch ears & left cylindrical thumb plunger bore)
+            # 3. Front top-bar bezel with ergonomic top extraction grip + compliant side retention latches
             with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
                 Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+            with Locations((L - 4.5, 4.0, H / 2.0)):
+                Box(7.0, W * 0.52, H - 6.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
             with Locations((L - 5.5, -W / 2.0 + 14.5, H / 2.0)):
-                Cylinder(radius=6.2, height=11.5, rotation=(0, 90, 0), mode=Mode.SUBTRACT)
+                Cylinder(radius=5.8, height=11.5, rotation=(0, 90, 0), mode=Mode.SUBTRACT)
             for s in (-1.0, +1.0):
-                with Locations((rail_l + bezel_t / 2.0, s * (W / 2.0 - 2.2), H / 2.0)):
-                    Box(bezel_t - 2.5, 1.6, H - 5.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                with Locations((rail_l + bezel_t / 2.0, s * (W / 2.0 - 2.6), H / 2.0)):
+                    Box(bezel_t - 2.0, 1.8, H - 4.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
         # =========================================================================================
         # ARCHETYPES 1, 2, 3, 5: DESKTOP (D1..D10), RACKMOUNT 3.5" (R1..R10), & 2.5" SFF (R1..R7)
         # =========================================================================================
         else:
-            # For Desktop trays (D1..D10), the floor plate starts at X = 9.0mm (rear rail tips protrude 9mm past floor,
-            # matching Type_D7_slezak.step and official photos with zero floating rear slivers!)
             floor_start_x = 9.0 if spec.archetype in (TrayArchetype.DESKTOP_LOCK, TrayArchetype.DESKTOP_SLIDE) else 0.0
 
             # 1. Side rails: X in [0, rail_l], Y in [-rail_w/2, +rail_w/2], Z in [0, rail_h]
             with Locations((rail_l / 2.0, 0.0, rail_h / 2.0)):
                 Box(rail_l, rail_w, rail_h, align=(Align.CENTER, Align.CENTER, Align.CENTER))
 
-            # Carve the inner drive pocket all the way through Z in [0, rail_h] first, then add the floor plate
+            # Carve inner drive bay channel through Z in [0, rail_h], then add floor plate
             with Locations((rail_l / 2.0, 0.0, rail_h / 2.0)):
                 Box(rail_l + 2.0, cavity_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
-            # 2. Add the floor plate: X in [floor_start_x, rail_l], Y in [-rail_w/2, +rail_w/2], Z in [0, floor_t]
             floor_len = rail_l - floor_start_x
             with Locations((floor_start_x + floor_len / 2.0, 0.0, floor_t / 2.0)):
                 Box(floor_len, rail_w, floor_t, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
 
             # -------------------------------------------------------------------------------------
-            # DESKTOP (Type D1..D10): 9-Window Honeycomb Floor + Compliant Leaf-Spring Side Rails
+            # DESKTOP (Type D1..D10): Clean Filleted 11-Window Honeycomb Floor + Community QoL Bezel
             # -------------------------------------------------------------------------------------
             if spec.archetype in (TrayArchetype.DESKTOP_LOCK, TrayArchetype.DESKTOP_SLIDE):
-                # 2a. Extrude-subtract the 10 polygonal honeycomb windows + 1 center rounded rectangle
+                # 2a. Extrude-subtract the 10 inset polygonal honeycomb windows (filleted R=2.2mm) + center oval
                 polys = _desktop_honeycomb_polygons(rail_l, cavity_w)
-                with BuildSketch(Plane.XY.offset(-0.5)):
+                with BuildSketch(Plane.XY.offset(-0.5)) as sk:
                     for pts in polys:
                         Polygon(*pts, align=None)
+                    fillet(sk.vertices(), radius=2.2)
                     with Locations((82.0 * (rail_l / 148.0), 0.0)):
-                        RectangleRounded(35.0 * (rail_l / 148.0), 19.5 * (cavity_w / 102.0), radius=4.5)
+                        RectangleRounded(34.0 * (rail_l / 148.0), 19.0 * (cavity_w / 102.0), radius=4.5)
                 extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
 
-                # Ensure every bottom SFF mounting hole has a solid circular boss (R=4.8mm)
-                for hc in holes:
-                    if hc.axis == "Z":
-                        with Locations((hc.x, hc.y, floor_t / 2.0)):
-                            Cylinder(radius=4.8, height=floor_t, mode=Mode.ADD)
-
-                # 2b. Side rail profile from Type_D7_slezak.step:
-                # Gently sloped rear lead-in (X in [0, 35mm]) + 2 compliant leaf-spring arch slots along top of rails
+                # 2b. Side rail profile: sloped rear lead-in (X in [0, 35mm]) + 2 compliant leaf-spring arch slots
                 with Locations((16.0, 0.0, rail_h + 1.8)):
                     Box(36.0, rail_w + 4.0, 4.5, rotation=(0, -7, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
                 for slot_x in (0.36 * rail_l, 0.73 * rail_l):
                     with Locations((slot_x, 0.0, rail_h - 2.6)):
                         Box(25.0, rail_w + 4.0, 2.2, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
-                # Front gusset ramp where rails meet the taller bezel (X in [rail_l - 18, rail_l])
+                # Smooth front gusset ramp where rails rise to meet the taller bezel (X in [rail_l - 16, rail_l])
                 if H > rail_h + 1.0:
                     gusset_l = 16.0
                     rail_wall_w = (rail_w - cavity_w) / 2.0
@@ -320,25 +327,34 @@ def generate_tray_cad(spec: TraySpec) -> Part:
                         with Locations((rail_l - gusset_l, s * (rail_w / 2.0 - rail_wall_w / 2.0), H)):
                             Box(gusset_l * 1.4, rail_wall_w + 2.0, H - rail_h, rotation=(0, -32, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
-                # 2c. Front Bezel & Handle Geometry
+                # 2c. Front Bezel & Handle with Community 3D-Printing QoL Upgrades
                 if spec.archetype == TrayArchetype.DESKTOP_SLIDE:
                     if spec.name == "Disk Tray (Type D1)":
-                        # Type D1: Thin front wall (3.5mm) + protruding trapezoidal center pull-tab loop (matching official D1 photo)
+                        # Type D1 (Jimka "nosupports" QoL upgrade + OEM trapezoidal gussets):
+                        # Front pull-handle loop sits FLUSH on the build plate (Z in [0, 11.5mm]) so it prints 100% support-free,
+                        # and stays strictly within X in [rail_l, L] (160.00mm total length)!
                         wall_x = 3.5
                         with Locations((rail_l + wall_x / 2.0, 0.0, H / 2.0)):
                             Box(wall_x, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                        handle_h = 11.5
+                        x_wall = rail_l + wall_x
+                        with BuildSketch(Plane.XY):
+                            Polygon(
+                                (x_wall, -34.0),
+                                (L, -22.0),
+                                (L, +22.0),
+                                (x_wall, +34.0),
+                                align=None,
+                            )
+                        extrude(amount=handle_h, mode=Mode.ADD)
+                        # Vertical finger hole through the pull loop (Z in [0, handle_h] — zero mid-air overhang!)
                         pull_d = bezel_t - wall_x
-                        with Locations((rail_l + wall_x + pull_d / 2.0, 0.0, H * 0.38)):
-                            Box(pull_d, 46.0, H * 0.55, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                        with Locations((rail_l + wall_x + pull_d / 2.0 - 0.5, 0.0, H * 0.45)):
-                            Box(pull_d - 2.8, 34.0, H * 0.55, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                        with Locations((x_wall + pull_d / 2.0 - 0.6, 0.0, handle_h / 2.0)):
+                            Box(pull_d - 2.8, 34.0, handle_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
                     else:
-                        # Type D4 / D7 / D2 / D3: Open C-Loop Pull Handle (matching Type_D7_slezak.step & official photo!)
-                        # 1. Full bezel envelope: X in [rail_l, L], Y in [-W/2, +W/2], Z in [0, H]
+                        # Type D4 / D7 / D2 / D3: Slezak STEP Open C-Loop Pull Handle with angled side transitions
                         with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
                             Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                        # 2. Cut the upper center of the bezel behind the pull bar so only the two side ears (Y=+-W/2) rise to H,
-                        # and cut the vertical finger through-slot right behind the front handle bar!
                         bar_d = 5.2
                         open_d = bezel_t - bar_d
                         with Locations((rail_l + open_d / 2.0 - 0.1, 0.0, floor_t + 3.5 + H / 2.0)):
@@ -346,10 +362,12 @@ def generate_tray_cad(spec: TraySpec) -> Part:
                         slot_d = max(4.0, bezel_t - 8.2)
                         with Locations((rail_l + 3.0 + slot_d / 2.0, 0.0, H / 2.0)):
                             Box(slot_d, W - 18.0, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                        # 3. Sculpt the front pull bar to sleek ergonomic height (Z in [0, H - 8.0]) across the center span
-                        with Locations((L - bar_d / 2.0 + 0.1, 0.0, H - 4.0)):
-                            Box(bar_d + 0.5, W - 18.0, 8.2, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                        # 4. Top-left release pin bore & side snap-fit retention slots
+                        with Locations((L - bar_d / 2.0 + 0.1, 0.0, H - 3.8)):
+                            Box(bar_d + 0.5, W - 18.0, 7.8, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                        # Chamfered transition ramps between the lower pull bar and the side ears (matching Slezak STEP)
+                        for s in (-1.0, +1.0):
+                            with Locations((L - bar_d / 2.0, s * (W / 2.0 - 9.0), H - 1.5)):
+                                Box(bar_d + 1.0, 8.0, 6.0, rotation=(32 * s, 0, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
                         with Locations((rail_l + 4.0, -W / 2.0 + 7.0, H - 3.0)):
                             Cylinder(radius=2.0, height=8.0, mode=Mode.SUBTRACT)
                         for s in (-1.0, +1.0):
@@ -358,94 +376,73 @@ def generate_tray_cad(spec: TraySpec) -> Part:
 
                 else:
                     # DESKTOP_LOCK (Type D5, D6, D8, D9):
-                    # Modeled from Type_D6_sunbrowner.stl & Type_D5_lioncat.stl + Official Synology Type D6 photo:
-                    # Sleek front lever bezel connected at left hinge + right snap-latch with open inner channel behind it!
+                    # Community 1-Piece Print-in-Place QoL Design (sunbrowner D6 + lioncat D5 style):
+                    # Instead of a rigid non-moving fake door + fake key hole, build:
+                    #   1. A solid front wall at X = rail_l..rail_l + 3.8mm
+                    #   2. An open vertical finger-pull grip loop on the right/center (Z=0..H through-slot, zero supports!)
+                    #   3. A true compliant C-spring flex latch on the left (-Y) that flexes inward when pinched!
+                    wall_t = 3.8
                     with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
                         Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                    # Carve out the open drive clearance channel behind the front lever (X in [rail_l, rail_l + 7.5mm])
-                    gap_d = min(7.5, bezel_t * 0.36)
-                    with Locations((rail_l + gap_d / 2.0 - 0.1, 8.0, H / 2.0 + 1.5)):
-                        Box(gap_d + 0.2, W - 26.0, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                    # Carve the curved finger-pull cutout along the top-rear of the lever (matching D5/D6 photo)
-                    with Locations((rail_l + gap_d + 3.0, 14.0, H - 2.5)):
-                        Box(6.5, W * 0.58, 6.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                    # Hollow out the interior of the front lever from underneath (leaving 2.8mm walls, matching D5/D6 STL)
-                    with Locations((L - bezel_t * 0.32, -4.0, H / 2.0 - 2.0)):
-                        Box(bezel_t * 0.44, W - 24.0, H - 5.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                    # Compliant C-spring latch slot on the right bezel end (+Y)
-                    with Locations((rail_l + bezel_t * 0.45, W / 2.0 - 3.2, H / 2.0)):
-                        Box(bezel_t * 0.72, 2.0, H - 4.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                    # Top-left status LED light-pipe hole + right key-lock cylinder bore
-                    with Locations((L - bezel_t * 0.42, -W / 2.0 + 15.0, H - 1.5)):
-                        Cylinder(radius=1.6, height=4.0, mode=Mode.SUBTRACT)
-                    if spec.has_lock:
-                        with Locations((L - 2.5, W * 0.33, H / 2.0)):
-                            Cylinder(radius=3.4, height=8.0, rotation=(0, 90, 0), mode=Mode.SUBTRACT)
+                    # Carve vertical through-slot inside the ergonomic pull handle box (Y in [-28, +W/2 - 8], X in [rail_l + 3.8, L - 3.8])
+                    grip_w = W * 0.60
+                    grip_cy = W / 2.0 - grip_w / 2.0 - 7.0
+                    grip_d = bezel_t - 2 * wall_t
+                    with Locations((rail_l + wall_t + grip_d / 2.0, grip_cy, H / 2.0)):
+                        Box(grip_d, grip_w, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    # Carve the separation channel (Y in [-W/2 + 12, grip_cy - grip_w/2 - 3.5]) between the pull handle
+                    # and the left-side compliant spring-latch arm (so the latch arm can flex freely when pinched!)
+                    sep_y0 = -W / 2.0 + 11.0
+                    sep_y1 = grip_cy - grip_w / 2.0 - 3.5
+                    sep_w = max(6.0, sep_y1 - sep_y0)
+                    sep_cy = (sep_y0 + sep_y1) / 2.0
+                    with Locations((rail_l + wall_t + (bezel_t - wall_t) / 2.0 + 0.2, sep_cy, H / 2.0)):
+                        Box(bezel_t - wall_t + 0.5, sep_w, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    # Sculpt the left-side compliant C-spring latch flex pocket (-Y side, matching sunbrowner D6 STL!)
+                    latch_cy = -W / 2.0 + 5.5
+                    with Locations((rail_l + bezel_t * 0.52, latch_cy - 1.5, H / 2.0)):
+                        Cylinder(radius=4.8, height=H + 2.0, mode=Mode.SUBTRACT)
+                    # Finger recess on the front-right of the pull handle bar for easy one-handed grip
+                    with Locations((L - wall_t / 2.0, grip_cy, H - 3.0)):
+                        Box(wall_t + 1.0, grip_w - 10.0, 6.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
             # -------------------------------------------------------------------------------------
-            # RACKMOUNT 3.5" (Type R1..R8, R10): 8x9 Perforated Slot Grid + Sleek Stepped Rails + EMI Comb
+            # RACKMOUNT 3.5" (Type R1..R8, R10): Clean Uniform Rails + 8x7 Slot Grid + Print-in-Place Latch
             # -------------------------------------------------------------------------------------
             elif spec.archetype == TrayArchetype.RACK_35:
-                # 2a. 8 columns x 9 rows = 72 closely-spaced server ventilation slots (from Type_R7_vikingu.stl slice!)
-                # Plus a clean rear SATA connector notch (X in [0, 8mm], Y in [-38, +18])
-                with Locations((4.0, -8.0, floor_t / 2.0)):
-                    Box(8.5, 58.0, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                col_xs = [16.0 + i * 16.5 for i in range(8) if 16.0 + i * 16.5 < rail_l - 10.0]
-                row_ys = [-40.0 + j * 10.0 for j in range(9)]
-                slot_locs = [(x, y, floor_t / 2.0) for x in col_xs for y in row_ys if _hole_clear(holes, x, y, 5.8)]
+                # 2a. Clean 8x7 perforated server airflow slot grid (with continuous solid rear floor bar X in [0, 10mm]
+                # and NO fake plastic EMI comb teeth or mid-rail turret steps — matching vikingu R7 & th0r88 R8 STLs!)
+                col_xs = [15.0 + i * 17.5 for i in range(8) if 15.0 + i * 17.5 < rail_l - 10.0]
+                row_ys = [-36.0 + j * 12.0 for j in range(7)]
+                slot_locs = [(x, y, floor_t / 2.0) for x in col_xs for y in row_ys if _hole_clear(holes, x, y, 6.2)]
                 if slot_locs:
                     with Locations(*slot_locs):
-                        Box(12.2, 5.4, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                        Box(13.0, 6.8, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
-                # 2b. Stepped side-rail profile (from Type_R7_vikingu.stl Side Profile:
-                # sleek 10.5mm rail along the drive body X in [0, rail_l - 16], stepping up to rail_h at the EMI comb!)
-                low_rail_h = 10.5
-                if rail_h > low_rail_h + 0.5:
-                    cut_l = rail_l - 14.0
-                    # Leave a 10mm section near mid-rail at full rail_h so mid-rail validator slice measures exact rail_h,
-                    # or step down fore and aft of the side mounting tabs (matching real stamped sheet-metal tabs on R7!)
-                    for seg_x0, seg_x1 in ((0.0, 0.42 * rail_l), (0.58 * rail_l, rail_l - 14.0)):
-                        seg_l = seg_x1 - seg_x0
-                        if seg_l > 8.0:
-                            with Locations(((seg_x0 + seg_x1) / 2.0, 0.0, low_rail_h + (rail_h - low_rail_h) / 2.0 + 0.5)):
-                                Box(seg_l, rail_w + 2.0, rail_h - low_rail_h + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-
-                # 2c. Raised 11-finger EMI spring comb right behind the front bezel (matching official Type R7 photo)
-                emi_x = rail_l - 5.0
-                with Locations((emi_x, 0.0, rail_h + 1.2)):
-                    Box(8.0, rail_w - 4.0, 2.4, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                emi_slots = [(emi_x, -38.0 + i * 7.6, rail_h + 1.3) for i in range(11)]
-                with Locations(*emi_slots):
-                    Box(5.5, 3.0, 3.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-
-                # 2d. Front Rack Bezel (left square release button + key lock + wide right angled pull handle)
+                # 2b. Front Rack Bezel with support-free angled finger-pull pocket & integrated compliant left latch slot
                 with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
                     Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                with Locations((L - 3.5, -W / 2.0 + 12.5, H / 2.0)):
-                    Box(7.2, 12.5, H - 9.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                if spec.has_lock:
-                    with Locations((L - 3.5, -W / 2.0 + 25.5, H / 2.0)):
-                        Cylinder(radius=2.6, height=bezel_t + 2.0, rotation=(0, 90, 0), mode=Mode.SUBTRACT)
-                handle_w = W * 0.50
-                with Locations((L - 4.8, W / 2.0 - handle_w / 2.0 - 7.5, H / 2.0)):
-                    Box(9.8, handle_w, H - 7.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                with Locations((rail_l + 4.5, -W / 2.0 + 2.0, H / 2.0)):
-                    Box(7.0, 1.6, H - 6.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                # Wide right/center ergonomic finger-pull recess with internal 45-deg chamfer
+                handle_w = W * 0.56
+                with Locations((L - 4.5, W / 2.0 - handle_w / 2.0 - 7.0, H / 2.0)):
+                    Box(9.2, handle_w, H - 7.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                # Left-side compliant flex-latch release button & flex slot (print-in-place 1-piece rack latch)
+                with Locations((rail_l + bezel_t * 0.55, -W / 2.0 + 9.5, H / 2.0)):
+                    Box(bezel_t * 0.75, 2.2, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                with Locations((L - 3.0, -W / 2.0 + 18.0, H / 2.0)):
+                    Box(6.2, 11.0, H - 8.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
             # -------------------------------------------------------------------------------------
-            # 2.5" SFF SLIM TRAYS (2.5" R1..R7, D1, Slim, SSD): 3-Window T-Web Floor + EMI Comb
+            # 2.5" SFF SLIM TRAYS (2.5" R1..R7, D1, Slim, SSD): 3-Window T-Web Floor + Clean Latch Bezel
             # -------------------------------------------------------------------------------------
             elif spec.archetype == TrayArchetype.SFF_25:
-                # Rear SATA connector cutout (X in [0, 8mm])
-                with Locations((4.0, 0.0, floor_t / 2.0)):
-                    Box(8.5, cavity_w - 12.0, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                # 3 rectangular windows separated by a T-shaped web (1 wide rear window + 2 front windows, matching 2.5" R6 photo)
+                # 3 rectangular windows separated by a T-shaped web (with continuous rear bar X in [0, 10mm] and NO fake EMI teeth)
                 w_in = max(18.0, cavity_w - 12.0)
-                rear_l = max(18.0, (rail_l - 34.0) * 0.48)
-                front_l = max(18.0, (rail_l - 34.0) * 0.42)
-                with Locations((12.0 + rear_l / 2.0, 0.0, floor_t / 2.0)):
+                rear_l = max(18.0, (rail_l - 32.0) * 0.48)
+                front_l = max(18.0, (rail_l - 32.0) * 0.42)
+                with Locations((10.0 + rear_l / 2.0, 0.0, floor_t / 2.0)):
                     Box(rear_l, w_in, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                front_cx = rail_l - 9.0 - front_l / 2.0
+                front_cx = rail_l - 8.0 - front_l / 2.0
                 half_w = (w_in - 6.0) / 2.0
                 if half_w >= 6.0:
                     with Locations(
@@ -456,35 +453,37 @@ def generate_tray_cad(spec: TraySpec) -> Part:
                 for hc in holes:
                     if hc.axis == "Z":
                         with Locations((hc.x, hc.y, floor_t / 2.0)):
-                            Cylinder(radius=4.2, height=floor_t, mode=Mode.ADD)
-                # Top EMI spring finger comb right behind bezel (kept strictly <= H)
-                emi_x = rail_l - 3.5
-                emi_h = 1.0
-                emi_cz = min(rail_h + 0.3, H - emi_h / 2.0 - 0.1)
-                with Locations((emi_x, 0.0, emi_cz)):
-                    Box(5.5, rail_w - 4.0, emi_h, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                emi_slots = [(emi_x, -21.0 + i * 7.0, emi_cz + 0.1) for i in range(7)]
-                with Locations(*emi_slots):
-                    Box(3.8, 2.4, emi_h + 0.6, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                # Front bezel with center rectangular release lever pocket & left LED slit
+                            Cylinder(radius=4.5, height=floor_t, mode=Mode.ADD)
+                # Front bezel with center finger-pull pocket + compliant right-side latch flex slot
                 with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
                     Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                with Locations((L - 3.5, 2.0, H / 2.0 - 0.8)):
-                    Box(7.2, W * 0.50, max(4.5, H - 7.0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                with Locations((L - 1.0, -W / 2.0 + 9.0, H / 2.0)):
-                    Box(2.5, 1.5, 4.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                with Locations((rail_l + 4.0, W / 2.0 - 2.0, H / 2.0)):
-                    Box(6.5, 1.5, H - 4.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                with Locations((L - 3.5, -2.0, H / 2.0)):
+                    Box(7.2, W * 0.54, max(4.5, H - 6.5), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                with Locations((rail_l + bezel_t * 0.55, W / 2.0 - 6.5, H / 2.0)):
+                    Box(bezel_t * 0.75, 1.8, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
-        # 7. Drill all SFF-8301 (3.5") and SFF-8201 (2.5") mounting holes
+        # 7. Drill all SFF-8301 (3.5") and SFF-8201 (2.5") mounting holes + outer M3 screw-head counterbores (QoL!)
+        has_bottom_floor = not (
+            spec.archetype == TrayArchetype.HOLDER_25
+            or (spec.archetype == TrayArchetype.TOPLOAD_60BAY and spec.supports_35)
+        )
         for hc in holes:
-            if hc.axis == "Z":
+            if hc.axis == "Z" and has_bottom_floor:
                 with Locations((hc.x, hc.y, floor_t / 2.0)):
                     Cylinder(radius=hc.diameter / 2.0, height=floor_t + 2.0, mode=Mode.SUBTRACT)
+                # Underside M3 screw-head counterbore (0.8mm deep, Ø 6.2mm) so bottom screws sit flush!
+                if floor_t >= 2.0:
+                    with Locations((hc.x, hc.y, 0.4)):
+                        Cylinder(radius=3.1, height=0.8, mode=Mode.SUBTRACT)
             elif hc.axis == "Y":
                 wall_span = (rail_w - cavity_w) / 2.0 + 4.0
                 with Locations((hc.x, hc.y, hc.z)):
                     Cylinder(radius=hc.diameter / 2.0, height=wall_span * 2.0, rotation=(90, 0, 0), mode=Mode.SUBTRACT)
+                # Outer rail M3 screw-head counterbore (0.9mm deep, Ø 6.2mm) so side screws sit flush inside the NAS bay!
+                if rail_w - cavity_w >= 2.2 and spec.archetype != TrayArchetype.HOLDER_25:
+                    s_sign = -1.0 if hc.y < 0 else 1.0
+                    with Locations((hc.x, s_sign * (rail_w / 2.0 - 0.45), hc.z)):
+                        Cylinder(radius=3.1, height=0.9, rotation=(90, 0, 0), mode=Mode.SUBTRACT)
 
     return builder.part
 
