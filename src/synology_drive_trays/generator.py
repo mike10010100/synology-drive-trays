@@ -284,25 +284,25 @@ def generate_tray_cad(spec: TraySpec) -> Part:
                 ]
                 with Locations(*vent_pts):
                     Cylinder(radius=6.5, height=floor_t + 2.0, mode=Mode.SUBTRACT)
-            # 2. Exterior side-wall truss pockets & diagonal ribs
+            # 2. Exterior side-wall truss pockets & diagonal ribs (fused into inner rail wall and end struts)
             for px in (36.0, 76.0, 114.0):
                 if px < rail_l - 14.0:
                     for s in (-1.0, +1.0):
                         cy_ext = s * (body_w / 2.0 - 0.5)
                         with Locations((px, cy_ext, rail_h / 2.0)):
                             Box(28.0, 1.2, rail_h - 4.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                        with Locations((px, cy_ext, rail_h / 2.0)):
-                            Box(26.0, 1.0, 2.0, rotation=(0, 18 * s, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-            # 3. Front top-bar bezel with ergonomic top extraction grip + compliant side retention latches
+                        with Locations((px, s * (body_w / 2.0 - 0.9), rail_h / 2.0)):
+                            Box(30.0, 1.8, 2.4, rotation=(0, 18 * s, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+            # 3. Front top-bar bezel with open front extraction grip + through-slotted compliant side latches
             with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
                 Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-            with Locations((L - 4.5, 4.0, H / 2.0)):
+            with Locations((L - 2.5, 4.0, H / 2.0)):
                 Box(7.0, W * 0.52, H - 6.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
             with Locations((L - 5.5, -W / 2.0 + 14.5, H / 2.0)):
                 Cylinder(radius=5.8, height=11.5, rotation=(0, 90, 0), mode=Mode.SUBTRACT)
             for s in (-1.0, +1.0):
                 with Locations((rail_l + bezel_t / 2.0, s * (W / 2.0 - 2.6), H / 2.0)):
-                    Box(bezel_t - 2.0, 1.8, H - 4.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    Box(bezel_t - 2.0, 1.8, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
         # =========================================================================================
         # ARCHETYPES 1, 2, 3, 5: DESKTOP (D1..D10), RACKMOUNT 3.5" (R1..R10), & 2.5" SFF (R1..R7)

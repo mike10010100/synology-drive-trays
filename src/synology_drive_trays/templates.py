@@ -54,7 +54,7 @@ TEMPLATE_FRONT_PULL_X: dict[str, float] = {
     "Type_D7_slezak_from_step.stl": 161.0,    # Bezel stop & latch hooks at X=132..152; [161.0, 166.12] is outer front bar
     "Type_D6_sunbrowner.stl": 162.5,          # Bezel stop at X=141.5, latch hook to 152; [162.5, 166.5] is front door-cover face
     "Type_D5_lioncat.stl": 165.0,             # Bezel stop at X=158..165; [165.0, 177.84] is external finger-pull loop
-    "Type_R7_vikingu.stl": 165.0,             # Rack bezel stop step at X=145.0; [165.0, 169.0] is outer front bezel face
+    "Type_R7_vikingu.stl": 168.6,             # Rack bezel stop step at X=145.0; [168.6, 169.0] is outermost front bezel face
     "Type_R8_th0r88.stl": 165.0,              # Rack bezel stop step at X=145.0; [165.0, 169.0] is outer front bezel face
     "Holder_Type_C_prspr.stl": 110.0,         # Side M3 holes at X=29.9..106.51; [110.0, 120.5] is front pocket wall tip
 }
@@ -105,6 +105,50 @@ def load_canonical_template(fname: str) -> trimesh.Trimesh:
 
     out = trimesh.Trimesh(vertices=v, faces=f)
     out.fix_normals()
+
+    # Repair multi-body CAD exports (th0r88 and sunbrowner exported touching CAD solids without Boolean Union)
+    if "th0r88" in fname:
+        r8_ranges = [(0, 1932), (1932, 3886), (3886, 4510), (4510, 7672)]
+        bodies = []
+        for a, b in r8_ranges:
+            sub = trimesh.Trimesh(vertices=out.vertices.copy(), faces=out.faces[a:b].copy(), process=True)
+            sub.fix_normals()
+            bodies.append(sub)
+        # Add 0.05 mm internal overlap at abutting interfaces so 3D boolean union produces a single 2-manifold solid
+        v0 = bodies[0].vertices.copy()
+        v0[v0[:, 0] > 143.9, 0] = 144.05
+        v0[v0[:, 1] < -50.9, 1] = -51.05
+        v0[v0[:, 1] > 50.9, 1] = 51.05
+        bodies[0].vertices = v0
+        v1 = bodies[1].vertices.copy()
+        v1[(v1[:, 0] < 147.1) & (v1[:, 1] < -48.9), 0] = 146.95
+        bodies[1].vertices = v1
+        v2 = bodies[2].vertices.copy()
+        v2[v2[:, 0] < 147.1, 0] = 146.95
+        bodies[2].vertices = v2
+        out = trimesh.boolean.union(bodies, engine="manifold")
+        out.fix_normals()
+    elif "sunbrowner" in fname:
+        d6_ranges = [(0, 2804), (2804, 2840), (2840, 3078)]
+        bodies = []
+        for a, b in d6_ranges:
+            sub = trimesh.Trimesh(vertices=out.vertices.copy(), faces=out.faces[a:b].copy(), process=True)
+            sub.fix_normals()
+            bodies.append(sub)
+        for bi in (1, 2):
+            vb = bodies[bi].vertices.copy()
+            vb[vb[:, 0] < 148.6, 0] -= 0.05
+            bodies[bi].vertices = vb
+        out = trimesh.boolean.union(bodies, engine="manifold")
+        out.fix_normals()
+    elif "vikingu" in fname:
+        # Unfold 0.3-micron STL float32 rounding T-junction on top bezel surface (Z = 23.498 mm)
+        ov = np.asarray(out.vertices, dtype=float).copy()
+        mask_sliver = (np.abs(ov[:, 0] - 168.498) < 0.01) & (np.abs(ov[:, 1] - 48.070) < 0.01) & (ov[:, 2] > 23.0)
+        ov[mask_sliver, 1] += 0.005
+        out = trimesh.Trimesh(vertices=ov, faces=np.asarray(out.faces, dtype=int).copy(), process=False)
+        out.fix_normals()
+
     return out
 
 
@@ -194,7 +238,7 @@ def generate_from_template(spec: TraySpec) -> tuple[trimesh.Trimesh, dict[str, s
     elif "jimka" in fname:
         # Keep sliding rail (X < 144mm) at exact 18.50mm and raise only the front bezel plate (X >= 146.5mm) to 20.00mm
         bezel_x_w = np.clip((v[:, 0] - 144.0) / 2.5, 0.0, 1.0)
-        z_bezel = np.interp(v[:, 2], [0.0, 12.5, H0], [0.0, 12.5, H1])
+        z_bezel = np.interp(v[:, 2], [0.0, 10.5, H0], [0.0, 10.5, H1])
         v[:, 2] = (1.0 - bezel_x_w) * v[:, 2] + bezel_x_w * z_bezel
     elif "prspr" in fname:
         # Lock side screw holes [0, 6.5mm] at 1:1 so M3 holes remain 100% circular

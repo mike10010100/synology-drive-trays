@@ -44,10 +44,27 @@ def verify_all() -> None:
             if not f.exists() or f.stat().st_size == 0:
                 failures.append(f"{name}: missing or empty file {f}")
 
-        # 2. Independently parse STL mesh with trimesh
+        # 2. Independently parse STL mesh with trimesh & verify 3D-slicer manifold integrity
         mesh = trimesh.load(str(stl_file), force="mesh")
         if mesh.volume <= 0:
             failures.append(f"{name}: non-positive STL volume {mesh.volume}")
+        if not mesh.is_watertight:
+            failures.append(f"{name}: STL is not watertight")
+        if not mesh.is_winding_consistent:
+            failures.append(f"{name}: STL has inconsistent face winding")
+        bodies = len(mesh.split(only_watertight=False))
+        if bodies != 1:
+            failures.append(f"{name}: STL has {bodies} disconnected shells/bodies (expected 1)")
+        edges_sorted = np.sort(mesh.edges, axis=1)
+        _, edge_counts = np.unique(edges_sorted, axis=0, return_counts=True)
+        if np.any(edge_counts != 2):
+            failures.append(f"{name}: STL has {int(np.sum(edge_counts != 2))} non-manifold or open edges")
+        if np.any(mesh.area_faces < 1e-8):
+            failures.append(f"{name}: STL has degenerate zero-area faces")
+        bed_mask = (mesh.face_normals[:, 2] < -0.95) & (mesh.triangles_center[:, 2] < 0.25)
+        bed_area = float(np.sum(mesh.area_faces[bed_mask]))
+        if bed_area < 2000.0:
+            failures.append(f"{name}: insufficient Z=0 print bed contact area ({bed_area:.1f} mm^2 < 2000 mm^2)")
 
         stl_ext = sorted([float(x) for x in mesh.extents], reverse=True)
         exp_ext = sorted([item["dimensions_mm"]["L"], item["dimensions_mm"]["W"], item["dimensions_mm"]["H"]], reverse=True)

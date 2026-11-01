@@ -177,3 +177,52 @@ def test_template_backplane_datum_and_sff_lock(all_specs):
             assert max_y_shift < 1e-9, f"{name} ({fname}): SFF bottom hole |Y| <= 49.5mm shifted by {max_y_shift:.6f}mm!"
 
 
+def test_all_stls_are_watertight_2manifold_and_slicer_ready(all_specs):
+    """
+    Verify that all 32 generated STL files pass strict 3D-printing slicer requirements:
+      1. 100% watertight 2-manifold (every edge shared by exactly 2 faces; 0 open or non-manifold edges).
+      2. Consistent outward face winding and positive volume.
+      3. Single connected solid body (0 floating islands or unmerged multi-body shells).
+      4. Zero degenerate faces and zero flipped face normals during template warping.
+      5. Flat Z = 0.0 mm print bed contact footprint (> 2,000 mm^2).
+      6. 25 horizontal Z-layer slices produce 100% closed 2D polygons at every layer height.
+    """
+    import numpy as np
+
+    for name, spec in all_specs.items():
+        stl_p = OUT_DIR / "stl" / f"{spec.slug}.stl"
+        m = trimesh.load(str(stl_p), force="mesh")
+
+        assert m.is_watertight, f"{name}: mesh is not watertight"
+        assert m.is_winding_consistent, f"{name}: mesh winding is not consistent"
+        assert m.volume > 1000.0, f"{name}: invalid mesh volume {m.volume}"
+
+        bodies = len(m.split(only_watertight=False))
+        assert bodies == 1, f"{name}: expected 1 connected solid body, got {bodies}"
+
+        edges_sorted = np.sort(m.edges, axis=1)
+        _, counts = np.unique(edges_sorted, axis=0, return_counts=True)
+        assert int(np.sum(counts == 1)) == 0, f"{name}: has open boundary edges"
+        assert int(np.sum(counts > 2)) == 0, f"{name}: has non-manifold edges"
+        assert int(np.sum(m.area_faces < 1e-8)) == 0, f"{name}: has degenerate zero-area faces"
+
+        bed_mask = (m.face_normals[:, 2] < -0.95) & (m.triangles_center[:, 2] < 0.25)
+        bed_area = float(np.sum(m.area_faces[bed_mask]))
+        assert bed_area > 2000.0, f"{name}: insufficient Z=0 bed contact area ({bed_area:.1f} mm^2)"
+
+        if has_community_template(name):
+            fname, _ = COMMUNITY_TEMPLATE_MAP[name]
+            raw = load_canonical_template(fname)
+            warped, _ = generate_from_template(spec)
+            dots = np.sum(raw.face_normals * warped.face_normals, axis=1)
+            flipped = int(np.sum(dots < 0.0))
+            assert flipped == 0, f"{name}: {flipped} triangles flipped normals during template warp"
+
+        for z in np.linspace(0.25, spec.height_mm - 0.25, 25):
+            sec = m.section(plane_origin=[0.0, 0.0, float(z)], plane_normal=[0.0, 0.0, 1.0])
+            assert sec is not None and len(sec.entities) > 0, f"{name}: empty Z-slice at Z={z:.2f}mm"
+            p2d, _ = sec.to_2D()
+            assert p2d.is_closed, f"{name}: open 2D slicer contour at Z={z:.2f}mm"
+
+
+
