@@ -17,6 +17,19 @@ Complete parametric CAD generation and ground-truth verification pipeline for **
 - **Ground-Truth Calibration & Validation (`data/ground_truth/`):**
   - Calibrated and verified against **16 community-tested 3D-printable CAD models** (including native `.step` and `.stl` files for `Type D1`, `Type D5`, `Type D6`, `Type D7`, `Type D8`, `Type R7`, `Type R8`, and `Disk Holder Type C`) and **29 official Synology 2D reference renders** (`data/reference_images/`).
 
+## Visual Gallery — Generated 3D CAD vs. Official Synology Photos & Community Ground Truth
+
+![All 6 Structural Archetypes](output/gallery/00_master_archetypes_grid.png)
+
+| Archetype | Comparison Card (`output/gallery/`) | Key Geometric Details Modeled |
+| :--- | :--- | :--- |
+| **Desktop Lock (`Type D6`)** | ![Type D6](output/gallery/01_compare_Type_D6.png) | 7-window diagonal honeycomb X-truss floor, tapered rear rail ramps, tool-less side clip pockets, stepped pull-lever recess, LED light-pipe bore, key lock cylinder, & compliant snap-fit latch hook |
+| **Desktop Slide (`Type D7`)** | ![Type D7](output/gallery/02_compare_Type_D7.png) | Full-width C-channel ergonomic pull handle, top-left vertical release pin bore, dual compliant side retention slots, & 7-window honeycomb floor web |
+| **Rackmount 3.5" (`Type R7`)** | ![Type R7](output/gallery/03_compare_Type_R7.png) | Stamped 6×5 server airflow slot grid, 11-finger top EMI spring comb, left square release button pocket, key-lock bore, & wide right pull handle |
+| **Top-Loading 60-Bay (`Type R9`)** | ![Type R9](output/gallery/07_compare_Type_R9_60bay.png) | Open perimeter frame with exterior side-wall truss pockets, left thumb-plunger bore (`Ø 11.6 mm`), & top-corner retention slots |
+| **2.5" SFF Slim (`2.5" R6`)** | ![2.5" R6](output/gallery/08_compare_25in_R6.png) | 3-window T-web floor, 7-finger top EMI comb, center rectangular release lever window, & vertical LED indicator slit |
+| **Internal Holder (`Type C`)** | ![Holder Type C](output/gallery/09_compare_Holder_Type_C.png) | Asymmetric `11.4 mm` left offset adapter block with X-ribbed pockets bridging the 3.5" bay wall to the SFF-8223 2.5" SATA datum |
+
 ## Quick Start
 
 Requires Python 3.12 and [`uv`](https://docs.astral.sh/uv/):
