@@ -142,7 +142,7 @@ def build_all_tray_specs(json_path: Path | None = None) -> dict[str, TraySpec]:
             else:
                 arch = TrayArchetype.SFF_25
                 supports_35, supports_25 = False, True
-                bezel_t = 12.0 if L < 140 else 16.0
+                bezel_t = 26.0 if "SSD" in name else (12.0 if L < 140 else 16.0)
                 rail_w = W
                 rail_h = min(H, 14.0)
                 floor_t = 2.0

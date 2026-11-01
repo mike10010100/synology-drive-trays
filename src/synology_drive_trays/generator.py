@@ -67,7 +67,7 @@ def compute_mounting_holes(spec: TraySpec) -> list[HoleCoordinate]:
                     holes.append(HoleCoordinate(f"3.5_side_R{idx}", hx, +rail_w / 2.0, hz_35, SFF_35.hole_clearance_dia, "Y"))
 
     if spec.supports_25:
-        if spec.supports_35 or spec.archetype == TrayArchetype.HOLDER_25:
+        if spec.supports_35 or spec.archetype in (TrayArchetype.HOLDER_25, TrayArchetype.TOPLOAD_60BAY):
             left_edge_35 = -SFF_35.drive_width / 2.0
             left_edge_25 = left_edge_35 + SFF_25.sata_align_left_offset_from_35_left
             y_left_25 = left_edge_25 + SFF_25.bottom_hole_y_inset
@@ -243,21 +243,47 @@ def generate_tray_cad(spec: TraySpec) -> Part:
         # ARCHETYPE 4: TOP-LOADING 60-BAY (Drive Tray Type R9 & 2.5" Drive Tray R5) — 4-Sided Frame
         # =========================================================================================
         elif spec.archetype == TrayArchetype.TOPLOAD_60BAY:
-            body_w = rail_w - 8.0 if spec.supports_35 else rail_w
-            inner_w = SFF_35.drive_width + 0.4 if spec.supports_35 else cavity_w
-            # 1. 4-sided rectangular perimeter frame: X in [0, rail_l], Y in [-body_w/2, +body_w/2], Z in [0, rail_h]
+            body_w = rail_w - 8.0
+            inner_w = SFF_35.drive_width + 0.4
+            # 1. 4-sided rectangular 60-bay perimeter frame: X in [0, rail_l], Y in [-body_w/2, +body_w/2], Z in [0, rail_h]
             with Locations((rail_l / 2.0, 0.0, rail_h / 2.0)):
                 Box(rail_l, body_w, rail_h, align=(Align.CENTER, Align.CENTER, Align.CENTER))
-            if spec.supports_35:
-                # 3.5" Type R9: completely bottomless open frame with a 3.2mm rear tie-bar (drive mounts via 6 side holes)
-                with Locations(((rail_l + 3.2) / 2.0, 0.0, rail_h / 2.0)):
-                    Box(rail_l - 3.2 + 0.2, inner_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-            else:
-                # 2.5" R5 adapter carrier: has cross-straps at bottom for 2.5" SFF holes
-                with Locations(((rail_l + 3.2) / 2.0, 0.0, floor_t + rail_h / 2.0)):
-                    Box(rail_l - 3.2 + 0.2, inner_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                with Locations((rail_l / 2.0, 0.0, floor_t / 2.0)):
-                    Box(rail_l - 36.0, inner_w - 12.0, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+            # Cut out the interior so the outer frame has uniform 3.5mm side walls and a 3.2mm rear tie-bar
+            with Locations(((rail_l + 3.2) / 2.0, 0.0, rail_h / 2.0)):
+                Box(rail_l - 3.2 + 0.2, inner_w, rail_h + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+
+            if not spec.supports_35:
+                # 2.5" Drive Tray (R5) (2.5in_Drive_Tray_R5_37031.png):
+                # Inside the 3.5" 60-bay perimeter frame, add the left-offset L-shaped 2.5" SFF adapter tray
+                # (X in [0, 104.0mm], Y in [-inner_w/2, +30.0mm]) with an inner left guide wall at Y = -40.2mm
+                # and 7 circular ventilation holes (Ø 13mm) in the floor plate!
+                tray_l = 104.0
+                y_left_wall = -SFF_35.drive_width / 2.0 + SFF_25.sata_align_left_offset_from_35_left - 1.2  # -41.2mm
+                y_right_edge = y_left_wall + SFF_25.drive_width + 3.0  # +31.65mm
+                floor_span_y = y_right_edge - (-inner_w / 2.0)
+                floor_cy = (-inner_w / 2.0 + y_right_edge) / 2.0
+                with Locations((tray_l / 2.0, floor_cy, floor_t / 2.0)):
+                    Box(tray_l, floor_span_y, floor_t, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                # Inner vertical 2.5" left guide wall (X in [3.2, tray_l], Y in [y_left_wall - 2.2, y_left_wall], Z in [0, 16.5mm])
+                wall_h_25 = 16.5
+                with Locations(((tray_l + 3.2) / 2.0, y_left_wall - 1.1, wall_h_25 / 2.0)):
+                    Box(tray_l - 3.2, 2.2, wall_h_25, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                # 2 stiffening ribs bridging outer left frame wall (-51.0mm) to inner 2.5" left wall (-41.2mm)
+                for rx in (24.0, 82.0):
+                    with Locations((rx, (-inner_w / 2.0 + y_left_wall) / 2.0, wall_h_25 / 2.0)):
+                        Box(2.5, y_left_wall - (-inner_w / 2.0), wall_h_25, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                # 7 circular ventilation holes (Ø 13.0mm) in the 2.5" floor plate matching 2.5in_Drive_Tray_R5_37031.png
+                vent_pts = [
+                    (32.0, -22.0, floor_t / 2.0),
+                    (52.0, -22.0, floor_t / 2.0),
+                    (72.0, -22.0, floor_t / 2.0),
+                    (42.0, -5.0, floor_t / 2.0),
+                    (62.0, -5.0, floor_t / 2.0),
+                    (82.0, -5.0, floor_t / 2.0),
+                    (52.0, +12.0, floor_t / 2.0),
+                ]
+                with Locations(*vent_pts):
+                    Cylinder(radius=6.5, height=floor_t + 2.0, mode=Mode.SUBTRACT)
             # 2. Exterior side-wall truss pockets & diagonal ribs
             for px in (36.0, 76.0, 114.0):
                 if px < rail_l - 14.0:
@@ -433,34 +459,157 @@ def generate_tray_cad(spec: TraySpec) -> Part:
                     Box(6.2, 11.0, H - 8.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
             # -------------------------------------------------------------------------------------
-            # 2.5" SFF SLIM TRAYS (2.5" R1..R7, D1, Slim, SSD): 3-Window T-Web Floor + Clean Latch Bezel
+            # 2.5" SFF SLIM TRAYS (Slim, SSD, 2.5" D1, 2.5" R1..R4, R6, R7): Tray-Specific Sculpted Geometry
             # -------------------------------------------------------------------------------------
             elif spec.archetype == TrayArchetype.SFF_25:
-                # 3 rectangular windows separated by a T-shaped web (with continuous rear bar X in [0, 10mm] and NO fake EMI teeth)
-                w_in = max(18.0, cavity_w - 12.0)
-                rear_l = max(18.0, (rail_l - 32.0) * 0.48)
-                front_l = max(18.0, (rail_l - 32.0) * 0.42)
-                with Locations((10.0 + rear_l / 2.0, 0.0, floor_t / 2.0)):
-                    Box(rear_l, w_in, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                front_cx = rail_l - 8.0 - front_l / 2.0
-                half_w = (w_in - 6.0) / 2.0
-                if half_w >= 6.0:
-                    with Locations(
-                        (front_cx, -(half_w / 2.0 + 3.0), floor_t / 2.0),
-                        (front_cx, +(half_w / 2.0 + 3.0), floor_t / 2.0),
-                    ):
-                        Box(front_l, half_w, floor_t + 1.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                for hc in holes:
-                    if hc.axis == "Z":
-                        with Locations((hc.x, hc.y, floor_t / 2.0)):
-                            Cylinder(radius=4.5, height=floor_t, mode=Mode.ADD)
-                # Front bezel with center finger-pull pocket + compliant right-side latch flex slot
-                with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
-                    Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
-                with Locations((L - 3.5, -2.0, H / 2.0)):
-                    Box(7.2, W * 0.54, max(4.5, H - 6.5), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
-                with Locations((rail_l + bezel_t * 0.55, W / 2.0 - 6.5, H / 2.0)):
-                    Box(bezel_t * 0.75, 1.8, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                # Safe window Y half-span <= 24.5mm so SFF-8201 bottom holes (at Y = +-30.86mm) sit cleanly inside solid floor!
+                win_max_y = min(24.5, cavity_w / 2.0 - 6.0)
+
+                if "Slim" in spec.name or "SSD" in spec.name:
+                    # Disk Tray (Type Slim) (114x79x14.5mm) & Disk Tray (Type SSD) (134x79x14.0mm):
+                    # Open-top U-scoop slide trays with circular side-rail vent holes & front U-scoop finger pocket
+                    if "Slim" in spec.name:
+                        # 1 large centered filleted rectangular floor window (X in [24, 78], Y in [-23, +23])
+                        with BuildSketch(Plane.XY.offset(-0.5)):
+                            with Locations((51.0, 0.0)):
+                                RectangleRounded(54.0, 2 * win_max_y, radius=4.0)
+                        extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
+                    else:
+                        # Type SSD: 2x2 grid of 4 filleted rectangular floor windows in rear drive zone (X in [14, 90])
+                        with BuildSketch(Plane.XY.offset(-0.5)):
+                            for wx in (32.0, 70.0):
+                                for wy in (-13.0, +13.0):
+                                    with Locations((wx, wy)):
+                                        RectangleRounded(30.0, 19.5, radius=3.8)
+                        extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
+
+                    # Row of vertical circular lightening holes (r=1.25mm inside the 4.38mm rail wall so inner/outer walls stay continuous!)
+                    rail_cy = (rail_w / 2.0 + cavity_w / 2.0) / 2.0
+                    hole_xs = [12.0 + i * 9.0 for i in range(int((rail_l - 16.0) // 9.0))]
+                    for hx in hole_xs:
+                        for s in (-1.0, +1.0):
+                            with Locations((hx, s * rail_cy, rail_h / 2.0)):
+                                Cylinder(radius=1.25, height=rail_h + 2.0, mode=Mode.SUBTRACT)
+                    # Tapered rear rail lead-in
+                    with Locations((4.0, 0.0, rail_h)):
+                        Box(12.0, W + 2.0, 4.0, rotation=(0, -18, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+
+                    # Front U-scoop slide bezel & recessed finger-pull pocket (matching Disk_Tray_Type_Slim/SSD photos!)
+                    with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
+                        Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                    # Open the top of the bezel behind the 2.6mm front face plate
+                    pocket_l = bezel_t - 2.6
+                    with Locations((rail_l + pocket_l / 2.0, 0.0, floor_t + H / 2.0)):
+                        Box(pocket_l + 0.2, W - 5.0, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    # Add the curved inner U-wall around the central finger scoop (Y in [-18, +18]) + stiffening ribs on SSD
+                    with BuildSketch(Plane.XY.offset(floor_t)):
+                        with Locations((L - bezel_t / 2.0, 0.0)):
+                            RectangleRounded(bezel_t, 36.0, radius=5.0)
+                        with Locations((L - bezel_t / 2.0 + 1.8, 0.0)):
+                            RectangleRounded(bezel_t, 30.8, radius=3.5, mode=Mode.SUBTRACT)
+                    extrude(amount=H - floor_t, mode=Mode.ADD)
+                    if bezel_t > 18.0:
+                        # Transverse stiffening ribs in the side pockets of Type SSD (matching Disk_Tray_Type_SSD_24719.png!)
+                        for s in (-1.0, +1.0):
+                            with Locations((rail_l + bezel_t * 0.48, s * 27.0, H / 2.0)):
+                                Box(2.0, 19.0, H - 1.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                    # Carve the U-shaped thumb scoop notch out of the top center of the front face wall
+                    with Locations((L - 1.5, 0.0, H - 3.5)):
+                        Box(6.0, 26.0, 8.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((L - 1.5, 0.0, H - 7.5)):
+                        Cylinder(radius=13.0, height=6.0, rotation=(0, 90, 0), mode=Mode.SUBTRACT)
+
+                elif spec.name == '2.5" Disk Tray (D1)':
+                    # 2.5" Disk Tray (D1) (124x75x16mm — DS419slim / DS620slim):
+                    # 2 parallel longitudinal rounded-rectangular floor windows + Desktop D6-style 1-piece compliant latch bezel
+                    win_l = rail_l - 28.0
+                    win_w = win_max_y - 4.0
+                    win_cy = (win_max_y + 4.0) / 2.0
+                    with BuildSketch(Plane.XY.offset(-0.5)):
+                        for s in (-1.0, +1.0):
+                            with Locations((12.0 + win_l / 2.0, s * win_cy)):
+                                RectangleRounded(win_l, win_w, radius=3.2)
+                    extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
+                    # Side rail clip pockets + sloped rear ramp
+                    with Locations((8.0, 0.0, rail_h)):
+                        Box(16.0, W + 2.0, 4.0, rotation=(0, -14, 0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    for sx in (34.0, 78.0):
+                        with Locations((sx, 0.0, rail_h - 2.2)):
+                            Box(16.0, W + 2.0, 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    # Desktop D6-style 1-piece compliant front push-lock bezel
+                    with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
+                        Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                    with Locations((rail_l + bezel_t / 2.0, 6.0, H / 2.0)):
+                        Box(bezel_t - 5.2, W * 0.56, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((L - 1.5, 6.0, H - 2.5)):
+                        Box(4.0, W * 0.48, 5.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((rail_l + bezel_t * 0.55, -W / 2.0 + 7.5, H / 2.0)):
+                        Box(bezel_t * 0.75, 2.2, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+
+                elif spec.name == '2.5" Drive Tray (R7)':
+                    # 2.5" Drive Tray (R7) (179x79x15mm — PAS7700 U.2/U.3 NVMe):
+                    # Open-bottom perimeter frame under the rear NVMe bay + transverse bridge at X=118..126 + front window
+                    rear_open_l = 108.0
+                    with BuildSketch(Plane.XY.offset(-0.5)):
+                        with Locations((6.0 + rear_open_l / 2.0, 0.0)):
+                            RectangleRounded(rear_open_l, 2 * win_max_y, radius=3.0)
+                        front_win_l = rail_l - 124.0 - 6.0
+                        if front_win_l > 10.0:
+                            with Locations((124.0 + front_win_l / 2.0, 0.0)):
+                                RectangleRounded(front_win_l, 2 * (win_max_y + 2.0), radius=3.0)
+                    extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
+                    # Rackmount front latch bezel
+                    with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
+                        Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                    with Locations((L - 4.0, 5.0, H / 2.0)):
+                        Box(8.5, W * 0.54, H - 5.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((rail_l + bezel_t * 0.55, -W / 2.0 + 7.5, H / 2.0)):
+                        Box(bezel_t * 0.75, 2.0, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((L - 2.5, -W / 2.0 + 13.5, H / 2.0)):
+                        Box(5.5, 8.5, H - 6.5, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+
+                elif spec.name == '2.5" Disk Tray (R3)':
+                    # 2.5" Disk Tray (R3) (124x71x15.5mm — Ultra-slim sheet-metal style carrier):
+                    # 2 transverse rounded-rectangular floor windows + dual-grooved front latch bezel
+                    with BuildSketch(Plane.XY.offset(-0.5)):
+                        for wx, wl in ((34.0, 34.0), (77.0, 34.0)):
+                            with Locations((wx, 0.0)):
+                                RectangleRounded(wl, 2 * win_max_y, radius=3.0)
+                    extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
+                    with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
+                        Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                    # Dual horizontal finger-grip grooves on the right + release button on the left
+                    for gz in (H * 0.33, H * 0.67):
+                        with Locations((L - 2.5, 5.5, gz)):
+                            Box(5.5, W * 0.56, 3.2, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((rail_l + bezel_t * 0.55, -W / 2.0 + 7.0, H / 2.0)):
+                        Box(bezel_t * 0.75, 1.8, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+
+                else:
+                    # 2.5" Disk Tray (R1, R2, R4) & 2.5" Drive Tray (R6):
+                    # 2 parallel longitudinal windows in the REAR drive zone (X in [12, 86]) +
+                    # 1 wide transverse window in the FRONT zone (X in [94, rail_l - 6]) right behind the bezel!
+                    rear_win_l = min(72.0, (rail_l - 24.0) * 0.56)
+                    front_win_l = max(16.0, rail_l - 18.0 - rear_win_l - 6.0)
+                    win_w = win_max_y - 4.0
+                    win_cy = (win_max_y + 4.0) / 2.0
+                    with BuildSketch(Plane.XY.offset(-0.5)):
+                        for s in (-1.0, +1.0):
+                            with Locations((10.0 + rear_win_l / 2.0, s * win_cy)):
+                                RectangleRounded(rear_win_l, win_w, radius=3.2)
+                        with Locations((rail_l - 6.0 - front_win_l / 2.0, 0.0)):
+                            RectangleRounded(front_win_l, 2 * win_max_y, radius=3.2)
+                    extrude(amount=floor_t + 1.0, mode=Mode.SUBTRACT)
+
+                    # Rackmount 2.5" front bezel with left release button pocket & wide right pull handle
+                    with Locations((rail_l + bezel_t / 2.0, 0.0, H / 2.0)):
+                        Box(bezel_t, W, H, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.ADD)
+                    with Locations((L - 3.8, 5.0, H / 2.0)):
+                        Box(8.0, W * 0.54, max(4.5, H - 6.0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((rail_l + bezel_t * 0.55, -W / 2.0 + 7.5, H / 2.0)):
+                        Box(bezel_t * 0.75, 2.0, H + 2.0, align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
+                    with Locations((L - 2.5, -W / 2.0 + 13.5, H / 2.0)):
+                        Box(5.5, 8.5, max(4.5, H - 7.0), align=(Align.CENTER, Align.CENTER, Align.CENTER), mode=Mode.SUBTRACT)
 
         # 7. Drill all SFF-8301 (3.5") and SFF-8201 (2.5") mounting holes + outer M3 screw-head counterbores (QoL!)
         has_bottom_floor = not (

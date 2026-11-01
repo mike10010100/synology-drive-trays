@@ -4,10 +4,10 @@
 <rect x="55.0" y="55.0" width="377.0" height="304.2" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
 <rect x="432.0" y="55.0" width="36.4" height="304.2" fill="#334155" stroke="#38bdf8" stroke-width="2.0"/>
 <line x1="40.0" y1="207.1" x2="483.4" y2="207.1" stroke="#475569" stroke-dasharray="6,4" stroke-width="1"/>
-<circle cx="91.4" cy="126.9" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-<circle cx="91.4" cy="287.3" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-<circle cx="290.6" cy="126.9" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-<circle cx="290.6" cy="287.3" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="91.4" cy="113.7" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="91.4" cy="274.1" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="290.6" cy="113.7" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="290.6" cy="274.1" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
 <rect x="55.0" y="476.2" width="377.0" height="54.6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
 <rect x="432.0" y="476.2" width="36.4" height="54.6" fill="#334155" stroke="#38bdf8" stroke-width="2.0"/>
 <text x="221.7" y="45.0" fill="#e2e8f0" font-size="12">L = 159.0 mm (Rails: 145.0 mm, Bezel: 14.0 mm)</text>

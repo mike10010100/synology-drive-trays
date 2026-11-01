@@ -298,6 +298,13 @@ def main() -> None:
         ("Disk Holder (Type C)", "Disk_Holder_Type_C_24492.png", "Holder_Type_C_prspr.stl", "09_compare_Holder_Type_C.png"),
         ("Disk Tray (Type D4)", "Disk_Tray_Type_D4_29497.png", "Type_D7_slezak_from_step.stl", "10_compare_Type_D4_warped.png"),
         ("Disk Tray (Type R1)", "Disk_Tray_Type_R1_29506.png", "Type_R8_th0r88.stl", "11_compare_Type_R1_warped.png"),
+        ("2.5\" Drive Tray (R5)", "2.5in_Drive_Tray_R5_37031.png", None, "12_compare_25in_R5_60bay.png"),
+        ("Disk Tray (Type Slim)", "Disk_Tray_Type_Slim_24710.png", None, "13_compare_Type_Slim.png"),
+        ("Disk Tray (Type SSD)", "Disk_Tray_Type_SSD_24719.png", None, "14_compare_Type_SSD.png"),
+        ("2.5\" Disk Tray (D1)", "2.5in_Disk_Tray_D1_34052.png", None, "15_compare_25in_D1.png"),
+        ("2.5\" Drive Tray (R7)", "2.5in_Drive_Tray_R7_49194.png", None, "16_compare_25in_R7_NVMe.png"),
+        ("2.5\" Disk Tray (R1)", "2.5in_Disk_Tray_R1_30434.png", None, "17_compare_25in_R1.png"),
+        ("2.5\" Disk Tray (R3)", "2.5in_Disk_Tray_R3_36224.png", None, "18_compare_25in_R3.png"),
     ]
     for tname, ref_img, gt_stl, out_name in cards:
         render_comparison_card(tname, ref_img, gt_stl, GALLERY_DIR / out_name)
