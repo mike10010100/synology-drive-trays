@@ -100,9 +100,31 @@ synology-drive-trays/
 │   └── verify_pipeline.py           # Independent behavioral & geometric verification script
 ├── src/synology_drive_trays/
 │   ├── specs.py                     # SFF-8301 / SFF-8201 standards & all 32 TraySpec definitions
+│   ├── templates.py                 # Backplane-datum-locked 3D template synthesis (21 trays)
 │   ├── generator.py                 # Parametric build123d 3D CAD & 2D SVG schematic generator
 │   ├── validator.py                 # Cross-sectional mesh slicer & ground-truth validator
 │   └── cli.py                       # CLI entry point (syno-trays)
-└── tests/
-    └── test_pipeline.py             # Pytest suite & regression tests
+├── tests/
+│   └── test_pipeline.py             # Pytest suite & regression tests
+├── ATTRIBUTIONS.md                  # Full Creative Commons TASL credits & modification notices
+└── LICENSE                          # Dual License (MIT for code/procedural CAD + CC BY-NC-SA 4.0)
 ```
+
+## Licensing, Community CAD Attributions & Legal Notice
+
+This repository is dual-licensed (see [`LICENSE`](LICENSE) and [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md) for full details):
+
+1. **Software, Scripts, 2D Schematics & Procedural CAD ([MIT License](LICENSE)):**
+   All Python source code (`src/`, `scripts/`, `tests/`), 2D engineering schematics (`output/svg_schematics/`), and the 11 procedural 3D CAD models generated from scratch (`Type R9`, `2.5" R5`, `Type Slim`, `Type SSD`, `2.5" D1`, `2.5" R1–R4`, `2.5" R6`, `2.5" R7`) are released under the **MIT License**.
+2. **Community Ground-Truth & Template-Derived 3D CAD ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)):**
+   The 17 reference CAD files in [`data/ground_truth/`](data/ground_truth/) and the 21 template-derived 3D models in [`output/stl/`](output/stl/) and [`output/step/`](output/step/) are distributed under **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** with grateful attribution to their original creators:
+   - **Jimka** — [*Synology Disk Tray (Type D1)*](https://www.thingiverse.com/thing:6205109) (`CC BY-NC-SA 4.0`) → `Type D1`
+   - **Frederic Slezak** — [*Synology HDD Tray D7*](https://www.printables.com/model/1328363) (`CC BY-NC-SA 4.0`) → `Type D7`, `Type D4`
+   - **sunbrowner** — [*Synology D6 3.5/2.5 Hard Drive Tray*](https://www.thingiverse.com/thing:4887288) (`CC BY-NC 4.0`) → `Type D6`, `Type D8`, `Type D9`
+   - **Lioncat55** — [*Synology D5 Tray*](https://www.printables.com/model/422496) (`CC0 1.0 Public Domain`) → `Type D5`, `Type D2`, `Type D3`
+   - **vikingu** — [*Synology Disk Tray (Type R7)*](https://www.thingiverse.com/thing:6072020) (`CC BY-NC 4.0`) → `Type R7`, `Type R10`
+   - **th0r88** — [*RS818+/RS818RP+ HDD Caddy (Type R8)*](https://www.thingiverse.com/thing:4813963) (`CC BY-NC 4.0`) → `Type R8`, `Type R6`, `Type R5`, `Type R1–R4`
+   - **PRSPR** — [*Synology SSD Adapter (Type C)*](https://www.printables.com/model/446654) (`CC BY-NC 4.0`) → `Holder Type C`, `Holder Type A`, `Holder Type B`
+   - Additional validation reference models by **kai** ([Printables #200878](https://www.printables.com/model/200878), `CC BY 4.0`), **urill** ([Printables #467163](https://www.printables.com/model/467163), `CC0 1.0`), **Vladimir_SM / Kairi** ([Printables #1631635](https://www.printables.com/model/1631635), `CC BY-NC 4.0`), **BTCB** ([Printables #1367836](https://www.printables.com/model/1367836), `CC0 1.0`), **SnakeNET** ([Thingiverse #2490968](https://www.thingiverse.com/thing:2490968), `CC BY-NC 4.0`), **JohnnyAdams2024** ([Thingiverse #7018439](https://www.thingiverse.com/thing:7018439), `CC BY-NC 4.0`), **Bender2k** ([Thingiverse #1456350](https://www.thingiverse.com/thing:1456350), `CC BY-NC 4.0`), and **yujungchang** ([Thingiverse #4677567](https://www.thingiverse.com/thing:4677567), `CC BY-NC 4.0`). See [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md) for the full modification log per CC 4.0 §3(a)(1)(B).
+3. **Trademark & Fair-Use Reference Image Notice:**
+   *Synology*, *DiskStation*, *RackStation*, and *FlashStation* are registered trademarks of **Synology Inc.** This project is an independent community hardware-interoperability and preservation effort and is not affiliated with, sponsored by, or endorsed by Synology Inc. Low-resolution spare-part catalog thumbnails in `data/reference_images/` and side-by-side comparison cards in `output/gallery/` are included strictly for non-commercial nominative fair-use identification, interoperability verification, and educational comparison (`17 U.S.C. § 107`).
