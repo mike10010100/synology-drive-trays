@@ -8,6 +8,8 @@
 <circle cx="91.4" cy="255.9" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
 <circle cx="290.6" cy="95.5" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
 <circle cx="290.6" cy="255.9" r="4.2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+<circle cx="91.4" cy="464.5" r="4.2" fill="none" stroke="#a855f7" stroke-width="1.5"/>
+<circle cx="290.6" cy="464.5" r="4.2" fill="none" stroke="#a855f7" stroke-width="1.5"/>
 <rect x="55.0" y="439.8" width="288.6" height="39.0" fill="#1e293b" stroke="#38bdf8" stroke-width="1.8"/>
 <rect x="343.6" y="439.8" width="10.4" height="39.0" fill="#334155" stroke="#38bdf8" stroke-width="2.0"/>
 <text x="164.5" y="45.0" fill="#e2e8f0" font-size="12">L = 115.0 mm (Rails: 111.0 mm, Bezel: 4.0 mm)</text>

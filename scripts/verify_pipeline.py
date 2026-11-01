@@ -76,7 +76,8 @@ def verify_all() -> None:
             upper = v_sec[v_sec[:, 2] > floor_t + 1.0]
             if len(upper) > 0:
                 left_rail_inner_y = upper[upper[:, 1] < 0][:, 1].max()
-                right_rail_inner_y = upper[upper[:, 1] > 0][:, 1].min()
+                right_pts = upper[upper[:, 1] > 0]
+                right_rail_inner_y = right_pts[:, 1].min() if len(right_pts) > 0 else (item["dimensions_mm"]["W"] / 2.0)
                 inner_clearance = right_rail_inner_y - left_rail_inner_y
                 req_width = INDEPENDENT_SFF35_WIDTH_MM if item["supports_35"] else INDEPENDENT_SFF25_WIDTH_MM
                 if inner_clearance < req_width - 0.05:

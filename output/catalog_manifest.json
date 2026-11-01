@@ -237,7 +237,7 @@
       "has_lock": false,
       "supports_35": false,
       "supports_25": true,
-      "hole_count": 4,
+      "hole_count": 6,
       "applied_models": [
         "DS223j",
         "DS220j",
@@ -1064,7 +1064,7 @@
       "has_lock": false,
       "supports_35": false,
       "supports_25": true,
-      "hole_count": 4,
+      "hole_count": 6,
       "applied_models": [
         "DS109+",
         "DS109",
@@ -1092,7 +1092,7 @@
       "has_lock": false,
       "supports_35": false,
       "supports_25": true,
-      "hole_count": 4,
+      "hole_count": 6,
       "applied_models": [
         "DS409+",
         "DS209+II",
@@ -1396,9 +1396,9 @@
         103.0,
         15.0
       ],
-      "gen_rail_width_mm": 103.0,
+      "gen_rail_width_mm": 31.6,
       "gt_rail_width_mm": 31.6,
-      "rail_width_error_mm": 71.4,
+      "rail_width_error_mm": 0.0,
       "gen_rail_height_mm": 15.0,
       "gt_rail_height_mm": 10.0,
       "rail_height_error_mm": 5.0,

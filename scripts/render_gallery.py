@@ -1,14 +1,13 @@
-"""Render side-by-side 3D CAD visual comparison cards (Official Synology Photo vs. Community GT vs. Generated CAD)."""
+"""True Z-buffered 3D CAD studio renderer for side-by-side comparison cards (Official Photo vs. Generated CAD vs. Community GT)."""
 from __future__ import annotations
 
-import shutil
 from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import numpy as np
 from PIL import Image
+from scipy.ndimage import gaussian_filter
 import trimesh
 
 from synology_drive_trays.specs import build_all_tray_specs
@@ -20,51 +19,168 @@ REF_IMG_DIR = ROOT / "data" / "reference_images"
 GT_DIR = ROOT / "data" / "ground_truth"
 
 
-def _orient_mesh_for_display(mesh: trimesh.Trimesh, is_gt: bool = False) -> trimesh.Trimesh:
-    """Center mesh at origin and orient longest axis along X, medium along Y, shortest along Z."""
+def _orient_mesh_for_display(mesh: trimesh.Trimesh, is_gt: bool = False, gt_name: str = "") -> trimesh.Trimesh:
+    """
+    Canonicalize mesh into display coordinates:
+      X in [-L/2, +L/2] where +X is the FRONT BEZEL (foreground bottom-left in isometric view)
+      Y in [-W/2, +W/2] where -Y is left rail, +Y is right rail
+      Z in [-H/2, +H/2] where -Z is the bottom floor plate, +Z is the top of bezel/rails
+    """
     m = mesh.copy()
-    m.vertices -= m.bounds.mean(axis=0)
     if is_gt:
         order = np.argsort(m.extents)[::-1]
-        m.vertices = m.vertices[:, order]
-        # Ensure floor is at bottom (-Z) by checking where more vertices sit in Z
-        z_med = np.median(m.vertices[:, 2])
-        if z_med > 0:
-            m.vertices[:, 2] *= -1.0
+        v = m.vertices[:, order].copy()
+        v -= (v.max(axis=0) + v.min(axis=0)) / 2.0
+
+        # Ensure floor is at -Z: check whether more surface area near min-Z or max-Z is horizontal floor
+        z_span = v[:, 2].max() - v[:, 2].min()
+        low_z_count = np.sum(v[:, 2] < v[:, 2].min() + 0.22 * z_span)
+        high_z_count = np.sum(v[:, 2] > v[:, 2].max() - 0.22 * z_span)
+        if high_z_count > low_z_count or "slezak" in gt_name or "jimka" in gt_name:
+            v[:, 2] *= -1.0
+            m.faces = m.faces[:, ::-1]
+
+        # Ensure front bezel (taller/heavier end) is at +X:
+        x_pos_high = np.percentile(v[v[:, 0] > 0, 2], 95) if np.any(v[:, 0] > 0) else 0
+        x_neg_high = np.percentile(v[v[:, 0] < 0, 2], 95) if np.any(v[:, 0] < 0) else 0
+        if x_neg_high > x_pos_high + 0.5 or any(k in gt_name for k in ("sunbrowner", "lioncat", "vikingu", "th0r88", "prspr")):
+            v[:, 0] *= -1.0
+            v[:, 1] *= -1.0
+        m.vertices = v
+        m.fix_normals()
+    else:
+        m.vertices -= (m.bounds[0] + m.bounds[1]) / 2.0
     return m
 
 
-def _plot_3d_mesh(ax, mesh: trimesh.Trimesh, title: str, color: str = "#38bdf8", edge_color: str = "#0284c7") -> None:
-    """Render a shaded 3D triangle mesh with directional lighting onto a Matplotlib 3D axis."""
-    v = mesh.vertices
+def render_mesh_zbuffer(
+    mesh: trimesh.Trimesh,
+    width_px: int = 680,
+    height_px: int = 480,
+    elev_deg: float = 30.0,
+    azim_deg: float = -138.0,
+    base_color: tuple[float, float, float] = (0.22, 0.74, 0.97),
+    bg_color: tuple[float, float, float] = (15 / 255, 23 / 255, 42 / 255),
+) -> np.ndarray:
+    """
+    Software Z-buffered orthographic rasterizer with Phong lighting + screen-space crease/silhouette edge ink.
+    Eliminates all Matplotlib Poly3DCollection painter's-algorithm sorting artifacts.
+    """
+    v = mesh.vertices.copy()
     f = mesh.faces
-    tris = v[f]
+    normals = mesh.face_normals.copy()
 
-    # Simple diffuse lighting calculation from light vector [0.4, -0.5, 0.8]
-    normals = mesh.face_normals
-    light_dir = np.array([0.35, -0.45, 0.82])
-    light_dir /= np.linalg.norm(light_dir)
-    intensity = np.clip(np.abs(normals @ light_dir) * 0.72 + 0.28, 0.25, 1.0)
+    # Build camera rotation matrix (azim around Z, then elev around screen X)
+    az = np.deg2rad(azim_deg)
+    el = np.deg2rad(elev_deg)
+    Rz = np.array([
+        [np.cos(az), -np.sin(az), 0.0],
+        [np.sin(az),  np.cos(az), 0.0],
+        [0.0,         0.0,        1.0],
+    ])
+    Rx = np.array([
+        [1.0, 0.0,          0.0],
+        [0.0, np.cos(el), -np.sin(el)],
+        [0.0, np.sin(el),  np.cos(el)],
+    ])
+    # Map world (X,Y,Z) -> camera (u_right, v_up, depth_towards_camera)
+    # Standard isometric: camera looks along +Y_cam, so screen X = X_rot, screen Y = Z_rot, depth = -Y_rot
+    R = Rx @ Rz
+    v_cam = v @ R.T
+    n_cam = normals @ R.T
 
-    base_rgb = np.array(matplotlib.colors.to_rgb(color))
-    face_colors = np.zeros((len(f), 4))
-    face_colors[:, :3] = base_rgb[None, :] * intensity[:, None]
-    face_colors[:, 3] = 0.96
+    sx = v_cam[:, 0]
+    sy = v_cam[:, 2]
+    sz = -v_cam[:, 1]  # larger sz = closer to camera
 
-    poly = Poly3DCollection(tris, facecolors=face_colors, linewidths=0.08, edgecolors=(0.08, 0.12, 0.18, 0.18))
-    ax.add_collection3d(poly)
+    # Fit bounding box to screen with 12% margin
+    span_x = max(1e-3, sx.max() - sx.min())
+    span_y = max(1e-3, sy.max() - sy.min())
+    scale = min((width_px * 0.82) / span_x, (height_px * 0.80) / span_y)
 
-    spans = v.max(axis=0) - v.min(axis=0)
-    max_span = spans.max() * 0.54
-    mid = (v.max(axis=0) + v.min(axis=0)) / 2.0
-    ax.set_xlim(mid[0] - max_span, mid[0] + max_span)
-    ax.set_ylim(mid[1] - max_span, mid[1] + max_span)
-    ax.set_zlim(mid[2] - max_span * 0.55, mid[2] + max_span * 0.55)
-    ax.set_box_aspect((1.0, 1.0, 0.55))
-    ax.view_init(elev=30, azim=42)
-    ax.set_axis_off()
-    ax.set_facecolor("#0f172a")
-    ax.set_title(title, color="#f8fafc", fontsize=11, fontweight="bold", pad=6)
+    cx = (sx.max() + sx.min()) / 2.0
+    cy = (sy.max() + sy.min()) / 2.0
+
+    px = (sx - cx) * scale + width_px / 2.0
+    py = height_px / 2.0 - (sy - cy) * scale  # Y-down in image
+
+    zbuf = np.full((height_px, width_px), -np.inf, dtype=np.float32)
+    nbuf = np.zeros((height_px, width_px, 3), dtype=np.float32)
+    hit_mask = np.zeros((height_px, width_px), dtype=bool)
+
+    tris_x = px[f]
+    tris_y = py[f]
+    tris_z = sz[f]
+
+    # Bounding boxes per triangle in pixel coords
+    xmins = np.clip(np.floor(tris_x.min(axis=1)).astype(int), 0, width_px - 1)
+    xmaxs = np.clip(np.ceil(tris_x.max(axis=1)).astype(int), 0, width_px - 1)
+    ymins = np.clip(np.floor(tris_y.min(axis=1)).astype(int), 0, height_px - 1)
+    ymaxs = np.clip(np.ceil(tris_y.max(axis=1)).astype(int), 0, height_px - 1)
+
+    # Precompute 2x signed area in screen space
+    x0, x1, x2 = tris_x[:, 0], tris_x[:, 1], tris_x[:, 2]
+    y0, y1, y2 = tris_y[:, 0], tris_y[:, 1], tris_y[:, 2]
+    z0, z1, z2 = tris_z[:, 0], tris_z[:, 1], tris_z[:, 2]
+    denom = (y1 - y2) * (x0 - x2) + (x2 - x1) * (y0 - y2)
+
+    valid_tris = np.where(np.abs(denom) > 1e-4)[0]
+    for i in valid_tris:
+        x_lo, x_hi = xmins[i], xmaxs[i]
+        y_lo, y_hi = ymins[i], ymaxs[i]
+        if x_lo > x_hi or y_lo > y_hi:
+            continue
+        inv_d = 1.0 / denom[i]
+        gx, gy = np.meshgrid(np.arange(x_lo, x_hi + 1) + 0.5, np.arange(y_lo, y_hi + 1) + 0.5)
+        w0 = ((y1[i] - y2[i]) * (gx - x2[i]) + (x2[i] - x1[i]) * (gy - y2[i])) * inv_d
+        w1 = ((y2[i] - y0[i]) * (gx - x2[i]) + (x0[i] - x2[i]) * (gy - y2[i])) * inv_d
+        w2 = 1.0 - w0 - w1
+        inside = (w0 >= -1e-4) & (w1 >= -1e-4) & (w2 >= -1e-4)
+        if not np.any(inside):
+            continue
+        z_interp = w0 * z0[i] + w1 * z1[i] + w2 * z2[i]
+        sub_z = zbuf[y_lo : y_hi + 1, x_lo : x_hi + 1]
+        closer = inside & (z_interp > sub_z)
+        if np.any(closer):
+            sub_z[closer] = z_interp[closer]
+            hit_mask[y_lo : y_hi + 1, x_lo : x_hi + 1][closer] = True
+            n_vec = n_cam[i]
+            if n_vec[1] > 0:
+                n_vec = -n_vec
+            nbuf[y_lo : y_hi + 1, x_lo : x_hi + 1][closer] = n_vec
+
+    # Studio 3-point lighting (key light + fill light + rim light)
+    img = np.zeros((height_px, width_px, 3), dtype=np.float32)
+    img[:, :] = bg_color
+
+    if np.any(hit_mask):
+        n = nbuf[hit_mask]
+        key_dir = np.array([-0.42, -0.65, 0.63], dtype=np.float32)
+        key_dir /= np.linalg.norm(key_dir)
+        fill_dir = np.array([0.55, -0.45, 0.25], dtype=np.float32)
+        fill_dir /= np.linalg.norm(fill_dir)
+
+        diff_key = np.clip(np.abs(n @ key_dir), 0.0, 1.0)
+        diff_fill = np.clip(np.abs(n @ fill_dir), 0.0, 1.0)
+        spec = np.power(diff_key, 18.0) * 0.28
+
+        shade = 0.24 + 0.58 * diff_key + 0.22 * diff_fill
+        base = np.array(base_color, dtype=np.float32)
+        rgb = np.clip(base[None, :] * shade[:, None] + spec[:, None], 0.0, 1.0)
+        img[hit_mask] = rgb
+
+        # Screen-space CAD feature edge & silhouette detection
+        z_clean = np.where(hit_mask, zbuf, zbuf[hit_mask].min() - 20.0)
+        dz_x = np.abs(np.diff(z_clean, axis=1, prepend=z_clean[:, :1]))
+        dz_y = np.abs(np.diff(z_clean, axis=0, prepend=z_clean[:1, :]))
+        dn_x = np.linalg.norm(np.diff(nbuf, axis=1, prepend=nbuf[:, :1, :]), axis=2)
+        dn_y = np.linalg.norm(np.diff(nbuf, axis=0, prepend=nbuf[:1, :, :]), axis=2)
+
+        edge_strength = np.clip((dz_x + dz_y) * 0.22 + (dn_x + dn_y) * 0.45, 0.0, 1.0)
+        edge_mask = hit_mask & (edge_strength > 0.35)
+        img[edge_mask] *= 0.32
+
+    return (np.clip(img, 0.0, 1.0) * 255).astype(np.uint8)
 
 
 def render_comparison_card(
@@ -73,63 +189,66 @@ def render_comparison_card(
     gt_stl_name: str | None,
     out_png: Path,
 ) -> None:
-    """Render a 3-panel comparison card: Official Synology Render | Community GT Mesh (or Top View) | Generated 3D CAD."""
+    """Render a 3-panel comparison card using true Z-buffered CAD rendering."""
     specs = build_all_tray_specs()
     spec = specs[tray_name]
     gen_stl = OUT_DIR / "stl" / f"{spec.slug}.stl"
     gen_mesh = _orient_mesh_for_display(trimesh.load(str(gen_stl), force="mesh"), is_gt=False)
 
-    fig = plt.figure(figsize=(15.5, 5.2), dpi=160, facecolor="#0f172a")
+    fig, axes = plt.subplots(1, 3, figsize=(16.0, 5.2), dpi=160, facecolor="#0f172a")
     fig.suptitle(
         f"{spec.name} — Archetype: {spec.archetype.value} | Official Envelope: {spec.length_mm:.1f} × {spec.width_mm:.1f} × {spec.height_mm:.1f} mm (Rail W: {spec.rail_width_mm:.1f} mm)",
         color="#f8fafc",
         fontsize=13,
         fontweight="bold",
-        y=0.97,
+        y=0.96,
     )
 
     # Panel 1: Official Synology Reference Photo
-    ax1 = fig.add_subplot(1, 3, 1)
-    ax1.set_facecolor("#ffffff")
+    axes[0].set_facecolor("#ffffff")
     if ref_img_name and (REF_IMG_DIR / ref_img_name).exists():
         img = Image.open(REF_IMG_DIR / ref_img_name)
-        ax1.imshow(img)
-        ax1.set_title(f"Official Synology Spare Parts Photo\n({ref_img_name})", color="#38bdf8", fontsize=10.5, fontweight="bold")
+        axes[0].imshow(img)
+        axes[0].set_title(f"Official Synology Spare Parts Photo\n({ref_img_name})", color="#38bdf8", fontsize=10.5, fontweight="bold")
     else:
-        ax1.text(0.5, 0.5, "Legacy 2009 Part\n(No Official API Render)", ha="center", va="center", fontsize=12)
-        ax1.set_title("Official Synology Reference", color="#38bdf8", fontsize=10.5, fontweight="bold")
-    ax1.axis("off")
+        axes[0].text(0.5, 0.5, "Legacy 2009 Part\n(No Official API Render)", ha="center", va="center", fontsize=12)
+        axes[0].set_title("Official Synology Reference", color="#38bdf8", fontsize=10.5, fontweight="bold")
+    axes[0].axis("off")
 
-    # Panel 2: Generated Parametric 3D CAD (Isometric View)
-    ax2 = fig.add_subplot(1, 3, 2, projection="3d")
-    _plot_3d_mesh(
-        ax2,
-        gen_mesh,
-        f"Our Generated Parametric 3D CAD (.step/.stl)\nHoneycomb/Slot Web + Snap-Fit Latch ({len(gen_mesh.faces)} tris)",
-        color="#38bdf8",
+    # Panel 2: Our Generated Parametric 3D CAD (Isometric View matching Synology photo angle)
+    gen_iso = render_mesh_zbuffer(gen_mesh, elev_deg=32.0, azim_deg=-138.0, base_color=(0.22, 0.74, 0.97))
+    axes[1].imshow(gen_iso)
+    axes[1].set_title(
+        f"Our Generated Parametric 3D CAD (.step/.stl)\nZ-Buffered Isometric Render ({len(gen_mesh.faces)} tris)",
+        color="#f8fafc",
+        fontsize=10.5,
+        fontweight="bold",
     )
+    axes[1].axis("off")
 
-    # Panel 3: Community Ground-Truth 3D Mesh OR Top Orthographic Blueprint View
-    ax3 = fig.add_subplot(1, 3, 3, projection="3d")
+    # Panel 3: Community Ground-Truth CAD OR Top Orthographic View
     if gt_stl_name and (GT_DIR / gt_stl_name).exists():
-        gt_mesh = _orient_mesh_for_display(trimesh.load(str(GT_DIR / gt_stl_name), force="mesh"), is_gt=True)
-        _plot_3d_mesh(
-            ax3,
-            gt_mesh,
+        gt_mesh = _orient_mesh_for_display(trimesh.load(str(GT_DIR / gt_stl_name), force="mesh"), is_gt=True, gt_name=gt_stl_name)
+        gt_iso = render_mesh_zbuffer(gt_mesh, elev_deg=32.0, azim_deg=-138.0, base_color=(0.98, 0.75, 0.14))
+        axes[2].imshow(gt_iso)
+        axes[2].set_title(
             f"Community Ground-Truth CAD\n({gt_stl_name} — {len(gt_mesh.faces)} tris)",
             color="#fbbf24",
+            fontsize=10.5,
+            fontweight="bold",
         )
     else:
-        # Show Top-Down Orthographic 3D view of our generated model to highlight floor web & SFF holes
-        _plot_3d_mesh(
-            ax3,
-            gen_mesh,
-            f"Generated CAD — Top Orthographic View\n(SFF-8301 / SFF-8201 Hole Pattern & Floor Web)",
+        gen_top = render_mesh_zbuffer(gen_mesh, elev_deg=88.0, azim_deg=-90.0, base_color=(0.20, 0.83, 0.60))
+        axes[2].imshow(gen_top)
+        axes[2].set_title(
+            "Generated CAD — Top Orthographic View\n(Floor Web & SFF-8301 / SFF-8201 Holes)",
             color="#34d399",
+            fontsize=10.5,
+            fontweight="bold",
         )
-        ax3.view_init(elev=84, azim=-90)
+    axes[2].axis("off")
 
-    plt.tight_layout(rect=[0.0, 0.0, 1.0, 0.92])
+    plt.tight_layout(rect=[0.0, 0.0, 1.0, 0.91])
     out_png.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_png, dpi=160, facecolor="#0f172a")
     plt.close(fig)
@@ -140,14 +259,14 @@ def render_archetype_overview_grid(out_png: Path) -> None:
     """Render a 2x3 master overview grid of all 6 Synology Drive Tray structural archetypes."""
     specs = build_all_tray_specs()
     featured = [
-        ("Disk Tray (Type D6)", "#38bdf8", "1. Desktop Lock (D2, D3, D5, D6, D8, D9, D10)"),
-        ("Disk Tray (Type D7)", "#60a5fa", "2. Desktop Slide (D1, D4, D7, DX510)"),
-        ("Disk Tray (Type R7)", "#34d399", "3. Rackmount 3.5\" (R1..R8, R10)"),
-        ("Drive Tray (Type R9)", "#a78bfa", "4. Top-Loading 60-Bay (R9, 2.5\" R5)"),
-        ("2.5\" Drive Tray (R6)", "#fbbf24", "5. 2.5\" SFF Slim Tray (2.5\" R1..R7, D1, Slim, SSD)"),
-        ("Disk Holder (Type C)", "#f472b6", "6. Internal 2.5\" Disk Holder (Type A, B, C)"),
+        ("Disk Tray (Type D6)", (0.22, 0.74, 0.97), "1. Desktop Lock (D2, D3, D5, D6, D8, D9, D10)"),
+        ("Disk Tray (Type D7)", (0.38, 0.65, 0.98), "2. Desktop Slide (D1, D4, D7, DX510)"),
+        ("Disk Tray (Type R7)", (0.20, 0.83, 0.60), "3. Rackmount 3.5\" (R1..R8, R10)"),
+        ("Drive Tray (Type R9)", (0.65, 0.55, 0.98), "4. Top-Loading 60-Bay (R9, 2.5\" R5)"),
+        ("2.5\" Drive Tray (R6)", (0.98, 0.75, 0.14), "5. 2.5\" SFF Slim Tray (2.5\" R1..R7, D1, Slim, SSD)"),
+        ("Disk Holder (Type C)", (0.96, 0.45, 0.71), "6. Internal 2.5\" Disk Holder (Type A, B, C)"),
     ]
-    fig = plt.figure(figsize=(16, 10), dpi=160, facecolor="#0f172a")
+    fig, axes = plt.subplots(2, 3, figsize=(16.5, 10.0), dpi=160, facecolor="#0f172a")
     fig.suptitle(
         "Synology Drive Tray Parametric 3D CAD Pipeline — All 6 Structural Archetypes (32/32 Tray Types)",
         color="#f8fafc",
@@ -155,17 +274,21 @@ def render_archetype_overview_grid(out_png: Path) -> None:
         fontweight="bold",
         y=0.97,
     )
-    for idx, (tname, col, label) in enumerate(featured, 1):
+    for idx, (tname, col, label) in enumerate(featured):
         spec = specs[tname]
         gen_stl = OUT_DIR / "stl" / f"{spec.slug}.stl"
         mesh = _orient_mesh_for_display(trimesh.load(str(gen_stl), force="mesh"), is_gt=False)
-        ax = fig.add_subplot(2, 3, idx, projection="3d")
-        _plot_3d_mesh(
-            ax,
-            mesh,
+        img = render_mesh_zbuffer(mesh, elev_deg=32.0, azim_deg=-138.0, base_color=col)
+        ax = axes[idx // 3, idx % 3]
+        ax.imshow(img)
+        ax.set_title(
             f"{label}\n{tname}: {spec.length_mm:.0f}×{spec.width_mm:.0f}×{spec.height_mm:.1f} mm",
-            color=col,
+            color="#f8fafc",
+            fontsize=11,
+            fontweight="bold",
         )
+        ax.axis("off")
+
     plt.tight_layout(rect=[0.0, 0.0, 1.0, 0.93])
     fig.savefig(out_png, dpi=160, facecolor="#0f172a")
     plt.close(fig)

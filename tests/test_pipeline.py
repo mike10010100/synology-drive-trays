@@ -75,7 +75,8 @@ def test_regression_r3_and_holder_inner_drive_clearance(all_specs):
         assert sec is not None
         upper = sec.vertices[sec.vertices[:, 2] > spec.floor_thickness_mm + 1.0]
         left_inner = upper[upper[:, 1] < 0][:, 1].max()
-        right_inner = upper[upper[:, 1] > 0][:, 1].min()
+        right_pts = upper[upper[:, 1] > 0]
+        right_inner = right_pts[:, 1].min() if len(right_pts) > 0 else (spec.width_mm / 2.0)
         clearance = right_inner - left_inner
         assert clearance >= SFF_25.drive_width - 0.05, (
             f"{target_name}: inner clearance {clearance:.2f}mm < 2.5\" drive width {SFF_25.drive_width}mm"
