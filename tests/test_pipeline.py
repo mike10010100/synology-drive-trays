@@ -162,8 +162,16 @@ def test_template_backplane_datum_and_sff_lock(all_specs):
         max_z_shift = float(np.max(np.abs(v_warp[mask_hole_z, 2] - v_raw[mask_hole_z, 2])))
         assert max_z_shift < 1e-9, f"{name} ({fname}): SFF side hole Z <= 6.5mm shifted by {max_z_shift:.6f}mm!"
 
-        # For 3.5" trays, check SFF bottom hole Y-lock (|Y| <= 49.5 mm is 100% unscaled 1:1)
+        # For 3.5" trays, check that 100% of the sliding rail (X < 130.0 mm, from bottom track Z=0
+        # through floor, side screw holes, and the top edge of the sliding rail) has 0.000 mm Z-shift!
         if "prspr" not in fname:
+            mask_sliding_rail = v_raw[:, 0] < 130.0
+            max_rail_z_shift = float(np.max(np.abs(v_warp[mask_sliding_rail, 2] - v_raw[mask_sliding_rail, 2])))
+            assert max_rail_z_shift < 1e-9, (
+                f"{name} ({fname}): sliding rail Z shifted by {max_rail_z_shift:.6f}mm!"
+            )
+
+            # Check SFF bottom hole Y-lock (|Y| <= 49.5 mm is 100% unscaled 1:1, symmetric around Y=0)
             mask_hole_y = np.abs(v_raw[:, 1]) <= 49.5
             max_y_shift = float(np.max(np.abs(v_warp[mask_hole_y, 1] - v_raw[mask_hole_y, 1])))
             assert max_y_shift < 1e-9, f"{name} ({fname}): SFF bottom hole |Y| <= 49.5mm shifted by {max_y_shift:.6f}mm!"

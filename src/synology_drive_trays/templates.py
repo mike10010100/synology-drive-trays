@@ -161,11 +161,12 @@ def generate_from_template(spec: TraySpec) -> tuple[trimesh.Trimesh, dict[str, s
                 [-(W1 - r_half), -r_half, target_li, -49.5, 49.5, target_ri, r_half],
             )
         elif "slezak" in fname:
-            r_half = spec.rail_width_mm / 2.0
+            # Sliding rail [-57.75, +57.75] is already 115.50mm exact; lock 100% of rail & inner wall at y' == y
+            # and adjust only the external right front bezel ear [ro, ymax] to reach W1 = 120.00 mm.
             v[:, 1] = np.interp(
                 v[:, 1],
-                [lo, li, -49.5, 49.5, ri, ro, ymax],
-                [-r_half, target_li, -49.5, 49.5, target_ri, r_half, W1 - r_half],
+                [lo, ro, ymax],
+                [lo, ro, W1 - (-lo)],
             )
         elif "lioncat" in fname:
             r_half = (W1 - 2.0) / 2.0
@@ -182,18 +183,34 @@ def generate_from_template(spec: TraySpec) -> tuple[trimesh.Trimesh, dict[str, s
                 [-r_half, target_li, -49.5, 49.5, target_ri, r_half],
             )
 
-    # 3. Z-axis piecewise-linear warp: lock floor thickness and side SFF screw holes [0, z_lock] at 1:1
+    # 3. Z-axis backplane-and-rail-locked warp:
+    # Lock 100% of the sliding rail height [0, rail_z_max] (bottom track Z=0, floor plate Z=2mm,
+    # SFF side screw holes Z=4.5..9.5mm, AND the upper sliding rail edge) at exact z' == z (0.000 mm shift).
+    # Any overall height delta (H1 - H0) is absorbed strictly in the upper front bezel above the sliding rail.
     if "lioncat" in fname:
-        # Keep sliding rail height at 16.0mm (1:1 circular side holes) and raise only the front bezel (X > L1 - 16mm) to H1 (28.0mm)
-        bezel_x_w = np.clip((v[:, 0] - (L1 - 18.0)) / 3.5, 0.0, 1.0)
+        bezel_x_w = np.clip((v[:, 0] - 153.0) / 3.5, 0.0, 1.0)
+        z_bezel = np.interp(v[:, 2], [0.0, 12.5, H0], [0.0, 12.5, H1])
+        v[:, 2] = (1.0 - bezel_x_w) * v[:, 2] + bezel_x_w * z_bezel
+    elif "jimka" in fname:
+        # Keep sliding rail (X < 144mm) at exact 18.50mm and raise only the front bezel plate (X >= 146.5mm) to 20.00mm
+        bezel_x_w = np.clip((v[:, 0] - 144.0) / 2.5, 0.0, 1.0)
         z_bezel = np.interp(v[:, 2], [0.0, 12.5, H0], [0.0, 12.5, H1])
         v[:, 2] = (1.0 - bezel_x_w) * v[:, 2] + bezel_x_w * z_bezel
     elif "prspr" in fname:
         # Lock side screw holes [0, 6.5mm] at 1:1 so M3 holes remain 100% circular
         v[:, 2] = np.interp(v[:, 2], [0.0, 6.5, H0], [0.0, 6.5, H1])
+    elif "th0r88" in fname:
+        # Sliding rail top is Z = 13.00mm; lock [0, 13.50mm] at 1:1 so only front bezel top [13.50, 26.50] adjusts
+        v[:, 2] = np.interp(v[:, 2], [0.0, 13.50, H0], [0.0, 13.50, H1])
+    elif "vikingu" in fname:
+        # Sliding rail top is Z = 16.50mm; lock [0, 16.60mm] at 1:1 so only front bezel top [16.60, 26.50] adjusts
+        v[:, 2] = np.interp(v[:, 2], [0.0, 16.60, H0], [0.0, 16.60, H1])
+    elif "slezak" in fname:
+        # Sliding rail top is Z = 19.63mm; lock [0, 20.00mm] at 1:1 so only front bezel arch [20.00, 27.67] adjusts
+        v[:, 2] = np.interp(v[:, 2], [0.0, 20.00, H0], [0.0, 20.00, H1])
     else:
-        z_lock = 11.0 if H0 >= 18.0 else 6.5
-        v[:, 2] = np.interp(v[:, 2], [0.0, z_lock, H0], [0.0, z_lock, H1])
+        # sunbrowner (rail top Z = 17.00mm, H0 = H1 = 28.00mm)
+        v[:, 2] = np.interp(v[:, 2], [0.0, 17.50, H0], [0.0, 17.50, H1])
 
     out = trimesh.Trimesh(vertices=v, faces=f)
     out.fix_normals()
