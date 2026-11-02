@@ -772,8 +772,8 @@
       "hcl_id": 24721,
       "eol": false,
       "archetype": "rack_35",
-      "source_mode": "community_template_warped",
-      "template_file": "Type_R8_th0r88.stl",
+      "source_mode": "community_template_exact",
+      "template_file": "Type_R5_caliper_verified",
       "dimensions_mm": {
         "L": 171.0,
         "W": 104.0,

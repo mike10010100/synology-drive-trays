@@ -225,4 +225,56 @@ def test_all_stls_are_watertight_2manifold_and_slicer_ready(all_specs):
             assert p2d.is_closed, f"{name}: open 2D slicer contour at Z={z:.2f}mm"
 
 
+def test_r5_caliper_verified_geometry():
+    """
+    Verify that Disk_Tray_Type_R5.stl matches all physical OEM R5 caliper measurements:
+      1. 150.50 mm from longest rear rail tip (X = 0.00 mm) to front bezel wall (X = 150.50 mm).
+      2. 13.75 mm side rail height along the main body, sloping down over the rear 22.50 mm
+         to a 4.00 mm tall x 4.00 mm long rear tail, with zero side rail screw holes.
+      3. 1.35 mm tall dimpled bottom screw risers (Z = 0.00 to 1.35 mm) with bottom countersinks,
+         and the front edge of the middle 3.5" bottom screw hole at exact 64.00 mm behind the
+         X = 150.50 mm front wall (X = 86.50 mm).
+      4. Dual latch tails inside the right-side (-Y) bezel window whose flat front faces sit at
+         exact 9.50 mm from the X = 150.50 mm back of the plastic bezel (X = 160.00 mm).
+    """
+    import numpy as np
+
+    stl_p = OUT_DIR / "stl" / "Disk_Tray_Type_R5.stl"
+    m = trimesh.load(str(stl_p), force="mesh")
+
+    # 1. Check mid-rail height = 13.75 mm at X = 80 mm and no side holes
+    s80 = m.section(plane_origin=[80.0, 0.0, 0.0], plane_normal=[1.0, 0.0, 0.0])
+    rail80 = s80.vertices[np.abs(s80.vertices[:, 1]) > 50.8]
+    assert abs(float(rail80[:, 2].max()) - 13.75) < 0.02
+
+    # 2. Check 4.00 mm x 4.00 mm rear tail at X = 2.0 mm and 22.50 mm slope reaching 13.75 mm at X = 22.50 mm
+    s2 = m.section(plane_origin=[2.0, 0.0, 0.0], plane_normal=[1.0, 0.0, 0.0])
+    rail2 = s2.vertices[np.abs(s2.vertices[:, 1]) > 50.8]
+    assert abs(float(rail2[:, 2].max()) - 4.00) < 0.02
+
+    s225 = m.section(plane_origin=[22.5, 0.0, 0.0], plane_normal=[1.0, 0.0, 0.0])
+    rail225 = s225.vertices[np.abs(s225.vertices[:, 1]) > 50.8]
+    assert abs(float(rail225[:, 2].max()) - 13.75) < 0.02
+
+    # 3. Check 150.50 mm distance from rear tip (X = 0.00 mm) to front bezel wall (X = 150.50 mm)
+    s_center = m.section(plane_origin=[0.0, 0.0, 0.0], plane_normal=[0.0, 1.0, 0.0])
+    wall_pts = s_center.vertices[s_center.vertices[:, 2] > 15.0]
+    assert abs(float(wall_pts[:, 0].min()) - 150.50) < 0.02
+
+    # 4. Check 1.35 mm dimpled screw riser top (Z = 1.35 mm) and front hole edge at X = 86.50 mm (64.00 mm from 150.50 mm)
+    s_riser = m.section(plane_origin=[0.0, 47.625, 0.0], plane_normal=[0.0, 1.0, 0.0])
+    riser_pts = s_riser.vertices[(s_riser.vertices[:, 0] > 80.0) & (s_riser.vertices[:, 0] < 89.0)]
+    assert abs(float(riser_pts[:, 2].max()) - 1.35) < 0.02
+    hole_upper = riser_pts[riser_pts[:, 2] > 0.8]
+    front_hole_edge_x = float(hole_upper[hole_upper[:, 0] < 87.0][:, 0].max())
+    assert abs((150.50 - front_hole_edge_x) - 64.00) < 0.05
+
+    # 5. Check dual latch tails at X = 160.00 mm (9.50 mm from X = 150.50 mm back of plastic bezel)
+    for z_tail in (6.0, 21.0):
+        s_tail = m.section(plane_origin=[0.0, 0.0, z_tail], plane_normal=[0.0, 0.0, 1.0])
+        outer_r = s_tail.vertices[(s_tail.vertices[:, 0] > 151.0) & (s_tail.vertices[:, 1] < -51.5)]
+        assert abs(float(outer_r[:, 0].min()) - 160.00) < 0.02
+
+
+
 

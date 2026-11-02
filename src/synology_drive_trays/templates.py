@@ -36,7 +36,7 @@ COMMUNITY_TEMPLATE_MAP: dict[str, tuple[str, str]] = {
     "Disk Tray (Type R2)": ("Type_R8_th0r88.stl", "community_template_warped"),
     "Disk Tray (Type R3)": ("Type_R8_th0r88.stl", "community_template_warped"),
     "Disk Tray (Type R4)": ("Type_R8_th0r88.stl", "community_template_warped"),
-    "Disk Tray (Type R5)": ("Type_R8_th0r88.stl", "community_template_warped"),
+    "Disk Tray (Type R5)": ("Type_R5_caliper_verified", "community_template_exact"),
     # 6. Internal 2.5" Disk Holder L-Bracket Family (Holder Type A, B, C)
     "Disk Holder (Type C)": ("Holder_Type_C_prspr.stl", "community_template_exact"),
     "Disk Holder (Type A)": ("Holder_Type_C_prspr.stl", "community_template_warped"),
@@ -56,6 +56,7 @@ TEMPLATE_FRONT_PULL_X: dict[str, float] = {
     "Type_D5_lioncat.stl": 165.0,             # Bezel stop at X=158..165; [165.0, 177.84] is external finger-pull loop
     "Type_R7_vikingu.stl": 168.6,             # Rack bezel stop step at X=145.0; [168.6, 169.0] is outermost front bezel face
     "Type_R8_th0r88.stl": 165.0,              # Rack bezel stop step at X=145.0; [165.0, 169.0] is outer front bezel face
+    "Type_R5_caliper_verified": 165.0,        # Caliper-verified R5: front wall at X=150.50, latch tails at X=160.00, front at 171.00
     "Holder_Type_C_prspr.stl": 110.0,         # Side M3 holes at X=29.9..106.51; [110.0, 120.5] is front pocket wall tip
 }
 
@@ -73,6 +74,8 @@ def load_canonical_template(fname: str) -> trimesh.Trimesh:
       - Y centered on the sliding rails [-rail_W/2, +rail_W/2] (or [-W0/2, +W0/2] for L-bracket holders)
       - Z in [0, H0] (bottom floor plate at Z=0, top of rails/bezel at Z=H0)
     """
+    if fname == "Type_R5_caliper_verified":
+        return _build_caliper_verified_r5_template()
     m = trimesh.load(str(GT_DIR / fname), force="mesh").copy()
     order = np.argsort(m.extents)[::-1]
     v = np.asarray(m.vertices[:, order], dtype=float).copy()
@@ -150,6 +153,115 @@ def load_canonical_template(fname: str) -> trimesh.Trimesh:
         out.fix_normals()
 
     return out
+
+
+def _make_hex_prism_x(quad_xz: list[tuple[float, float]], y0: float, y1: float) -> trimesh.Trimesh:
+    """Create a convex watertight prism from a 2D (X, Z) quad extruded across Y in [y0, y1]."""
+    verts = [[x, y, z] for y in (y0, y1) for x, z in quad_xz]
+    return trimesh.convex.convex_hull(np.array(verts, dtype=float))
+
+
+def _make_pill_z(
+    x0: float, x1: float, y: float, r: float, z0: float, z1: float, sections: int = 32
+) -> trimesh.Trimesh:
+    """Create a vertical cylinder or pill-slot solid spanning X in [x0, x1] at Y=y, Z in [z0, z1]."""
+    c0 = trimesh.creation.cylinder(radius=r, height=z1 - z0, sections=sections)
+    c0.apply_translation([x0, y, (z0 + z1) / 2.0])
+    if abs(x1 - x0) < 1e-4:
+        return c0
+    c1 = trimesh.creation.cylinder(radius=r, height=z1 - z0, sections=sections)
+    c1.apply_translation([x1, y, (z0 + z1) / 2.0])
+    return trimesh.convex.convex_hull(np.vstack([c0.vertices, c1.vertices]))
+
+
+def _build_caliper_verified_r5_template() -> trimesh.Trimesh:
+    """
+    Build the caliper-verified Disk Tray (Type R5) canonical template incorporating physical OEM R5 measurements:
+      - Total length from rear rail tip (X = 0.00 mm) to front bezel-mounting wall: 150.50 mm
+        (overall length with bezel: 171.00 mm).
+      - Side rail height: 13.75 mm until the rear slope-down; total rear slope + tail length: 22.50 mm
+        (sloping from 13.75 mm at X = 22.50 mm down to 4.00 mm at X = 4.00 mm, with a 4.00 x 4.00 mm rear tail).
+      - Bottom-only drive mounting (no side rail screw holes): 3.5" HDD sits on 1.35 mm tall dimpled
+        screw risers (Z = 0.00 to 1.35 mm) with bottom countersinks; front edge of the middle 3.5" bottom
+        screw hole sits at exact 64.00 mm behind the X = 150.50 mm front wall (X_edge = 86.50 mm, center = 84.25 mm).
+      - Dual latch tails inside the right-side (-Y) bezel window whose flat front locking faces sit at
+        exact 9.50 mm from the X = 150.50 mm back of the plastic bezel (X = 160.00 mm) with an inner flex-relief slot.
+    """
+    m7 = load_canonical_template("Type_R7_vikingu.stl").copy()
+    v = np.asarray(m7.vertices, dtype=float).copy()
+    # 1. Pure rigid shift (+5.50 mm) of the floor/rail body [0, 145.0] -> [5.50, 150.50], bezel -> [150.50, 171.00]
+    v[:, 0] = np.interp(v[:, 0], [0.0, 145.0, 169.0], [5.50, 150.50, 171.00])
+    v[:, 2] = np.interp(v[:, 2], [0.0, 16.6, 26.5], [0.0, 16.6, 27.00])
+    m = trimesh.Trimesh(vertices=v, faces=np.asarray(m7.faces, dtype=int).copy(), process=True)
+    m.fix_normals()
+
+    # 2. Remove old 16.50 mm side rails (which had side holes and no 4x4 mm tail) above Z = 0.95 mm
+    cut_l = trimesh.creation.box(bounds=[[0.0, -52.5, 0.95], [150.45, -50.8, 20.0]])
+    cut_r = trimesh.creation.box(bounds=[[0.0, 50.8, 0.95], [150.45, 52.5, 20.0]])
+    m = trimesh.boolean.difference([m, cut_l, cut_r], engine="manifold")
+
+    # 3. Union new 13.75 mm solid side rails (with 22.50 mm rear slope + 4x4 mm tail), 1.35 mm dimple risers, and bezel latch backing
+    add_parts: list[trimesh.Trimesh] = []
+    for sign in (-1.0, 1.0):
+        y0, y1 = min(52.0 * sign, 51.0 * sign), max(52.0 * sign, 51.0 * sign)
+        # Rear 4.00 mm tall x 4.00 mm long tail (X in [0.00, 4.05], Z in [0.50, 4.00])
+        add_parts.append(_make_hex_prism_x([(0.0, 0.5), (4.05, 0.5), (4.05, 4.0), (0.0, 4.0)], y0, y1))
+        # Beveled bottom flange connecting the 4x4 mm tail to the floor at X = 5.50 mm
+        pts_tf = np.array([
+            [0.0, 51.05 * sign, 0.0], [6.0, 51.05 * sign, 0.0], [6.0, 46.0 * sign, 0.0], [0.0, 46.0 * sign, 0.0],
+            [0.0, 52.0 * sign, 0.95], [6.0, 52.0 * sign, 0.95], [6.0, 46.0 * sign, 1.0], [0.0, 46.0 * sign, 1.0],
+        ])
+        add_parts.append(trimesh.convex.convex_hull(pts_tf))
+        # Rear slope from X = 4.00 mm (Z = 4.00 mm) up to X = 22.50 mm (Z = 13.75 mm) -> total 22.50 mm slope+tail
+        add_parts.append(_make_hex_prism_x([(4.0, 0.9), (22.55, 0.9), (22.55, 13.75), (4.0, 4.0)], y0, y1))
+        # Full-height 13.75 mm side rail from X = 22.50 mm to front wall at X = 150.50 mm (no side screw holes)
+        add_parts.append(_make_hex_prism_x([(22.5, 0.9), (150.6, 0.9), (150.6, 13.75), (22.5, 13.75)], y0, y1))
+
+    # 1.35 mm tall dimpled screw risers (Z = 0.00 to 1.35 mm) for all 3.5" and 2.5" bottom mounting positions
+    for sign in (-1.0, 1.0):
+        yh = 47.625 * sign
+        add_parts.append(_make_pill_z(38.2, 43.0, yh, 3.8, 0.0, 1.35))
+        add_parts.append(_make_pill_z(82.5, 84.5, yh, 3.8, 0.0, 1.35))
+        add_parts.append(_make_pill_z(114.3, 116.2, yh, 3.8, 0.0, 1.35))
+
+    for y25 in (-47.15, 15.08):
+        add_parts.append(_make_pill_z(11.0, 12.8, y25, 3.2, 0.0, 1.35))
+        add_parts.append(_make_pill_z(87.7, 89.5, y25, 3.2, 0.0, 1.35))
+
+    # Right-side bezel structural block for sculpting the dual latch tails and compliant flex slot
+    add_parts.append(trimesh.creation.box(bounds=[[150.50, -52.0, 0.0], [168.50, -45.5, 27.00]]))
+    m = trimesh.boolean.union([m] + add_parts, engine="manifold")
+
+    # 4. Subtract countersunk bottom screw holes + 9.50 mm right-side latch window + dual latch tails + flex slot
+    sub_parts: list[trimesh.Trimesh] = []
+    for sign in (-1.0, 1.0):
+        yh = 47.625 * sign
+        # Middle/Front 3.5" bottom hole: center X = 84.25 mm, D = 4.50 mm (r = 2.25 mm) -> front edge at X = 86.50 mm
+        # (exact 150.50 - 86.50 = 64.00 mm behind the X = 150.50 mm front wall)
+        sub_parts.append(_make_pill_z(84.25, 84.25, yh, 2.25, -0.2, 2.0))
+        sub_parts.append(_make_pill_z(84.25, 84.25, yh, 3.50, -0.2, 0.55))
+        # Rear 3.5" bottom hole: X = 39.80..42.97 mm (44.45 mm and 41.28 mm SFF-8301 bottom spacings)
+        sub_parts.append(_make_pill_z(39.80, 42.97, yh, 2.25, -0.2, 2.0))
+        sub_parts.append(_make_pill_z(39.80, 42.97, yh, 3.50, -0.2, 0.55))
+        # Enterprise Front 3.5" bottom hole: X = 116.00 mm (76.20 mm ahead of rear hole)
+        sub_parts.append(_make_pill_z(116.00, 116.00, yh, 2.25, -0.2, 2.0))
+        sub_parts.append(_make_pill_z(116.00, 116.00, yh, 3.50, -0.2, 0.55))
+
+    for x25 in (12.65, 89.25):
+        for y25 in (-47.15, 15.08):
+            sub_parts.append(_make_pill_z(x25, x25, y25, 1.60, -0.2, 2.0))
+            sub_parts.append(_make_pill_z(x25, x25, y25, 2.80, -0.2, 0.50))
+
+    # Open 9.50 mm side window from back of plastic bezel (X = 150.50 mm) to flat front of latch tails (X = 160.00 mm)
+    sub_parts.append(trimesh.creation.box(bounds=[[150.50, -52.5, 3.0], [160.00, -48.0, 24.0]]))
+    # Central cutout separating the lower latch tail (Z in [3.0, 8.5]) and upper latch tail (Z in [18.5, 24.0])
+    sub_parts.append(trimesh.creation.box(bounds=[[160.00, -52.5, 8.5], [166.50, -48.0, 18.5]]))
+    # Compliant flex-relief slot (Y in [-50.0, -48.0]) behind the two latch tails (Y in [-52.0, -50.0])
+    sub_parts.append(trimesh.creation.box(bounds=[[159.00, -50.0, 2.5], [167.20, -48.0, 24.5]]))
+
+    m = trimesh.boolean.difference([m] + sub_parts, engine="manifold")
+    m.fix_normals()
+    return m
 
 
 def generate_from_template(spec: TraySpec) -> tuple[trimesh.Trimesh, dict[str, str]]:
