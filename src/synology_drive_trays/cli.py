@@ -64,6 +64,9 @@ def run_pipeline(only_tray: str | None = None) -> int:
         if has_community_template(name):
             mesh, t_meta = generate_from_template(spec)
             mesh.export(str(stl_path))
+            if name == "Disk Tray (Type R5)":
+                from synology_drive_trays.templates import _build_caliper_verified_r5_template
+                _build_caliper_verified_r5_template("B").export(str(stl_dir / "Disk_Tray_Type_R5_OptionB_TBeam.stl"))
             dims_actual = (
                 round(float(mesh.extents[0]), 2),
                 round(float(mesh.extents[1]), 2),

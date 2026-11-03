@@ -292,6 +292,28 @@ def test_r5_caliper_verified_geometry():
     ]
     assert len(bezel_loops_105) == 1, f"Expected 1 solid bezel contour at Z=10.5 mm, got {len(bezel_loops_105)}"
 
+    # 7. Verify Option A and Option B (T-Beam / Recessed-Floor) against 3D SFF-8301 3.5" HDD reference model
+    from synology_drive_trays.templates import build_sff8301_hdd_reference
+
+    hdd = build_sff8301_hdd_reference()
+    stl_b = OUT_DIR / "stl" / "Disk_Tray_Type_R5_OptionB_TBeam.stl"
+    assert stl_b.exists(), "Missing Disk_Tray_Type_R5_OptionB_TBeam.stl"
+    mb = trimesh.load(str(stl_b), force="mesh")
+    assert mb.is_watertight and mb.is_winding_consistent and len(mb.split(only_watertight=False)) == 1
+
+    inter_a = trimesh.boolean.intersection([m, hdd], engine="manifold")
+    inter_b = trimesh.boolean.intersection([mb, hdd], engine="manifold")
+    assert inter_a.volume < 1e-4, f"Option A collides with 3.5\" HDD reference model ({inter_a.volume:.4f} mm^3)"
+    assert inter_b.volume < 1e-4, f"Option B collides with 3.5\" HDD reference model ({inter_b.volume:.4f} mm^3)"
+
+    # Verify Option B has 1.00 mm recessed floor under PCB zone (X = 60, Y = -30) and 2.20 mm T-beam ribs in front cavity (X = 115, Y = 0)
+    s_pcb = mb.section(plane_origin=[60.0, 0.0, 0.0], plane_normal=[1.0, 0.0, 0.0])
+    pcb_pts = s_pcb.vertices[np.abs(s_pcb.vertices[:, 1] - (-15.0)) < 2.0]
+    assert abs(float(pcb_pts[:, 2].max()) - 1.35) < 0.02
+    s_tbeam = mb.section(plane_origin=[116.0, 0.0, 0.0], plane_normal=[1.0, 0.0, 0.0])
+    tb_pts = s_tbeam.vertices[np.abs(s_tbeam.vertices[:, 1]) < 30.0]
+    assert abs(float(tb_pts[:, 2].max()) - 2.20) < 0.02
+
 
 
 

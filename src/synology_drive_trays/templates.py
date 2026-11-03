@@ -216,24 +216,55 @@ def _make_conical_countersink_hole(
     return trimesh.boolean.union([cone_hull, shaft_hull], engine="manifold")
 
 
-def _build_caliper_verified_r5_template() -> trimesh.Trimesh:
+def build_sff8301_hdd_reference() -> trimesh.Trimesh:
+    """
+    Build a realistic SFF-8301 3.5" SATA Hard Drive 3D solid mounted on the Z = 1.35 mm risers:
+      - Overall SFF-8301 envelope: L = 147.00 mm (X in [2.60, 149.60] so Rear bottom screw is at X = 42.97 mm
+        and Middle bottom screw is at X = 84.25 mm), W = 101.60 mm (Y in [-50.80, +50.80]), H = 26.10 mm
+        (Z in [1.35, 27.45]).
+      - Outer machined mounting rails sitting at exact Z = 1.35 mm:
+        Left/Right rails: |Y| in [43.50, 50.80], X in [2.60, 149.60], Z in [1.35, 27.45].
+        Front casting wall: X in [143.00, 149.60], Y in [-50.80, 50.80], Z in [1.35, 27.45].
+      - Rear SATA power+data connector block: X in [0.00, 12.00], Y in [-38.00, 18.00], Z in [3.20, 12.50].
+      - Rear green PCB + SMD components + Torx screw heads zone: X in [2.60, 74.00], Y in [-43.50, 43.50],
+        protruding down to Z = 1.35 mm (so any tray floor feature > 1.35 mm here would collide, and a
+        recessed Z = 1.00 mm floor gives 0.35 mm extra clearance under PCB solder joints).
+      - Front/center die-cast platter & spindle pocket: X in [74.00, 143.00], Y in [-43.50, 43.50],
+        recessed 2.65 mm upward so the casting ceiling is at Z = 4.00 mm (with a central spindle motor hub
+        r = 16.0 mm at X = 104.0, Y = 0.0 dropping down to Z = 2.60 mm).
+    """
+    parts = [
+        trimesh.creation.box(bounds=[[2.60, -50.80, 4.00], [149.60, 50.80, 27.45]]),
+        trimesh.creation.box(bounds=[[2.60, -50.80, 1.351], [149.60, -43.50, 4.10]]),
+        trimesh.creation.box(bounds=[[2.60, 43.50, 1.351], [149.60, 50.80, 4.10]]),
+        trimesh.creation.box(bounds=[[143.00, -50.80, 1.351], [149.60, 50.80, 4.10]]),
+        trimesh.creation.box(bounds=[[2.60, -43.50, 1.351], [74.00, 43.50, 4.10]]),
+        _make_pill_z(104.0, 104.0, 0.0, 16.0, 2.60, 4.10, sections=48),
+        trimesh.creation.box(bounds=[[0.00, -38.00, 3.20], [12.00, 18.00, 12.50]]),
+    ]
+    hdd = trimesh.boolean.union(parts, engine="manifold")
+    hdd.fix_normals()
+    return hdd
+
+
+def _build_caliper_verified_r5_template(variant: str = "A") -> trimesh.Trimesh:
     """
     Build the caliper-verified and FDM-print-hardened Disk Tray (Type R5) canonical template:
-      - Total length from rear rail tip (X = 0.00 mm) to front bezel-mounting wall: 150.50 mm
-        (overall length with bezel: 171.00 mm).
-      - Side rail height: 13.75 mm until the rear slope-down; total rear slope + tail length: 22.50 mm
-        (sloping from 13.75 mm at X = 22.50 mm down to 4.00 mm at X = 4.00 mm, anchored to a wide
-        bed-adhesion rear lead-in pad so the 4.00 mm rear rail tip never warps on the build plate).
-      - Full 1.35 mm thick (Z = 0.00 to 1.35 mm) reinforced structural floor plate with 11 mm wide
-        continuous side beams, a 14 mm wide 2.5" mounting beam, 5 wide transverse cross-beams, and
-        12 clean ventilation windows (2.46x stiffer than the 1.0 mm perforated mesh while placing
-        the drive-supporting floor at exact Z = 1.35 mm).
-      - 45-degree self-supporting conical countersinks on all 3.5" and 2.5" bottom screw holes
-        (eliminating mid-air hole bridging/stringing); front edge of the middle 3.5" bottom screw hole
-        sits at exact 64.00 mm behind the X = 150.50 mm front wall (X_edge = 86.50 mm, center = 84.25 mm).
-      - Solid sag-free diagonal wall inside the +Y front finger-pull pocket (removing the fragile
-        mid-air cantilevered tails that drooped during FDM printing), plus a 45-degree-roofed right-side
-        (-Y) latch catch at exact 9.50 mm from the X = 150.50 mm back of the plastic bezel (X = 160.00 mm).
+      - variant="A": Full 1.35 mm thick (Z = 0.00 to 1.35 mm) reinforced structural floor plate with
+        wide longitudinal and transverse beams and 12 clean ventilation windows.
+      - variant="B": T-Beam / Recessed-Floor & Ribbed-Channel architecture verified against a 3D
+        SFF-8301 3.5" HDD reference model (0.0000 mm^3 collision volume):
+          * Recessed 1.00 mm base floor web (Z = 0.00 to 1.00 mm) providing 0.35 mm vertical clearance
+            underneath the rear HDD PCB, SMD components, and solder joints.
+          * Continuous 1.35 mm raised mounting rails (|Y| in [42.0, 52.0] and Y in [9.0, 21.0]) and
+            rear cross-ribs so the drive sits at exact Z = 1.35 mm.
+          * Tall 2.20 mm chamfered T-beam stiffening ribs (Z = 0.00 to 2.20 mm — 4.3x stiffer than 1.35 mm)
+            nested inside the front HDD casting recess (X in [78.0, 142.0], where the drive casting ceiling
+            is at Z = 4.00 mm and spindle hub is at Z = 2.60 mm).
+      - Both variants preserve 100% of the caliper datums (150.50 mm to front wall, 13.75 mm solid side
+        rails with 22.50 mm rear slope + flat Z = 1.35 mm rear bed-anchor pad, 45-degree conical countersinks
+        with the middle 3.5" hole front edge at 64.00 mm from the front wall, solid sag-free diagonal
+        finger-pull wall, and 9.50 mm right-side latch catch).
     """
     m7 = load_canonical_template("Type_R7_vikingu.stl").copy()
     v = np.asarray(m7.vertices, dtype=float).copy()
@@ -248,23 +279,53 @@ def _build_caliper_verified_r5_template() -> trimesh.Trimesh:
     m = trimesh.boolean.difference([m, cut_old_tray], engine="manifold")
 
     add_parts: list[trimesh.Trimesh] = []
-    # 3. Full 1.35 mm thick reinforced structural floor plate (X in [4.0, 150.6], Y in [-52.0, 52.0], Z in [0.0, 1.35])
-    floor_pts = np.array([
-        [4.0, -51.05, 0.00], [150.6, -51.05, 0.00], [150.6, 51.05, 0.00], [4.0, 51.05, 0.00],
-        [4.0, -52.00, 0.95], [150.6, -52.00, 0.95], [150.6, 52.00, 0.95], [4.0, 52.00, 0.95],
-        [4.0, -52.00, 1.35], [150.6, -52.00, 1.35], [150.6, 52.00, 1.35], [4.0, 52.00, 1.35],
-    ])
-    add_parts.append(trimesh.convex.convex_hull(floor_pts))
+    if variant == "A":
+        # Option A: Full 1.35 mm thick reinforced structural floor plate (X in [4.0, 150.6], Y in [-52.0, 52.0], Z in [0.0, 1.35])
+        floor_pts = np.array([
+            [4.0, -51.05, 0.00], [150.6, -51.05, 0.00], [150.6, 51.05, 0.00], [4.0, 51.05, 0.00],
+            [4.0, -52.00, 0.95], [150.6, -52.00, 0.95], [150.6, 52.00, 0.95], [4.0, 52.00, 0.95],
+            [4.0, -52.00, 1.35], [150.6, -52.00, 1.35], [150.6, 52.00, 1.35], [4.0, 52.00, 1.35],
+        ])
+        add_parts.append(trimesh.convex.convex_hull(floor_pts))
+    else:
+        # Option B: Recessed 1.00 mm floor web (0.35 mm PCB clearance) + 1.35 mm mounting rails + 2.20 mm T-beam ribs
+        floor_base = np.array([
+            [4.0, -51.05, 0.00], [150.6, -51.05, 0.00], [150.6, 51.05, 0.00], [4.0, 51.05, 0.00],
+            [4.0, -52.00, 0.95], [150.6, -52.00, 0.95], [150.6, 52.00, 0.95], [4.0, 52.00, 0.95],
+            [4.0, -52.00, 1.00], [150.6, -52.00, 1.00], [150.6, 52.00, 1.00], [4.0, 52.00, 1.00],
+        ])
+        add_parts.append(trimesh.convex.convex_hull(floor_base))
+        for sign in (-1.0, 1.0):
+            y0, y1 = min(42.0 * sign, 52.0 * sign), max(42.0 * sign, 52.0 * sign)
+            add_parts.append(trimesh.creation.box(bounds=[[4.0, y0, 0.80], [150.6, y1, 1.35]]))
+        add_parts.append(trimesh.creation.box(bounds=[[4.0, 9.0, 0.80], [150.6, 21.0, 1.35]]))
+        add_parts.append(trimesh.creation.box(bounds=[[4.0, -20.0, 0.80], [150.6, -10.0, 1.35]]))
+        add_parts.append(trimesh.creation.box(bounds=[[4.0, -52.0, 0.80], [17.0, 52.0, 1.35]]))
+        add_parts.append(trimesh.creation.box(bounds=[[34.0, -52.0, 0.80], [48.0, 52.0, 1.35]]))
+        for y0_t, y1_t in [(10.5, 19.5), (-19.0, -11.0)]:
+            pts_lt = np.array([
+                [78.0, y0_t - 0.8, 1.00], [142.0, y0_t - 0.8, 1.00], [142.0, y1_t + 0.8, 1.00], [78.0, y1_t + 0.8, 1.00],
+                [79.2, y0_t, 2.20], [140.8, y0_t, 2.20], [140.8, y1_t, 2.20], [79.2, y1_t, 2.20],
+            ])
+            add_parts.append(trimesh.convex.convex_hull(pts_lt))
+        for x0_t, x1_t in [(78.0, 86.0), (111.5, 120.5), (134.5, 142.0)]:
+            pts_xt = np.array([
+                [x0_t - 0.8, -43.0, 1.00], [x1_t + 0.8, -43.0, 1.00], [x1_t + 0.8, 43.0, 1.00], [x0_t - 0.8, 43.0, 1.00],
+                [x0_t, -42.0, 2.20], [x1_t, -42.0, 2.20], [x1_t, 42.0, 2.20], [x0_t, 42.0, 2.20],
+            ])
+            add_parts.append(trimesh.convex.convex_hull(pts_xt))
 
-    # 4. Solid 13.75 mm side rails with wide bed-anchored rear lead-in pad (X in [0.0, 4.5], Z = 4.00 mm)
+    # 4. Solid 13.75 mm side rails with flat Z = 1.35 mm rear bed-adhesion pad (zero collision with HDD rear corner at X = 2.60 mm!)
     for sign in (-1.0, 1.0):
         y0, y1 = min(52.0 * sign, 51.0 * sign), max(52.0 * sign, 51.0 * sign)
-        pts_tail = np.array([
-            [0.0, 51.05 * sign, 0.00], [4.5, 51.05 * sign, 0.00], [4.5, 44.0 * sign, 0.00], [1.5, 44.0 * sign, 0.00],
-            [0.0, 52.00 * sign, 0.95], [4.5, 52.00 * sign, 0.95], [4.5, 44.0 * sign, 1.35], [1.5, 44.0 * sign, 1.35],
-            [0.0, 52.00 * sign, 4.00], [4.5, 52.00 * sign, 4.00], [4.5, 51.0 * sign, 4.00], [0.0, 51.0 * sign, 4.00],
+        pts_pad = np.array([
+            [0.0, 51.05 * sign, 0.00], [5.0, 51.05 * sign, 0.00], [5.0, 44.0 * sign, 0.00], [1.5, 44.0 * sign, 0.00],
+            [0.0, 52.00 * sign, 0.95], [5.0, 52.00 * sign, 0.95], [5.0, 44.0 * sign, 0.95], [1.5, 44.0 * sign, 0.95],
+            [0.0, 52.00 * sign, 1.35], [5.0, 52.00 * sign, 1.35], [5.0, 44.0 * sign, 1.35], [1.5, 44.0 * sign, 1.35],
         ])
-        add_parts.append(trimesh.convex.convex_hull(pts_tail))
+        add_parts.append(trimesh.convex.convex_hull(pts_pad))
+        # Vertical 4.00 mm rear rail tail strictly at |Y| in [51.0, 52.0] (outside the +/-50.80 mm HDD width!)
+        add_parts.append(_make_hex_prism_x([(0.0, 1.0), (4.05, 1.0), (4.05, 4.0), (0.0, 4.0)], y0, y1))
         # Rear slope from X = 4.00 mm (Z = 4.00 mm) up to X = 22.50 mm (Z = 13.75 mm) -> total 22.50 mm slope+tail
         add_parts.append(_make_hex_prism_x([(4.0, 1.0), (22.55, 1.0), (22.55, 13.75), (4.0, 4.0)], y0, y1))
         # Full-height 13.75 mm side rail from X = 22.50 mm to front wall at X = 150.50 mm (no side screw holes)
@@ -286,28 +347,28 @@ def _build_caliper_verified_r5_template() -> trimesh.Trimesh:
     m = trimesh.boolean.union([m] + add_parts, engine="manifold")
 
     # 7. Subtract:
-    #    a) 12 clean structural ventilation windows in the 1.35 mm floor plate
+    #    a) 12 clean structural ventilation windows in the floor plate
     sub_parts: list[trimesh.Trimesh] = []
-    x_windows = [(17.0, 34.0), (48.0, 78.0), (95.0, 110.0), (122.0, 140.0)]
-    y_windows = [(-41.0, -18.0), (-12.0, 8.0), (22.0, 41.0)]
+    x_windows = [(17.0, 34.0), (48.0, 78.0), (95.0, 110.0), (122.0, 133.5)]
+    y_windows = [(-41.0, -20.0), (-10.0, 9.0), (21.0, 41.0)]
     for x0, x1 in x_windows:
         for y0, y1 in y_windows:
-            sub_parts.append(trimesh.creation.box(bounds=[[x0, y0, -0.5], [x1, y1, 2.0]]))
+            sub_parts.append(trimesh.creation.box(bounds=[[x0, y0, -0.5], [x1, y1, 2.5]]))
 
     #    b) 45-degree self-supporting conical countersunk bottom screw holes
     for sign in (-1.0, 1.0):
         yh = 47.625 * sign
         # Middle/Front 3.5" bottom hole: center X = 84.25 mm, D = 4.50 mm (r = 2.25 mm) -> front edge at X = 86.50 mm
         # (exact 150.50 - 86.50 = 64.00 mm behind the X = 150.50 mm front wall)
-        sub_parts.append(_make_conical_countersink_hole(84.25, 84.25, yh, r_shaft=2.25, r_cs=3.15, z_cs_top=0.90))
+        sub_parts.append(_make_conical_countersink_hole(84.25, 84.25, yh, r_shaft=2.25, r_cs=3.15, z_cs_top=0.90, z_top=2.5))
         # Rear 3.5" bottom hole: X = 39.80..42.97 mm (44.45 mm and 41.28 mm SFF-8301 bottom spacings)
-        sub_parts.append(_make_conical_countersink_hole(39.80, 42.97, yh, r_shaft=2.25, r_cs=3.15, z_cs_top=0.90))
+        sub_parts.append(_make_conical_countersink_hole(39.80, 42.97, yh, r_shaft=2.25, r_cs=3.15, z_cs_top=0.90, z_top=2.5))
         # Enterprise Front 3.5" bottom hole: X = 116.00 mm (76.20 mm ahead of rear hole)
-        sub_parts.append(_make_conical_countersink_hole(116.00, 116.00, yh, r_shaft=2.25, r_cs=3.15, z_cs_top=0.90))
+        sub_parts.append(_make_conical_countersink_hole(116.00, 116.00, yh, r_shaft=2.25, r_cs=3.15, z_cs_top=0.90, z_top=2.5))
 
     for x25 in (12.65, 89.25):
         for y25 in (-47.15, 15.08):
-            sub_parts.append(_make_conical_countersink_hole(x25, x25, y25, r_shaft=1.60, r_cs=2.40, z_cs_top=0.80))
+            sub_parts.append(_make_conical_countersink_hole(x25, x25, y25, r_shaft=1.60, r_cs=2.40, z_cs_top=0.80, z_top=2.5))
 
     #    c) Right-side (-Y) 9.50 mm latch window (X in [150.50, 160.00]) with 45-degree self-supporting roof chamfer
     #       and compliant flex-relief slot (Y in [-50.0, -48.2]) behind the X = 160.00 mm vertical catch bar
