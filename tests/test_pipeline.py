@@ -269,11 +269,28 @@ def test_r5_caliper_verified_geometry():
     front_hole_edge_x = float(hole_upper[hole_upper[:, 0] < 87.0][:, 0].max())
     assert abs((150.50 - front_hole_edge_x) - 64.00) < 0.05
 
-    # 5. Check dual latch tails at X = 160.00 mm (9.50 mm from X = 150.50 mm back of plastic bezel)
+    # 5. Check latch catch at X = 160.00 mm (9.50 mm from X = 150.50 mm back of plastic bezel)
     for z_tail in (6.0, 21.0):
         s_tail = m.section(plane_origin=[0.0, 0.0, z_tail], plane_normal=[0.0, 0.0, 1.0])
         outer_r = s_tail.vertices[(s_tail.vertices[:, 0] > 151.0) & (s_tail.vertices[:, 1] < -51.5)]
         assert abs(float(outer_r[:, 0].min()) - 160.00) < 0.02
+
+    # 6. Check V2 printability hardening:
+    #    - 45-degree conical countersink tapers linearly from r = 3.15 mm at Z = 0.0 mm to r = 2.25 mm at Z = 0.90 mm
+    for z_cone, r_expected in ((0.20, 2.95), (0.45, 2.70), (0.70, 2.45)):
+        s_cone = m.section(plane_origin=[0.0, 0.0, z_cone], plane_normal=[0.0, 0.0, 1.0])
+        pts_c = s_cone.vertices[
+            (s_cone.vertices[:, 0] > 80.5) & (s_cone.vertices[:, 0] < 88.0) & (np.abs(s_cone.vertices[:, 1] - 47.625) < 0.5)
+        ]
+        r_actual = float((pts_c[:, 0].max() - pts_c[:, 0].min()) / 2.0)
+        assert abs(r_actual - r_expected) < 0.05, f"At Z={z_cone}mm expected r={r_expected}mm, got {r_actual:.3f}mm"
+
+    #    - +Y finger-pull diagonal wall is solid (zero floating mid-air spring-finger islands at Z = 10.5 mm)
+    s_z105 = m.section(plane_origin=[0.0, 0.0, 10.5], plane_normal=[0.0, 0.0, 1.0])
+    bezel_loops_105 = [
+        ent for ent in s_z105.entities if s_z105.vertices[ent.points][:, 0].max() > 151.0
+    ]
+    assert len(bezel_loops_105) == 1, f"Expected 1 solid bezel contour at Z=10.5 mm, got {len(bezel_loops_105)}"
 
 
 
